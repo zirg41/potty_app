@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp();
 
   // This widget is the root of your application.
   @override
@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
+  const MyHomePage({@required this.title});
 
   final String title;
 
@@ -84,9 +84,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
 class PotWidget extends StatelessWidget {
   const PotWidget({
-    Key? key,
-    required this.firstPotController,
-  }) : super(key: key);
+    @required this.firstPotController,
+  });
 
   final TextEditingController firstPotController;
 
