@@ -29,7 +29,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   TextEditingController incomeField = TextEditingController();
-
+  TextEditingController firstPotController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,9 +53,54 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ],
             ),
+          ),
+          Container(
+            alignment: Alignment.topRight,
+            padding: const EdgeInsets.fromLTRB(10, 10, 35, 10),
+            child: FlatButton(
+              onPressed: () {
+                print("Field: ${incomeField.text}");
+              },
+              color: Theme.of(context).primaryColor,
+              child: const Text(
+                "Вычислить",
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.all(8),
+            child: Column(
+              children: [PotWidget(firstPotController: firstPotController)],
+            ),
           )
         ],
       ),
+    );
+  }
+
+  Map<double, double> pots = {};
+}
+
+class PotWidget extends StatelessWidget {
+  const PotWidget({
+    Key? key,
+    required this.firstPotController,
+  }) : super(key: key);
+
+  final TextEditingController firstPotController;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        const Text("Основные расходы (10%)"),
+        Flexible(
+            fit: FlexFit.tight,
+            child: TextField(
+              controller: firstPotController,
+            ))
+      ],
     );
   }
 }
