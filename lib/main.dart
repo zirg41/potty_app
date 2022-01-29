@@ -32,21 +32,19 @@ class _MyHomePageState extends State<MyHomePage> {
   TextEditingController firstPotController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Potty"),
-        backgroundColor: Theme.of(context).primaryColor,
-      ),
-      body: Column(
-        children: [
-          Container(
+    var body = Column(
+      children: [
+        Card(
+          //color: Colors.blue,
+          elevation: 5,
+          child: Container(
             padding: const EdgeInsets.all(8),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Text(
                   "Введите доход, руб",
-                  style: TextStyle(fontSize: 18),
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 ),
                 TextField(
                   controller: incomeField,
@@ -54,28 +52,36 @@ class _MyHomePageState extends State<MyHomePage> {
               ],
             ),
           ),
-          Container(
-            alignment: Alignment.topRight,
-            padding: const EdgeInsets.fromLTRB(10, 10, 35, 10),
-            child: FlatButton(
-              onPressed: () {
-                print("Field: ${incomeField.text}");
-              },
-              color: Theme.of(context).primaryColor,
-              child: const Text(
-                "Вычислить",
-                style: TextStyle(color: Colors.white),
-              ),
+        ),
+        Container(
+          alignment: Alignment.topRight,
+          padding: const EdgeInsets.fromLTRB(10, 10, 35, 10),
+          child: FlatButton(
+            onPressed: () {
+              print("Field: ${incomeField.text}");
+            },
+            color: Theme.of(context).primaryColor,
+            child: const Text(
+              "Вычислить",
+              style: TextStyle(color: Colors.white),
             ),
           ),
-          Container(
-            padding: EdgeInsets.all(8),
-            child: Column(
-              children: [PotWidget(firstPotController: firstPotController)],
-            ),
-          )
-        ],
+        ),
+        Container(
+          padding: EdgeInsets.all(8),
+          child: Column(
+            children: [PotWidget(firstPotController: firstPotController)],
+          ),
+        )
+      ],
+    );
+
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Potty"),
+        backgroundColor: Theme.of(context).primaryColor,
       ),
+      body: body,
     );
   }
 
