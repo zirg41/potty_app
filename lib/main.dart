@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:potty_app/models/pot.dart';
+import 'package:potty_app/widgets/pot_list.dart';
 
 void main() => runApp(const MyApp());
 
@@ -28,8 +30,11 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  final List<Pot> userPots = [
+    //Pot(name: "Основные расходы", percent: 10, amount: 5600)
+  ];
   TextEditingController incomeField = TextEditingController();
-  TextEditingController firstPotController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     var pageBody = Column(
@@ -73,10 +78,8 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ),
         Container(
-          padding: EdgeInsets.all(8),
-          child: Column(
-            children: [PotWidget(firstPotController: firstPotController)],
-          ),
+          padding: const EdgeInsets.all(8),
+          child: PotList(pots: userPots),
         )
       ],
     );
@@ -87,30 +90,6 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Theme.of(context).primaryColor,
       ),
       body: pageBody,
-    );
-  }
-
-  Map<double, double> pots = {};
-}
-
-class PotWidget extends StatelessWidget {
-  const PotWidget({
-    @required this.firstPotController,
-  });
-
-  final TextEditingController firstPotController;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        const Text("Основные расходы (10%)"),
-        Flexible(
-            fit: FlexFit.tight,
-            child: TextField(
-              controller: firstPotController,
-            ))
-      ],
     );
   }
 }
