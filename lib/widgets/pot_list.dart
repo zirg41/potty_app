@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:potty_app/models/pot.dart';
 import 'package:potty_app/widgets/pot_item.dart';
 
-class PotList extends StatelessWidget {
+class PotsList extends StatelessWidget {
   final List<Pot> pots;
   //final List<TextEditingController> controllers;
 
-  PotList({@required this.pots});
+  PotsList({@required this.pots});
 
   @override
   Widget build(BuildContext context) {

@@ -31,7 +31,11 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final List<Pot> userPots = [
-    //Pot(name: "Основные расходы", percent: 10, amount: 5600)
+    Pot(name: "Основные расходы", percent: 55, amount: 26000),
+    Pot(name: "Ремонт", percent: 10, amount: 4500),
+    Pot(name: "Образование", percent: 10, amount: 4500),
+    Pot(name: "Инвестиции", percent: 10, amount: 4500),
+    Pot(name: "Подарки", percent: 5, amount: 2250),
   ];
   TextEditingController incomeField = TextEditingController();
 
@@ -64,9 +68,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 alignment: Alignment.topRight,
                 padding: const EdgeInsets.fromLTRB(10, 10, 35, 10),
                 child: FlatButton(
-                  onPressed: () {
-                    print("Field: ${incomeField.text}");
-                  },
+                  onPressed: calculate,
                   color: Theme.of(context).primaryColor,
                   child: const Text(
                     "Вычислить",
@@ -78,8 +80,9 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ),
         Container(
+          height: 500,
           padding: const EdgeInsets.all(8),
-          child: PotList(pots: userPots),
+          child: PotsList(pots: userPots),
         )
       ],
     );
@@ -91,5 +94,15 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: pageBody,
     );
+  }
+
+  void calculate() {
+    if (incomeField.text.isEmpty) return;
+    final double enteredIncome = double.parse(incomeField.text);
+    setState(() {
+      for (var element in userPots) {
+        element.amount = enteredIncome * element.percent / 100;
+      }
+    });
   }
 }
