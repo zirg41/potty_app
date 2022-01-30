@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:potty_app/models/pot.dart';
+import 'package:potty_app/widgets/new_pot.dart';
 import 'package:potty_app/widgets/pot_list.dart';
 
 import 'widgets/input_income.dart';
@@ -52,7 +53,11 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void _startAddNewPot(BuildContext ctx) {
-    showBottomSheet(context: ctx, builder: (_) {});
+    showModalBottomSheet(
+        context: ctx,
+        builder: (_) {
+          return NewPot();
+        });
   }
 
   @override
