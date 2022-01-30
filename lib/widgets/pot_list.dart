@@ -22,7 +22,7 @@ class PotsList extends StatelessWidget {
                   Container(
                     height: 300,
                     child: Image.asset(
-                      "lib/images/empty_state.jpg",
+                      "lib/assets/images/empty_state.jpg",
                       //fit: BoxFit.cover,
                     ),
                   )
