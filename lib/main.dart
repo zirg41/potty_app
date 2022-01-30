@@ -51,6 +51,10 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  void _startAddNewPot(BuildContext ctx) {
+    showBottomSheet(context: ctx, builder: (_) {});
+  }
+
   @override
   Widget build(BuildContext context) {
     var pageBody = Column(
@@ -74,7 +78,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
     var pageFloatingButton = FloatingActionButton(
       child: const Icon(Icons.add),
-      onPressed: () {},
+      onPressed: () => _startAddNewPot(context),
     );
 
     return Scaffold(
