@@ -93,6 +93,10 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Theme.of(context).primaryColor,
       ),
       body: pageBody,
+      floatingActionButton: FloatingActionButton(
+        child: const Icon(Icons.add),
+        onPressed: () => {},
+      ),
     );
   }
 
