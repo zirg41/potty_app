@@ -44,7 +44,6 @@ class _MyHomePageState extends State<MyHomePage> {
     var pageBody = Column(
       children: [
         Card(
-          //color: Colors.blue,
           elevation: 5,
           child: Column(
             children: [
@@ -87,16 +86,20 @@ class _MyHomePageState extends State<MyHomePage> {
       ],
     );
 
+    var pageAppBar = AppBar(
+      title: const Text("Potty"),
+      backgroundColor: Theme.of(context).primaryColor,
+    );
+
+    var pageFloatingButton = FloatingActionButton(
+      child: const Icon(Icons.add),
+      onPressed: () => {},
+    );
+
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Potty"),
-        backgroundColor: Theme.of(context).primaryColor,
-      ),
+      appBar: pageAppBar,
       body: pageBody,
-      floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.add),
-        onPressed: () => {},
-      ),
+      floatingActionButton: pageFloatingButton,
     );
   }
 
