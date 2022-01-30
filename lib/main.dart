@@ -16,6 +16,7 @@ class MyApp extends StatelessWidget {
       title: 'Potty',
       theme: ThemeData(
         primaryColor: Colors.blue,
+        fontFamily: "Montserrat",
       ),
       home: const MyHomePage(title: 'Potty App'),
     );
