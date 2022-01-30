@@ -9,7 +9,6 @@ void main() => runApp(const MyApp());
 class MyApp extends StatelessWidget {
   const MyApp();
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -39,7 +38,18 @@ class _MyHomePageState extends State<MyHomePage> {
     Pot(name: "Инвестиции", percent: 10, amount: 4500),
     Pot(name: "Подарки", percent: 5, amount: 2250),
   ];
+
   TextEditingController incomeField = TextEditingController();
+
+  void calculate() {
+    if (incomeField.text.isEmpty) return;
+    final double enteredIncome = double.parse(incomeField.text);
+    setState(() {
+      for (var element in userPots) {
+        element.amount = enteredIncome * element.percent / 100;
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +74,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
     var pageFloatingButton = FloatingActionButton(
       child: const Icon(Icons.add),
-      onPressed: () => {},
+      onPressed: () {},
     );
 
     return Scaffold(
@@ -72,15 +82,5 @@ class _MyHomePageState extends State<MyHomePage> {
       body: pageBody,
       floatingActionButton: pageFloatingButton,
     );
-  }
-
-  void calculate() {
-    if (incomeField.text.isEmpty) return;
-    final double enteredIncome = double.parse(incomeField.text);
-    setState(() {
-      for (var element in userPots) {
-        element.amount = enteredIncome * element.percent / 100;
-      }
-    });
   }
 }
