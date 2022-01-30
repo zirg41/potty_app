@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:potty_app/models/pot.dart';
 import 'package:potty_app/widgets/pot_list.dart';
 
+import 'widgets/input_income.dart';
+
 void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
@@ -43,40 +45,9 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     var pageBody = Column(
       children: [
-        Card(
-          elevation: 5,
-          child: Column(
-            children: [
-              Container(
-                padding: const EdgeInsets.all(8),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      "Введите доход, руб",
-                      style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                    ),
-                    TextField(
-                      controller: incomeField,
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                alignment: Alignment.topRight,
-                padding: const EdgeInsets.fromLTRB(10, 10, 35, 10),
-                child: FlatButton(
-                  onPressed: calculate,
-                  color: Theme.of(context).primaryColor,
-                  child: const Text(
-                    "Вычислить",
-                    style: TextStyle(color: Colors.white),
-                  ),
-                ),
-              ),
-            ],
-          ),
+        InputIncomeField(
+          incomeField: incomeField,
+          calculate: calculate,
         ),
         Container(
           height: 500,
