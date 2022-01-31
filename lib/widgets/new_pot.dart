@@ -38,11 +38,11 @@ class _NewPotState extends State<NewPot> {
                   ),
                 ),
               ),
-              NewPotItem(
+              AddingNewPotField(
                 hintText: "Введите наименование категории",
                 itemController: nameFieldController,
               ),
-              NewPotItem(
+              AddingNewPotField(
                 hintText: "Введите проценты",
                 itemController: percentFieldController,
                 keyboardType: TextInputType.number,
@@ -51,16 +51,16 @@ class _NewPotState extends State<NewPot> {
               Container(
                 padding: EdgeInsets.all(10),
                 alignment: Alignment.topRight,
-                child: RaisedButton(
-                    // style: ButtonStyle(
-                    //   side: MaterialStateProperty.all(
-                    //     const BorderSide(width: 2, color: Colors.grey),
-                    //   ),
-                    //   padding: MaterialStateProperty.all(
-                    //     const EdgeInsets.only(
-                    //         top: 15, bottom: 15, left: 20, right: 20),
-                    //   ),
-                    // ),
+                child: OutlinedButton(
+                    style: ButtonStyle(
+                      side: MaterialStateProperty.all(
+                        const BorderSide(width: 2, color: Colors.grey),
+                      ),
+                      padding: MaterialStateProperty.all(
+                        const EdgeInsets.only(
+                            top: 15, bottom: 15, left: 20, right: 20),
+                      ),
+                    ),
                     onPressed: _submitData,
                     child: const Text(
                       "Добавить",
@@ -79,33 +79,28 @@ class _NewPotState extends State<NewPot> {
   }
 
   void _submitData() {
-    print("_submitData in NewPot Widget (start)");
-    //if (nameFieldController.text.isEmpty || percentFieldController.text.isEmpty)
-    //  return;
-    // print(nameFieldController.text);
-    // print(percentFieldController.text);
+    if (nameFieldController.text.isEmpty || percentFieldController.text.isEmpty)
+      return;
+
     final enteredName = nameFieldController.text;
     final enteredPercent = double.parse(percentFieldController.text);
-    print(enteredName);
-    print(enteredPercent);
-    //if (enteredPercent < 0) return;
+
+    if (enteredPercent < 0) return;
 
     widget.addNewPot(
       enteredName,
       enteredPercent,
     );
-
-    print("_submitData in NewPot Widget (new pot added)");
     Navigator.of(context).pop();
   }
 }
 
-class NewPotItem extends StatelessWidget {
+class AddingNewPotField extends StatelessWidget {
   final String hintText;
   final TextEditingController itemController;
   final TextInputType keyboardType;
   final Function onSubmit;
-  NewPotItem(
+  AddingNewPotField(
       {@required this.hintText,
       @required this.itemController,
       this.keyboardType,
