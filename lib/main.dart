@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:potty_app/models/pot.dart';
+import 'package:potty_app/widgets/new_pot.dart';
 import 'package:potty_app/widgets/pot_list.dart';
 
 import 'widgets/input_income.dart';
@@ -15,6 +16,7 @@ class MyApp extends StatelessWidget {
       title: 'Potty',
       theme: ThemeData(
         primaryColor: Colors.blue,
+        fontFamily: "Montserrat",
       ),
       home: const MyHomePage(title: 'Potty App'),
     );
@@ -32,11 +34,11 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final List<Pot> userPots = [
-    // Pot(name: "Основные расходы", percent: 55, amount: 26000),
-    // Pot(name: "Ремонт", percent: 10, amount: 4500),
-    // Pot(name: "Образование", percent: 10, amount: 4500),
-    // Pot(name: "Инвестиции", percent: 10, amount: 4500),
-    // Pot(name: "Подарки", percent: 5, amount: 2250),
+    Pot(name: "Основные расходы", percent: 65),
+    Pot(name: "Ремонт", percent: 10),
+    Pot(name: "Образование", percent: 5),
+    Pot(name: "Подарки", percent: 5),
+    Pot(name: "Инвестиции", percent: 10),
   ];
 
   TextEditingController incomeField = TextEditingController();
@@ -51,20 +53,51 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  void _startAddNewPot(BuildContext ctx) {
+    showModalBottomSheet(
+        context: ctx,
+        builder: (_) {
+          return NewPot(addNewPot: _addNewPot);
+        });
+  }
+
+  void _addNewPot(String potName, double potPercent) {
+    final Pot newPot = Pot(
+      name: potName,
+      percent: potPercent,
+    );
+    setState(() {
+      print("_addNewPot in main");
+      userPots.add(newPot);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    var pageBody = Column(
-      children: [
-        InputIncomeField(
-          incomeField: incomeField,
-          calculate: calculate,
+    final mediaQuery = MediaQuery.of(context);
+
+    var pageBody = SafeArea(
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            Container(
+              height: 180,
+              child: InputIncomeField(
+                incomeField: incomeField,
+                calculate: calculate,
+              ),
+            ),
+            Container(
+              height: (mediaQuery.size.height -
+                  mediaQuery.padding.top -
+                  mediaQuery.viewInsets.bottom -
+                  200),
+              padding: const EdgeInsets.all(8),
+              child: PotsList(pots: userPots),
+            )
+          ],
         ),
-        Container(
-          height: 500,
-          padding: const EdgeInsets.all(8),
-          child: PotsList(pots: userPots),
-        )
-      ],
+      ),
     );
 
     var pageAppBar = AppBar(
@@ -74,7 +107,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
     var pageFloatingButton = FloatingActionButton(
       child: const Icon(Icons.add),
-      onPressed: () {},
+      onPressed: () => _startAddNewPot(context),
     );
 
     return Scaffold(
