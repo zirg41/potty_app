@@ -61,7 +61,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ScaffoldMessenger.of(context).showSnackBar(emptyFieldSnackBar);
       return;
     }
-    ;
+
     final double enteredIncome = double.parse(incomeField.text);
     setState(() {
       for (var element in userPots) {
