@@ -75,24 +75,22 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
-
+    final mediaHeight = mediaQuery.size.height -
+        mediaQuery.padding.top -
+        mediaQuery.viewInsets.bottom;
     var pageBody = SafeArea(
       child: SingleChildScrollView(
         child: Column(
           children: [
             Container(
-              height: 180,
+              height: 140,
               child: InputIncomeField(
                 incomeField: incomeField,
                 calculate: calculate,
               ),
             ),
             Container(
-              height: (mediaQuery.size.height -
-                  mediaQuery.padding.top -
-                  mediaQuery.viewInsets.bottom -
-                  200),
-              padding: const EdgeInsets.all(8),
+              height: (mediaHeight - 140),
               child: PotsList(pots: userPots),
             )
           ],
