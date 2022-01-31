@@ -45,6 +45,8 @@ class _NewPotState extends State<NewPot> {
               NewPotItem(
                 hintText: "Введите проценты",
                 itemController: percentFieldController,
+                keyboardType: TextInputType.number,
+                onSubmit: (_) => _submitData(),
               ),
               Container(
                 padding: EdgeInsets.all(10),
@@ -59,7 +61,7 @@ class _NewPotState extends State<NewPot> {
                             top: 15, bottom: 15, left: 20, right: 20),
                       ),
                     ),
-                    onPressed: () {},
+                    onPressed: () => _submitData,
                     child: const Text(
                       "Добавить",
                       style: TextStyle(
@@ -75,19 +77,43 @@ class _NewPotState extends State<NewPot> {
       ),
     );
   }
+
+  void _submitData() {
+    print("_submitData in NewPot Widget");
+    //if (nameFieldController.text.isEmpty || percentFieldController.text.isEmpty)
+    //  return;
+
+    final enteredName = nameFieldController.text;
+    final enteredPercent = double.parse(percentFieldController.text);
+
+    //if (enteredPercent < 0) return;
+
+    widget.addNewPot(
+      enteredName,
+      enteredPercent,
+    );
+    Navigator.of(context).pop();
+  }
 }
 
 class NewPotItem extends StatelessWidget {
   final String hintText;
   final TextEditingController itemController;
-
-  NewPotItem({@required this.hintText, @required this.itemController});
+  final TextInputType keyboardType;
+  final Function onSubmit;
+  NewPotItem(
+      {@required this.hintText,
+      @required this.itemController,
+      this.keyboardType,
+      this.onSubmit});
 
   @override
   Widget build(BuildContext context) {
     return Card(
       elevation: 5,
       child: TextField(
+        onSubmitted: onSubmit,
+        keyboardType: keyboardType,
         controller: itemController,
         decoration: InputDecoration(
             hintText: hintText,

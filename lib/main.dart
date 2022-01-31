@@ -36,9 +36,6 @@ class _MyHomePageState extends State<MyHomePage> {
   final List<Pot> userPots = [
     Pot(name: "Основные расходы", percent: 55, amount: 26000),
     Pot(name: "Ремонт", percent: 10, amount: 4500),
-    Pot(name: "Образование", percent: 10, amount: 4500),
-    Pot(name: "Инвестиции", percent: 10, amount: 4500),
-    Pot(name: "Подарки", percent: 5, amount: 2250),
   ];
 
   TextEditingController incomeField = TextEditingController();
@@ -57,24 +54,47 @@ class _MyHomePageState extends State<MyHomePage> {
     showModalBottomSheet(
         context: ctx,
         builder: (_) {
-          return NewPot();
+          return NewPot(addNewPot: _addNewPot);
         });
+  }
+
+  void _addNewPot({String potName, double potPercent}) {
+    final Pot newPot = Pot(
+      name: potName,
+      percent: potPercent,
+    );
+    setState(() {
+      print("_addNewPot in main");
+      userPots.add(newPot);
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    var pageBody = Column(
-      children: [
-        InputIncomeField(
-          incomeField: incomeField,
-          calculate: calculate,
+    final mediaQuery = MediaQuery.of(context);
+
+    var pageBody = SafeArea(
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            Container(
+              height: 180,
+              child: InputIncomeField(
+                incomeField: incomeField,
+                calculate: calculate,
+              ),
+            ),
+            Container(
+              height: (mediaQuery.size.height -
+                  mediaQuery.padding.top -
+                  mediaQuery.viewInsets.bottom -
+                  200),
+              padding: const EdgeInsets.all(8),
+              child: PotsList(pots: userPots),
+            )
+          ],
         ),
-        Container(
-          height: 500,
-          padding: const EdgeInsets.all(8),
-          child: PotsList(pots: userPots),
-        )
-      ],
+      ),
     );
 
     var pageAppBar = AppBar(
