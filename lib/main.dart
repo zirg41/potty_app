@@ -51,14 +51,23 @@ class _MyHomePageState extends State<MyHomePage> {
   ];
 
   TextEditingController incomeField = TextEditingController();
+  final emptyFieldSnackBar = const SnackBar(
+    content: Text('Введите сумму дохода!'),
+    duration: Duration(seconds: 1),
+  );
 
   void calculate() {
-    if (incomeField.text.isEmpty) return;
+    if (incomeField.text.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(emptyFieldSnackBar);
+      return;
+    }
+
     final double enteredIncome = double.parse(incomeField.text);
     setState(() {
       for (var element in userPots) {
         element.amount = enteredIncome * element.percent / 100;
       }
+      userPots.sort((potA, potB) => potB.percent.compareTo(potA.percent));
     });
   }
 
