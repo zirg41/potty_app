@@ -20,16 +20,20 @@ class InputIncomeField extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextField(
-              onSubmitted: (_) => calculate,
+              onSubmitted: (_) => calculate(),
               keyboardType: TextInputType.number,
               controller: incomeField,
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 hintText: "Введите доход, руб",
-                hintStyle: TextStyle(
+                hintStyle: const TextStyle(
                   fontFamily: "Montserrat",
                   fontSize: 16,
                 ),
-                border: OutlineInputBorder(
+                suffixIcon: IconButton(
+                  onPressed: incomeField.clear,
+                  icon: const Icon(Icons.clear),
+                ),
+                border: const OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(10))),
               ),
             ),
