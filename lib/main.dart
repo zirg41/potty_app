@@ -1,19 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:potty_app/models/pot.dart';
+import 'package:potty_app/widgets/new_pot.dart';
 import 'package:potty_app/widgets/pot_list.dart';
+
+import 'widgets/input_income.dart';
 
 void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
   const MyApp();
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Potty',
       theme: ThemeData(
         primaryColor: Colors.blue,
+        fontFamily: "Montserrat",
       ),
       home: const MyHomePage(title: 'Potty App'),
     );
@@ -31,70 +34,14 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final List<Pot> userPots = [
-    Pot(name: "Основные расходы", percent: 55, amount: 26000),
-    Pot(name: "Ремонт", percent: 10, amount: 4500),
-    Pot(name: "Образование", percent: 10, amount: 4500),
-    Pot(name: "Инвестиции", percent: 10, amount: 4500),
-    Pot(name: "Подарки", percent: 5, amount: 2250),
+    Pot(name: "Основные расходы", percent: 65),
+    Pot(name: "Ремонт", percent: 10),
+    Pot(name: "Образование", percent: 5),
+    Pot(name: "Подарки", percent: 5),
+    Pot(name: "Инвестиции", percent: 10),
   ];
+
   TextEditingController incomeField = TextEditingController();
-
-  @override
-  Widget build(BuildContext context) {
-    var pageBody = Column(
-      children: [
-        Card(
-          //color: Colors.blue,
-          elevation: 5,
-          child: Column(
-            children: [
-              Container(
-                padding: const EdgeInsets.all(8),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      "Введите доход, руб",
-                      style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                    ),
-                    TextField(
-                      controller: incomeField,
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                alignment: Alignment.topRight,
-                padding: const EdgeInsets.fromLTRB(10, 10, 35, 10),
-                child: FlatButton(
-                  onPressed: calculate,
-                  color: Theme.of(context).primaryColor,
-                  child: const Text(
-                    "Вычислить",
-                    style: TextStyle(color: Colors.white),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-        Container(
-          height: 500,
-          padding: const EdgeInsets.all(8),
-          child: PotsList(pots: userPots),
-        )
-      ],
-    );
-
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Potty"),
-        backgroundColor: Theme.of(context).primaryColor,
-      ),
-      body: pageBody,
-    );
-  }
 
   void calculate() {
     if (incomeField.text.isEmpty) return;
@@ -104,5 +51,69 @@ class _MyHomePageState extends State<MyHomePage> {
         element.amount = enteredIncome * element.percent / 100;
       }
     });
+  }
+
+  void _startAddNewPot(BuildContext ctx) {
+    showModalBottomSheet(
+        context: ctx,
+        builder: (_) {
+          return NewPot(addNewPot: _addNewPot);
+        });
+  }
+
+  void _addNewPot(String potName, double potPercent) {
+    final Pot newPot = Pot(
+      name: potName,
+      percent: potPercent,
+    );
+    setState(() {
+      print("_addNewPot in main");
+      userPots.add(newPot);
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final mediaQuery = MediaQuery.of(context);
+
+    var pageBody = SafeArea(
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            Container(
+              height: 180,
+              child: InputIncomeField(
+                incomeField: incomeField,
+                calculate: calculate,
+              ),
+            ),
+            Container(
+              height: (mediaQuery.size.height -
+                  mediaQuery.padding.top -
+                  mediaQuery.viewInsets.bottom -
+                  200),
+              padding: const EdgeInsets.all(8),
+              child: PotsList(pots: userPots),
+            )
+          ],
+        ),
+      ),
+    );
+
+    var pageAppBar = AppBar(
+      title: const Text("Potty"),
+      backgroundColor: Theme.of(context).primaryColor,
+    );
+
+    var pageFloatingButton = FloatingActionButton(
+      child: const Icon(Icons.add),
+      onPressed: () => _startAddNewPot(context),
+    );
+
+    return Scaffold(
+      appBar: pageAppBar,
+      body: pageBody,
+      floatingActionButton: pageFloatingButton,
+    );
   }
 }
