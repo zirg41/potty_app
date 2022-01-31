@@ -14,32 +14,40 @@ class InputIncomeField extends StatelessWidget {
     return Card(
       elevation: 5,
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          Container(
-            padding: const EdgeInsets.all(8),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  "Введите доход, руб",
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                ),
-                TextField(
-                  controller: incomeField,
-                ),
-              ],
+          TextField(
+            onSubmitted: (_) => calculate,
+            keyboardType: TextInputType.number,
+            controller: incomeField,
+            decoration: const InputDecoration(
+              hintText: "Введите доход, руб",
+              hintStyle: TextStyle(
+                fontFamily: "Montserrat",
+                fontSize: 16,
+              ),
+              border: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(10))),
             ),
           ),
-          Container(
-            alignment: Alignment.topRight,
-            padding: const EdgeInsets.fromLTRB(10, 10, 35, 10),
-            child: FlatButton(
-              onPressed: calculate,
-              color: Theme.of(context).primaryColor,
-              child: const Text(
-                "Вычислить",
-                style: TextStyle(color: Colors.white),
+          OutlinedButton(
+            onPressed: calculate,
+            style: ButtonStyle(
+              side: MaterialStateProperty.all(
+                const BorderSide(width: 1, color: Colors.grey),
               ),
+              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0)),
+              ),
+              padding: MaterialStateProperty.all(
+                const EdgeInsets.only(top: 15, bottom: 15, left: 20, right: 20),
+              ),
+            ),
+            child: const Text(
+              "Вычислить",
+              //style: TextStyle(color: Colors.white),
             ),
           ),
         ],
