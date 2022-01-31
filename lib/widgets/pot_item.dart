@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:potty_app/models/pot.dart';
 
 class PotItem extends StatelessWidget {
@@ -10,6 +11,11 @@ class PotItem extends StatelessWidget {
   Widget build(BuildContext context) {
     const itemsPadding = EdgeInsets.all(8);
     final ctxTheme = Theme.of(context);
+
+    const snackBar = SnackBar(
+      content: Text('Скопировано!'),
+      duration: Duration(seconds: 1),
+    );
 
     return Card(
       child: SizedBox(
@@ -27,7 +33,6 @@ class PotItem extends StatelessWidget {
                 ),
               ),
             ),
-            //const Expanded(child: SizedBox()),
             Row(
               children: [
                 Container(
@@ -46,7 +51,11 @@ class PotItem extends StatelessWidget {
                   width: 10,
                 ),
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    Clipboard.setData(
+                        ClipboardData(text: pot.amount.toString()));
+                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                  },
                   child: Container(
                     width: 100,
                     // ОТОБРАЖЕНИЕ СУММЫ
