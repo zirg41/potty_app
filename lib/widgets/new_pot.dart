@@ -51,17 +51,17 @@ class _NewPotState extends State<NewPot> {
               Container(
                 padding: EdgeInsets.all(10),
                 alignment: Alignment.topRight,
-                child: OutlinedButton(
-                    style: ButtonStyle(
-                      side: MaterialStateProperty.all(
-                        const BorderSide(width: 2, color: Colors.grey),
-                      ),
-                      padding: MaterialStateProperty.all(
-                        const EdgeInsets.only(
-                            top: 15, bottom: 15, left: 20, right: 20),
-                      ),
-                    ),
-                    onPressed: () => _submitData,
+                child: RaisedButton(
+                    // style: ButtonStyle(
+                    //   side: MaterialStateProperty.all(
+                    //     const BorderSide(width: 2, color: Colors.grey),
+                    //   ),
+                    //   padding: MaterialStateProperty.all(
+                    //     const EdgeInsets.only(
+                    //         top: 15, bottom: 15, left: 20, right: 20),
+                    //   ),
+                    // ),
+                    onPressed: _submitData,
                     child: const Text(
                       "Добавить",
                       style: TextStyle(
@@ -79,19 +79,23 @@ class _NewPotState extends State<NewPot> {
   }
 
   void _submitData() {
-    print("_submitData in NewPot Widget");
+    print("_submitData in NewPot Widget (start)");
     //if (nameFieldController.text.isEmpty || percentFieldController.text.isEmpty)
     //  return;
-
+    // print(nameFieldController.text);
+    // print(percentFieldController.text);
     final enteredName = nameFieldController.text;
     final enteredPercent = double.parse(percentFieldController.text);
-
+    print(enteredName);
+    print(enteredPercent);
     //if (enteredPercent < 0) return;
 
     widget.addNewPot(
       enteredName,
       enteredPercent,
     );
+
+    print("_submitData in NewPot Widget (new pot added)");
     Navigator.of(context).pop();
   }
 }

@@ -34,8 +34,11 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final List<Pot> userPots = [
-    Pot(name: "Основные расходы", percent: 55, amount: 26000),
-    Pot(name: "Ремонт", percent: 10, amount: 4500),
+    Pot(name: "Основные расходы", percent: 65),
+    Pot(name: "Ремонт", percent: 10),
+    Pot(name: "Образование", percent: 5),
+    Pot(name: "Подарки", percent: 5),
+    Pot(name: "Инвестиции", percent: 10),
   ];
 
   TextEditingController incomeField = TextEditingController();
@@ -58,7 +61,7 @@ class _MyHomePageState extends State<MyHomePage> {
         });
   }
 
-  void _addNewPot({String potName, double potPercent}) {
+  void _addNewPot(String potName, double potPercent) {
     final Pot newPot = Pot(
       name: potName,
       percent: potPercent,
