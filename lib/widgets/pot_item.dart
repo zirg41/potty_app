@@ -5,7 +5,8 @@ import 'package:potty_app/models/pot.dart';
 class PotItem extends StatelessWidget {
   final Pot pot;
 
-  PotItem({@required this.pot});
+  // ignore: use_key_in_widget_constructors
+  const PotItem({@required this.pot});
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +61,7 @@ class PotItem extends StatelessWidget {
                     width: 100,
                     // ОТОБРАЖЕНИЕ СУММЫ
                     decoration: BoxDecoration(
-                        color: Theme.of(context).accentColor,
+                        color: ctxTheme.accentColor,
                         borderRadius: BorderRadius.circular(10)),
                     padding: itemsPadding,
                     child: Text(
