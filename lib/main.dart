@@ -5,17 +5,24 @@ import 'package:potty_app/widgets/pot_list.dart';
 
 import 'widgets/input_income.dart';
 
-void main() => runApp(const MyApp());
+void main() => runApp(const PottyApp());
 
-class MyApp extends StatelessWidget {
-  const MyApp();
+class PottyApp extends StatelessWidget {
+  const PottyApp();
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Potty',
       theme: ThemeData(
-        primaryColor: Colors.blue,
+        primaryColor: const Color(0xFF264653),
+        textTheme: const TextTheme(
+          button: TextStyle(
+            color: Color(0xFFf4f1de),
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        accentColor: const Color(0xFF2a9d8f),
         fontFamily: "Montserrat",
       ),
       home: const MyHomePage(title: 'Potty App'),
