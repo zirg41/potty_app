@@ -39,9 +39,11 @@ class InputIncomeField extends StatelessWidget {
             child: OutlinedButton(
               onPressed: calculate,
               style: ButtonStyle(
-                side: MaterialStateProperty.all(
-                  const BorderSide(width: 1, color: Colors.grey),
-                ),
+                // side: MaterialStateProperty.all(
+                //   const BorderSide(width: 1, color: Colors.grey),
+                // ),
+                backgroundColor:
+                    MaterialStateProperty.all(Theme.of(context).accentColor),
                 shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                   RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10.0)),
@@ -51,9 +53,9 @@ class InputIncomeField extends StatelessWidget {
                       top: 15, bottom: 15, left: 20, right: 20),
                 ),
               ),
-              child: const Text(
+              child: Text(
                 "Вычислить",
-                //style: TextStyle(color: Colors.white),
+                style: Theme.of(context).textTheme.button,
               ),
             ),
           ),
