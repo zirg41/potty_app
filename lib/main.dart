@@ -67,6 +67,7 @@ class _MyHomePageState extends State<MyHomePage> {
       for (var element in userPots) {
         element.amount = enteredIncome * element.percent / 100;
       }
+      userPots.sort((potA, potB) => potB.percent.compareTo(potA.percent));
     });
   }
 
