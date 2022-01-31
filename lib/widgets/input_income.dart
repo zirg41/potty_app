@@ -14,7 +14,7 @@ class InputIncomeField extends StatelessWidget {
     return Card(
       elevation: 5,
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           Padding(

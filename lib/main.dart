@@ -83,7 +83,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           children: [
             Container(
-              height: 140,
+              height: 144,
               child: InputIncomeField(
                 incomeField: incomeField,
                 calculate: calculate,
