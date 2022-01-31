@@ -17,37 +17,44 @@ class InputIncomeField extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          TextField(
-            onSubmitted: (_) => calculate,
-            keyboardType: TextInputType.number,
-            controller: incomeField,
-            decoration: const InputDecoration(
-              hintText: "Введите доход, руб",
-              hintStyle: TextStyle(
-                fontFamily: "Montserrat",
-                fontSize: 16,
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TextField(
+              onSubmitted: (_) => calculate,
+              keyboardType: TextInputType.number,
+              controller: incomeField,
+              decoration: const InputDecoration(
+                hintText: "Введите доход, руб",
+                hintStyle: TextStyle(
+                  fontFamily: "Montserrat",
+                  fontSize: 16,
+                ),
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(10))),
               ),
-              border: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(10))),
             ),
           ),
-          OutlinedButton(
-            onPressed: calculate,
-            style: ButtonStyle(
-              side: MaterialStateProperty.all(
-                const BorderSide(width: 1, color: Colors.grey),
+          Padding(
+            padding: const EdgeInsets.only(top: 0, bottom: 8, right: 8),
+            child: OutlinedButton(
+              onPressed: calculate,
+              style: ButtonStyle(
+                side: MaterialStateProperty.all(
+                  const BorderSide(width: 1, color: Colors.grey),
+                ),
+                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                  RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0)),
+                ),
+                padding: MaterialStateProperty.all(
+                  const EdgeInsets.only(
+                      top: 15, bottom: 15, left: 20, right: 20),
+                ),
               ),
-              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.0)),
+              child: const Text(
+                "Вычислить",
+                //style: TextStyle(color: Colors.white),
               ),
-              padding: MaterialStateProperty.all(
-                const EdgeInsets.only(top: 15, bottom: 15, left: 20, right: 20),
-              ),
-            ),
-            child: const Text(
-              "Вычислить",
-              //style: TextStyle(color: Colors.white),
             ),
           ),
         ],
