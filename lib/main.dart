@@ -19,7 +19,8 @@ class PottyApp extends StatelessWidget {
         textTheme: const TextTheme(
           button: TextStyle(
             color: Color(0xFFf4f1de),
-            fontWeight: FontWeight.bold,
+            //fontWeight: FontWeight.bold,
+            fontSize: 16,
           ),
         ),
         accentColor: const Color(0xFF2a9d8f),
@@ -46,6 +47,7 @@ class _MyHomePageState extends State<MyHomePage> {
     Pot(name: "Образование", percent: 5),
     Pot(name: "Подарки", percent: 5),
     Pot(name: "Инвестиции", percent: 10),
+    Pot(name: "Здоровье", percent: 5),
   ];
 
   TextEditingController incomeField = TextEditingController();

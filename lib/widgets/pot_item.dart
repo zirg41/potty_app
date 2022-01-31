@@ -18,20 +18,25 @@ class PotItem extends StatelessWidget {
               child: FittedBox(
                 child: Text(
                   pot.name,
-                  //style: TextStyle(fontSize: 16),
+                  style: TextStyle(fontSize: 16),
                 ),
               ),
             ),
             const Expanded(child: SizedBox()),
             Container(
+              // ОТОБРАЖЕНИЕ ПРОЦЕНТОВ
+              decoration: BoxDecoration(
+                  color: Theme.of(context).accentColor,
+                  //border: Border.all(width: 8),
+                  borderRadius: BorderRadius.circular(10)),
               padding: const EdgeInsets.all(8),
               child: Text(
-                pot.percent.toString(),
-                style: TextStyle(fontSize: 18),
+                "${pot.percent.toStringAsFixed(0)} %",
+                style: Theme.of(context).textTheme.button,
               ),
             ),
             Container(
-              //fit: FlexFit.tight,
+              // ОТОБРАЖЕНИЕ СУММЫ
               padding: const EdgeInsets.all(8),
               height: 50,
               width: 100,
