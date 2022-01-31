@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:potty_app/models/pot.dart';
 
 class PotItem extends StatelessWidget {
