@@ -5,17 +5,25 @@ import 'package:potty_app/widgets/pot_list.dart';
 
 import 'widgets/input_income.dart';
 
-void main() => runApp(const MyApp());
+void main() => runApp(const PottyApp());
 
-class MyApp extends StatelessWidget {
-  const MyApp();
+class PottyApp extends StatelessWidget {
+  const PottyApp();
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Potty',
       theme: ThemeData(
-        primaryColor: Colors.blue,
+        primaryColor: const Color(0xFF264653),
+        textTheme: const TextTheme(
+          button: TextStyle(
+            color: Color(0xFFf4f1de),
+            //fontWeight: FontWeight.bold,
+            fontSize: 16,
+          ),
+        ),
+        accentColor: const Color(0xFF2a9d8f),
         fontFamily: "Montserrat",
       ),
       home: const MyHomePage(title: 'Potty App'),
@@ -39,6 +47,7 @@ class _MyHomePageState extends State<MyHomePage> {
     Pot(name: "Образование", percent: 5),
     Pot(name: "Подарки", percent: 5),
     Pot(name: "Инвестиции", percent: 10),
+    Pot(name: "Здоровье", percent: 5),
   ];
 
   TextEditingController incomeField = TextEditingController();
@@ -75,24 +84,22 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
-
+    final mediaHeight = mediaQuery.size.height -
+        mediaQuery.padding.top -
+        mediaQuery.viewInsets.bottom;
     var pageBody = SafeArea(
       child: SingleChildScrollView(
         child: Column(
           children: [
             Container(
-              height: 180,
+              height: 144,
               child: InputIncomeField(
                 incomeField: incomeField,
                 calculate: calculate,
               ),
             ),
             Container(
-              height: (mediaQuery.size.height -
-                  mediaQuery.padding.top -
-                  mediaQuery.viewInsets.bottom -
-                  200),
-              padding: const EdgeInsets.all(8),
+              height: (mediaHeight - 140),
               child: PotsList(pots: userPots),
             )
           ],
