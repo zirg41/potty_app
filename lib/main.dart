@@ -42,12 +42,12 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final List<Pot> userPots = [
-    Pot(name: "Основные расходы", percent: 65),
-    Pot(name: "Ремонт", percent: 10),
-    Pot(name: "Образование", percent: 5),
-    Pot(name: "Подарки", percent: 5),
-    Pot(name: "Инвестиции", percent: 10),
-    Pot(name: "Здоровье", percent: 5),
+    Pot(name: "Основные расходы", percent: 65, id: DateTime.now().toString()),
+    Pot(name: "Ремонт", percent: 10, id: DateTime.now().toString()),
+    Pot(name: "Образование", percent: 5, id: DateTime.now().toString()),
+    Pot(name: "Подарки", percent: 5, id: DateTime.now().toString()),
+    Pot(name: "Инвестиции", percent: 10, id: DateTime.now().toString()),
+    Pot(name: "Здоровье", percent: 5, id: DateTime.now().toString()),
   ];
 
   TextEditingController incomeField = TextEditingController();
@@ -91,7 +91,7 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  void deletePot(String id) {
+  void _deletePot(String id) {
     setState(() {
       userPots.removeWhere((element) {
         return element.id == id;
@@ -118,7 +118,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             Container(
               height: (mediaHeight - 140),
-              child: PotsList(pots: userPots),
+              child: PotsList(pots: userPots, deleteItemFunc: _deletePot),
             )
           ],
         ),
