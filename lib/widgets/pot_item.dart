@@ -54,7 +54,7 @@ class PotItem extends StatelessWidget {
                       margin: EdgeInsets.all(5),
                       //padding: itemsPadding,
                       child: Text(
-                        pot.amount.toString(),
+                        pot.amount != null ? pot.amount.toString() : "-",
                         style: const TextStyle(fontSize: 20),
                       ),
                     ),
