@@ -31,7 +31,7 @@ class PotItem extends StatelessWidget {
                 // ПРОЦЕНТЫ
                 margin: EdgeInsets.all(8),
                 decoration: BoxDecoration(
-                    color: Theme.of(context).accentColor,
+                    color: Theme.of(context).primaryColor,
                     //border: Border.all(width: 8),
                     borderRadius: BorderRadius.circular(10)),
                 padding: itemsPadding,
