@@ -78,7 +78,7 @@ class PotItem extends StatelessWidget {
           Container(
             margin: itemsPadding,
             child: IconButton(
-              onPressed: deleteFunc,
+              onPressed: () => deleteFunc(pot.id),
               icon: const Icon(Icons.delete),
             ),
           )
