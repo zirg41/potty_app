@@ -24,6 +24,7 @@ class PottyApp extends StatelessWidget {
           ),
         ),
         accentColor: const Color(0xFF2a9d8f),
+        errorColor: const Color(0xFFe76f51),
         fontFamily: "Montserrat",
       ),
       home: const MyHomePage(title: 'Potty App'),
