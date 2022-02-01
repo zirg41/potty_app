@@ -37,7 +37,8 @@ class PotItem extends StatelessWidget {
                 padding: itemsPadding,
                 child: Text(
                   "${pot.percent.toStringAsFixed(0)} %",
-                  style: ctxTheme.textTheme.button,
+                  style:
+                      const TextStyle(fontSize: 21, color: Color(0xFFf4f1de)),
                 ),
               ),
               Column(
@@ -55,7 +56,7 @@ class PotItem extends StatelessWidget {
                       //padding: itemsPadding,
                       child: Text(
                         pot.amount != null ? pot.amount.toString() : "-",
-                        style: const TextStyle(fontSize: 20),
+                        style: const TextStyle(fontSize: 21),
                       ),
                     ),
                   ),
@@ -80,6 +81,7 @@ class PotItem extends StatelessWidget {
             child: IconButton(
               onPressed: () => deleteFunc(pot.id),
               icon: const Icon(Icons.delete),
+              color: ctxTheme.errorColor,
             ),
           )
         ],
