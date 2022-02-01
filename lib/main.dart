@@ -91,6 +91,14 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  void deletePot(String id) {
+    setState(() {
+      userPots.removeWhere((element) {
+        return element.id == id;
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
