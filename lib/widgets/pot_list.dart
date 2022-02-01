@@ -4,9 +4,13 @@ import 'package:potty_app/widgets/pot_item.dart';
 
 class PotsList extends StatelessWidget {
   final List<Pot> pots;
+  final Function deleteItemFunc;
   //final List<TextEditingController> controllers;
 
-  PotsList({@required this.pots});
+  PotsList({
+    this.deleteItemFunc,
+    @required this.pots,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +37,10 @@ class PotsList extends StatelessWidget {
         : ListView.builder(
             itemCount: pots.length,
             itemBuilder: (context, index) {
-              return PotItem(pot: pots[index]);
+              return PotItem(
+                pot: pots[index],
+                deleteFunc: deleteItemFunc,
+              );
             },
           );
   }
