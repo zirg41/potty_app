@@ -83,6 +83,7 @@ class _MyHomePageState extends State<MyHomePage> {
     final Pot newPot = Pot(
       name: potName,
       percent: potPercent,
+      id: DateTime.now().toString(),
     );
     setState(() {
       print("_addNewPot in main");
