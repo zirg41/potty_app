@@ -52,6 +52,8 @@ class _MyHomePageState extends State<MyHomePage> {
     Pot(name: "Здоровье", percent: 5, id: DateTime.now().toString()),
   ];
 
+  bool _isFullyAllocated = true;
+  double percentSumm;
   Pot unallocatedAmount = Pot(
     name: "Нераспределенный",
     percent: 0,
@@ -97,6 +99,38 @@ class _MyHomePageState extends State<MyHomePage> {
       print("_addNewPot in main");
       userPots.add(newPot);
     });
+  }
+
+  void checkPots(List<Pot> checkingPot) {
+    for (var element in checkingPot) {
+      percentSumm += element.percent;
+    }
+    if (percentSumm == 100) {
+      _isFullyAllocated = true;
+      return;
+    }
+    if (percentSumm < 100) {
+      _isFullyAllocated = false;
+
+      unallocatedAmount = Pot(
+        name: "Не распределено",
+        percent: percentSumm,
+        id: DateTime.now().toString(),
+      );
+
+      return;
+    }
+    if (percentSumm > 100) {
+      _isFullyAllocated = false;
+
+      unallocatedAmount = Pot(
+        name: "Перераспределение",
+        percent: percentSumm,
+        id: DateTime.now().toString(),
+      );
+
+      return;
+    }
   }
 
   void _deletePot(String id) {
