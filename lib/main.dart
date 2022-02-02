@@ -53,7 +53,7 @@ class _MyHomePageState extends State<MyHomePage> {
   ];
 
   bool _isFullyAllocated = true;
-  double percentSumm;
+  double percentSumm = 0;
   Pot unallocatedPot;
 
   TextEditingController incomeField = TextEditingController();
@@ -70,6 +70,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
     final double enteredIncome = double.parse(incomeField.text);
     setState(() {
+      checkPots(userPots);
       for (var element in userPots) {
         element.amount = enteredIncome * element.percent / 100;
       }
@@ -110,10 +111,10 @@ class _MyHomePageState extends State<MyHomePage> {
 
       unallocatedPot = Pot(
         name: "Не распределено",
-        percent: percentSumm,
+        percent: 100 - percentSumm,
         id: DateTime.now().toString(),
       );
-
+      userPots.add(unallocatedPot);
       return;
     }
     if (percentSumm > 100) {
@@ -121,10 +122,10 @@ class _MyHomePageState extends State<MyHomePage> {
 
       unallocatedPot = Pot(
         name: "Перераспределение",
-        percent: percentSumm,
+        percent: percentSumm - 100,
         id: DateTime.now().toString(),
       );
-
+      userPots.add(unallocatedPot);
       return;
     }
   }
