@@ -52,6 +52,12 @@ class _MyHomePageState extends State<MyHomePage> {
     Pot(name: "Здоровье", percent: 5, id: DateTime.now().toString()),
   ];
 
+  Pot unallocatedAmount = Pot(
+    name: "Нераспределенный",
+    percent: 0,
+    id: DateTime.now().toString(),
+  );
+
   TextEditingController incomeField = TextEditingController();
   final emptyFieldSnackBar = const SnackBar(
     content: Text('Введите сумму дохода!'),
