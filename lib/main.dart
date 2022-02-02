@@ -54,11 +54,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   bool _isFullyAllocated = true;
   double percentSumm;
-  Pot unallocatedAmount = Pot(
-    name: "Нераспределенный",
-    percent: 0,
-    id: DateTime.now().toString(),
-  );
+  Pot unallocatedPot;
 
   TextEditingController incomeField = TextEditingController();
   final emptyFieldSnackBar = const SnackBar(
@@ -112,7 +108,7 @@ class _MyHomePageState extends State<MyHomePage> {
     if (percentSumm < 100) {
       _isFullyAllocated = false;
 
-      unallocatedAmount = Pot(
+      unallocatedPot = Pot(
         name: "Не распределено",
         percent: percentSumm,
         id: DateTime.now().toString(),
@@ -123,7 +119,7 @@ class _MyHomePageState extends State<MyHomePage> {
     if (percentSumm > 100) {
       _isFullyAllocated = false;
 
-      unallocatedAmount = Pot(
+      unallocatedPot = Pot(
         name: "Перераспределение",
         percent: percentSumm,
         id: DateTime.now().toString(),
