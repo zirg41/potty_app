@@ -76,14 +76,16 @@ class PotItem extends StatelessWidget {
               ),
             ],
           ),
-          Container(
-            margin: itemsPadding,
-            child: IconButton(
-              onPressed: () => deleteFunc(pot.id),
-              icon: const Icon(Icons.delete),
-              color: ctxTheme.errorColor,
-            ),
-          )
+          deleteFunc != null
+              ? Container(
+                  margin: itemsPadding,
+                  child: IconButton(
+                    onPressed: () => deleteFunc(pot.id),
+                    icon: const Icon(Icons.delete),
+                    color: ctxTheme.errorColor,
+                  ),
+                )
+              : Container()
         ],
       ),
     );

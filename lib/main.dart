@@ -48,7 +48,7 @@ class _MyHomePageState extends State<MyHomePage> {
     Pot(name: "Ремонт", percent: 10, id: DateTime.now().toString()),
     Pot(name: "Образование", percent: 5, id: DateTime.now().toString()),
     Pot(name: "Подарки", percent: 5, id: DateTime.now().toString()),
-    Pot(name: "Инвестиции", percent: 10, id: DateTime.now().toString()),
+    Pot(name: "Инвестиции", percent: 5, id: DateTime.now().toString()),
     Pot(name: "Здоровье", percent: 5, id: DateTime.now().toString()),
   ];
 
