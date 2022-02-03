@@ -18,6 +18,7 @@ class PottyApp extends StatelessWidget {
       title: 'Potty',
       theme: ThemeData(
         primaryColor: const Color(0xFF264653),
+        focusColor: const Color(0xFFE76F51),
         textTheme: const TextTheme(
           button: TextStyle(
             color: Color(0xFFf4f1de),
