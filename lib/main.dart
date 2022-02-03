@@ -159,7 +159,11 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),
             Container(
-              height: (mediaHeight - 140),
+              height: 100,
+              child: PotsList(pots: [unallocatedAmount]),
+            ),
+            Container(
+              height: (mediaHeight - 40),
               child: PotsList(pots: userPots, deleteItemFunc: _deletePot),
             )
           ],
