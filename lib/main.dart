@@ -75,6 +75,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
     final double enteredIncome = double.parse(incomeField.text);
     setState(() {
+      checkPots(userPots);
       for (var element in userPots) {
         element.amount = enteredIncome * element.percent / 100;
       }
