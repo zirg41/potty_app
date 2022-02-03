@@ -112,6 +112,8 @@ class _MyHomePageState extends State<MyHomePage> {
     if (percentSumm == 100) {
       // if summ is 100 it's cool
       _isFullyAllocated = true;
+      percentSumm = 0;
+      unallocatedAmount.percent = 0;
       return;
     }
     if (percentSumm < 100) {
