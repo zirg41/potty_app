@@ -31,13 +31,19 @@ class PotItem extends StatelessWidget {
                 // ПРОЦЕНТЫ
                 margin: EdgeInsets.all(8),
                 decoration: BoxDecoration(
-                    color: Theme.of(context).accentColor,
+                    color: (pot.name != "Не распределено") &&
+                            (pot.name != "Перераспределение")
+                        ? ctxTheme.primaryColor
+                        : pot.name == "Перераспределение"
+                            ? ctxTheme.errorColor
+                            : ctxTheme.focusColor,
                     //border: Border.all(width: 8),
                     borderRadius: BorderRadius.circular(10)),
                 padding: itemsPadding,
                 child: Text(
                   "${pot.percent.toStringAsFixed(0)} %",
-                  style: ctxTheme.textTheme.button,
+                  style:
+                      const TextStyle(fontSize: 21, color: Color(0xFFf4f1de)),
                 ),
               ),
               Column(
@@ -55,7 +61,7 @@ class PotItem extends StatelessWidget {
                       //padding: itemsPadding,
                       child: Text(
                         pot.amount != null ? pot.amount.toString() : "-",
-                        style: const TextStyle(fontSize: 20),
+                        style: const TextStyle(fontSize: 21),
                       ),
                     ),
                   ),
@@ -75,13 +81,16 @@ class PotItem extends StatelessWidget {
               ),
             ],
           ),
-          Container(
-            margin: itemsPadding,
-            child: IconButton(
-              onPressed: () => deleteFunc(pot.id),
-              icon: const Icon(Icons.delete),
-            ),
-          )
+          deleteFunc != null
+              ? Container(
+                  margin: itemsPadding,
+                  child: IconButton(
+                    onPressed: () => deleteFunc(pot.id),
+                    icon: const Icon(Icons.delete),
+                    color: ctxTheme.errorColor,
+                  ),
+                )
+              : Container()
         ],
       ),
     );
