@@ -108,6 +108,7 @@ class _MyHomePageState extends State<MyHomePage> {
       // summ of all percents in all items user added
       percentSumm += element.percent;
     }
+    debugPrint("checkPots: ${percentSumm.toString()}%");
     if (percentSumm == 100) {
       // if summ is 100 it's cool
       _isFullyAllocated = true;
