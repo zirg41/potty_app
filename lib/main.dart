@@ -104,20 +104,26 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void checkPots(List<Pot> checkingPot) {
     for (var element in checkingPot) {
+      // summ of all percents in all items user added
       percentSumm += element.percent;
     }
     if (percentSumm == 100) {
+      // if summ is 100 it's cool
       _isFullyAllocated = true;
       return;
     }
     if (percentSumm < 100) {
+      // some amount wasn't allocated
       _isFullyAllocated = false;
 
       unallocatedAmount = Pot(
+        // adding 100-summ
+        // to separate Pot
         name: "Не распределено",
-        percent: percentSumm,
+        percent: 100 - percentSumm,
         id: DateTime.now().toString(),
       );
+      //returning temporary var back to zero
       percentSumm = 0;
       return;
     }
@@ -126,7 +132,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
       unallocatedAmount = Pot(
         name: "Перераспределение",
-        percent: percentSumm,
+        percent: percentSumm - 100,
         id: DateTime.now().toString(),
       );
       percentSumm = 0;
