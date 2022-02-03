@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:potty_app/models/pot.dart';
 import 'package:potty_app/widgets/new_pot.dart';
+import 'package:potty_app/widgets/pot_item.dart';
 import 'package:potty_app/widgets/pot_list.dart';
 
 import 'widgets/input_income.dart';
@@ -159,8 +160,9 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),
             Container(
-              height: 100,
-              child: PotsList(pots: [unallocatedAmount]),
+              //height: 100,
+              margin: EdgeInsets.only(top: 10, bottom: 10),
+              child: PotItem(pot: unallocatedAmount),
             ),
             Container(
               height: (mediaHeight - 40),
