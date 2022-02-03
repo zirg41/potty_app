@@ -54,7 +54,7 @@ class _MyHomePageState extends State<MyHomePage> {
   ];
 
   bool _isFullyAllocated = true;
-  double percentSumm;
+  double percentSumm = 0;
   Pot unallocatedAmount = Pot(
     name: "Нераспределенный",
     percent: 0,
