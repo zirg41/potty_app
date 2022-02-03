@@ -100,6 +100,7 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {
       print("_addNewPot in main");
       userPots.add(newPot);
+      calculate();
     });
   }
 
@@ -149,6 +150,7 @@ class _MyHomePageState extends State<MyHomePage> {
       userPots.removeWhere((element) {
         return element.id == id;
       });
+      calculate();
     });
   }
 
