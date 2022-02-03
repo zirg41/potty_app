@@ -181,11 +181,13 @@ class _MyHomePageState extends State<MyHomePage> {
                 calculate: calculate,
               ),
             ),
-            Container(
-              //height: 100,
-              margin: EdgeInsets.only(top: 10, bottom: 10),
-              child: PotItem(pot: unallocatedPot),
-            ),
+            unallocatedPot.percent != 0
+                ? Container(
+                    //height: 100,
+                    margin: EdgeInsets.only(top: 10, bottom: 10),
+                    child: PotItem(pot: unallocatedPot),
+                  )
+                : const SizedBox.shrink(),
             Container(
               height: (mediaHeight - 40),
               child: PotsList(pots: userPots, deleteItemFunc: _deletePot),
