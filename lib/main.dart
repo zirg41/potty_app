@@ -3,6 +3,7 @@ import 'package:potty_app/models/pot.dart';
 import 'package:potty_app/widgets/new_pot.dart';
 import 'package:potty_app/widgets/pot_item.dart';
 import 'package:potty_app/widgets/pot_list.dart';
+import 'dart:core';
 
 import 'widgets/input_income.dart';
 
@@ -55,7 +56,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   bool _isFullyAllocated = true;
   double percentSumm = 0;
-  Pot unallocatedAmount = Pot(
+  Pot unallocatedPot = Pot(
     name: "Нераспределенный",
     percent: 0,
     id: DateTime.now().toString(),
@@ -109,23 +110,31 @@ class _MyHomePageState extends State<MyHomePage> {
       // summ of all percents in all items user added
       percentSumm += element.percent;
     }
-    debugPrint("checkPots: ${percentSumm.toString()}%");
+
+    double subtracPercent = (100 - percentSumm).abs();
+    debugPrint("subtracPercent: ${subtracPercent.toString()}%");
+
+    double unallocatedAmount =
+        double.parse(incomeField.text) * subtracPercent / 100;
+    debugPrint("unallocatedAmount: ${unallocatedAmount.toString()} rubles");
+
     if (percentSumm == 100) {
       // if summ is 100 it's cool
       _isFullyAllocated = true;
       percentSumm = 0;
-      unallocatedAmount.percent = 0;
+      unallocatedPot.percent = 0;
       return;
     }
     if (percentSumm < 100) {
       // some amount wasn't allocated
       _isFullyAllocated = false;
 
-      unallocatedAmount = Pot(
+      unallocatedPot = Pot(
         // adding 100-summ
         // to separate Pot
         name: "Не распределено",
-        percent: 100 - percentSumm,
+        percent: subtracPercent,
+        amount: unallocatedAmount,
         id: DateTime.now().toString(),
       );
       //returning temporary var back to zero
@@ -135,9 +144,10 @@ class _MyHomePageState extends State<MyHomePage> {
     if (percentSumm > 100) {
       _isFullyAllocated = false;
 
-      unallocatedAmount = Pot(
+      unallocatedPot = Pot(
         name: "Перераспределение",
-        percent: percentSumm - 100,
+        percent: subtracPercent,
+        amount: unallocatedAmount,
         id: DateTime.now().toString(),
       );
       percentSumm = 0;
@@ -174,7 +184,7 @@ class _MyHomePageState extends State<MyHomePage> {
             Container(
               //height: 100,
               margin: EdgeInsets.only(top: 10, bottom: 10),
-              child: PotItem(pot: unallocatedAmount),
+              child: PotItem(pot: unallocatedPot),
             ),
             Container(
               height: (mediaHeight - 40),
