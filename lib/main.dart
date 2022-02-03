@@ -117,7 +117,7 @@ class _MyHomePageState extends State<MyHomePage> {
         percent: percentSumm,
         id: DateTime.now().toString(),
       );
-
+      percentSumm = 0;
       return;
     }
     if (percentSumm > 100) {
@@ -128,7 +128,7 @@ class _MyHomePageState extends State<MyHomePage> {
         percent: percentSumm,
         id: DateTime.now().toString(),
       );
-
+      percentSumm = 0;
       return;
     }
   }
