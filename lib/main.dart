@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:potty_app/models/pot.dart';
 import 'package:potty_app/widgets/new_pot.dart';
@@ -69,6 +70,7 @@ class _MyHomePageState extends State<MyHomePage> {
     }
 
     final double enteredIncome = double.parse(incomeField.text);
+
     setState(() {
       checkPots(userPots);
       for (var element in userPots) {
@@ -102,10 +104,15 @@ class _MyHomePageState extends State<MyHomePage> {
     for (var element in checkingPot) {
       percentSumm += element.percent;
     }
+
+    debugPrint("checkPot, percent:${percentSumm}");
+
     if (percentSumm == 100) {
       _isFullyAllocated = true;
+      percentSumm = 0;
       return;
     }
+
     if (percentSumm < 100) {
       _isFullyAllocated = false;
 
@@ -114,9 +121,14 @@ class _MyHomePageState extends State<MyHomePage> {
         percent: 100 - percentSumm,
         id: DateTime.now().toString(),
       );
+
       userPots.add(unallocatedPot);
+
+      percentSumm = 0;
+
       return;
     }
+
     if (percentSumm > 100) {
       _isFullyAllocated = false;
 
@@ -125,7 +137,11 @@ class _MyHomePageState extends State<MyHomePage> {
         percent: percentSumm - 100,
         id: DateTime.now().toString(),
       );
+
       userPots.add(unallocatedPot);
+
+      percentSumm = 0;
+
       return;
     }
   }
@@ -136,6 +152,7 @@ class _MyHomePageState extends State<MyHomePage> {
         return element.id == id;
       });
     });
+    calculate();
   }
 
   @override
