@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:potty_app/models/pot.dart';
 import 'package:potty_app/widgets/new_pot.dart';
+import 'package:potty_app/widgets/pot_item.dart';
 import 'package:potty_app/widgets/pot_list.dart';
+import 'dart:core';
 
 import 'widgets/input_income.dart';
 
@@ -16,6 +18,7 @@ class PottyApp extends StatelessWidget {
       title: 'Potty',
       theme: ThemeData(
         primaryColor: const Color(0xFF264653),
+        focusColor: const Color(0xFFE76F51),
         textTheme: const TextTheme(
           button: TextStyle(
             color: Color(0xFFf4f1de),
@@ -52,6 +55,14 @@ class _MyHomePageState extends State<MyHomePage> {
     Pot(name: "Здоровье", percent: 5, id: DateTime.now().toString()),
   ];
 
+  bool _isFullyAllocated = true;
+  double percentSumm = 0;
+  Pot unallocatedPot = Pot(
+    name: "Нераспределенный",
+    percent: 0,
+    id: DateTime.now().toString(),
+  );
+
   TextEditingController incomeField = TextEditingController();
   final emptyFieldSnackBar = const SnackBar(
     content: Text('Введите сумму дохода!'),
@@ -66,6 +77,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
     final double enteredIncome = double.parse(incomeField.text);
     setState(() {
+      checkPots(userPots);
       for (var element in userPots) {
         element.amount = enteredIncome * element.percent / 100;
       }
@@ -90,7 +102,58 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {
       print("_addNewPot in main");
       userPots.add(newPot);
+      calculate();
     });
+  }
+
+  void checkPots(List<Pot> checkingPot) {
+    for (var element in checkingPot) {
+      // summ of all percents in all items user added
+      percentSumm += element.percent;
+    }
+
+    double subtracPercent = (100 - percentSumm).abs();
+    debugPrint("subtracPercent: ${subtracPercent.toString()}%");
+
+    double unallocatedAmount =
+        double.parse(incomeField.text) * subtracPercent / 100;
+    debugPrint("unallocatedAmount: ${unallocatedAmount.toString()} rubles");
+
+    if (percentSumm == 100) {
+      // if summ is 100 it's cool
+      _isFullyAllocated = true;
+      percentSumm = 0;
+      unallocatedPot.percent = 0;
+      return;
+    }
+    if (percentSumm < 100) {
+      // some amount wasn't allocated
+      _isFullyAllocated = false;
+
+      unallocatedPot = Pot(
+        // adding 100-summ
+        // to separate Pot
+        name: "Не распределено",
+        percent: subtracPercent,
+        amount: unallocatedAmount,
+        id: DateTime.now().toString(),
+      );
+      //returning temporary var back to zero
+      percentSumm = 0;
+      return;
+    }
+    if (percentSumm > 100) {
+      _isFullyAllocated = false;
+
+      unallocatedPot = Pot(
+        name: "Перераспределение",
+        percent: subtracPercent,
+        amount: unallocatedAmount,
+        id: DateTime.now().toString(),
+      );
+      percentSumm = 0;
+      return;
+    }
   }
 
   void _deletePot(String id) {
@@ -98,6 +161,7 @@ class _MyHomePageState extends State<MyHomePage> {
       userPots.removeWhere((element) {
         return element.id == id;
       });
+      calculate();
     });
   }
 
@@ -118,8 +182,15 @@ class _MyHomePageState extends State<MyHomePage> {
                 calculate: calculate,
               ),
             ),
+            unallocatedPot.percent != 0
+                ? Container(
+                    //height: 100,
+                    margin: EdgeInsets.only(top: 10, bottom: 10),
+                    child: PotItem(pot: unallocatedPot),
+                  )
+                : const SizedBox.shrink(),
             Container(
-              height: (mediaHeight - 140),
+              height: (mediaHeight - 40),
               child: PotsList(pots: userPots, deleteItemFunc: _deletePot),
             )
           ],

@@ -31,7 +31,12 @@ class PotItem extends StatelessWidget {
                 // ПРОЦЕНТЫ
                 margin: EdgeInsets.all(8),
                 decoration: BoxDecoration(
-                    color: Theme.of(context).primaryColor,
+                    color: (pot.name != "Не распределено") &&
+                            (pot.name != "Перераспределение")
+                        ? ctxTheme.primaryColor
+                        : pot.name == "Перераспределение"
+                            ? ctxTheme.errorColor
+                            : ctxTheme.focusColor,
                     //border: Border.all(width: 8),
                     borderRadius: BorderRadius.circular(10)),
                 padding: itemsPadding,
