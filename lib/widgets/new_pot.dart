@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:potty_app/models/pot.dart';
 
 class NewPot extends StatefulWidget {
   final Function addNewPot;
+  final Pot editingPot;
 
-  NewPot({this.addNewPot});
+  NewPot({
+    this.addNewPot,
+    this.editingPot,
+  });
 
   @override
   _NewPotState createState() => _NewPotState();
