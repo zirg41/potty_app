@@ -27,23 +27,26 @@ class PotItem extends StatelessWidget {
         children: [
           Row(
             children: [
-              Container(
-                // ПРОЦЕНТЫ
-                margin: EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                    color: (pot.name != "Не распределено") &&
-                            (pot.name != "Перераспределение")
-                        ? ctxTheme.primaryColor
-                        : pot.name == "Перераспределение"
-                            ? ctxTheme.errorColor
-                            : ctxTheme.focusColor,
-                    //border: Border.all(width: 8),
-                    borderRadius: BorderRadius.circular(10)),
-                padding: itemsPadding,
-                child: Text(
-                  "${pot.percent.toStringAsFixed(0)} %",
-                  style:
-                      const TextStyle(fontSize: 21, color: Color(0xFFf4f1de)),
+              GestureDetector(
+                onTap: () {},
+                child: Container(
+                  // ПРОЦЕНТЫ
+                  margin: EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                      color: (pot.name != "Не распределено") &&
+                              (pot.name != "Перераспределение")
+                          ? ctxTheme.primaryColor
+                          : pot.name == "Перераспределение"
+                              ? ctxTheme.errorColor
+                              : ctxTheme.focusColor,
+                      //border: Border.all(width: 8),
+                      borderRadius: BorderRadius.circular(10)),
+                  padding: itemsPadding,
+                  child: Text(
+                    "${pot.percent.toStringAsFixed(0)} %",
+                    style:
+                        const TextStyle(fontSize: 21, color: Color(0xFFf4f1de)),
+                  ),
                 ),
               ),
               Column(
