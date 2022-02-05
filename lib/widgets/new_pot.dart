@@ -71,14 +71,14 @@ class _NewPotState extends State<NewPot> {
                         "Редактировать категорию",
                         style: TextStyle(
                           fontFamily: "Montserrat",
-                          fontSize: 25,
+                          fontSize: 23,
                         ),
                       )
                     : const Text(
                         "Добавить категорию",
                         style: TextStyle(
                           fontFamily: "Montserrat",
-                          fontSize: 25,
+                          fontSize: 23,
                         ),
                       ),
               ),
@@ -110,7 +110,7 @@ class _NewPotState extends State<NewPot> {
                       "Добавить",
                       style: TextStyle(
                         fontFamily: "Montserrat",
-                        fontSize: 18,
+                        fontSize: 16,
                         color: Colors.black,
                       ),
                     )),
@@ -164,7 +164,7 @@ class AddingNewPotField extends StatelessWidget {
             hintText: hintText,
             hintStyle: const TextStyle(
               fontFamily: "Montserrat",
-              fontSize: 16,
+              fontSize: 15,
             ),
             border: const OutlineInputBorder()),
       ),

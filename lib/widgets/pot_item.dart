@@ -48,7 +48,7 @@ class PotItem extends StatelessWidget {
                   child: Text(
                     "${pot.percent.toStringAsFixed(0)} %",
                     style:
-                        const TextStyle(fontSize: 21, color: Color(0xFFf4f1de)),
+                        const TextStyle(fontSize: 18, color: Color(0xFFf4f1de)),
                   ),
                 ),
               ),
@@ -67,7 +67,7 @@ class PotItem extends StatelessWidget {
                       //padding: itemsPadding,
                       child: Text(
                         pot.amount != null ? pot.amount.toString() : "-",
-                        style: const TextStyle(fontSize: 21),
+                        style: const TextStyle(fontSize: 18),
                       ),
                     ),
                   ),
