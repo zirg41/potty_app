@@ -28,7 +28,7 @@ class _NewPotState extends State<NewPot> {
 
   var nameFieldController = TextEditingController();
   var percentFieldController = TextEditingController();
-
+  bool editingMode = false;
   @override
   void initState() {
     // Проверка на то, имеется ли редактируемый Pot
@@ -36,6 +36,7 @@ class _NewPotState extends State<NewPot> {
     // текстовым полям автоматически присваиваются значения
     // редактируемого Pot
     if (widget.editingPot != null) {
+      editingMode = true;
       nameFieldController = TextEditingController(
         text: widget.editingPot.name,
       );
