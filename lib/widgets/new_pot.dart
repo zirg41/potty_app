@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:potty_app/models/pot.dart';
 
 class NewPot extends StatefulWidget {
+  static const routeName = "/new-pot-edit";
   final Function addNewPot;
   final Pot editingPot;
 
