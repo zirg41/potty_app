@@ -66,13 +66,21 @@ class _NewPotState extends State<NewPot> {
               Container(
                 alignment: Alignment.topLeft,
                 height: 50,
-                child: const Text(
-                  "Добавить категорию",
-                  style: TextStyle(
-                    fontFamily: "Montserrat",
-                    fontSize: 25,
-                  ),
-                ),
+                child: isEditingMode == true
+                    ? const Text(
+                        "Редактировать категорию",
+                        style: TextStyle(
+                          fontFamily: "Montserrat",
+                          fontSize: 25,
+                        ),
+                      )
+                    : const Text(
+                        "Добавить категорию",
+                        style: TextStyle(
+                          fontFamily: "Montserrat",
+                          fontSize: 25,
+                        ),
+                      ),
               ),
               AddingNewPotField(
                 hintText: "Введите наименование категории",
