@@ -198,7 +198,9 @@ class _MyHomePageState extends State<MyHomePage> {
                   )
                 : const SizedBox.shrink(),
             Container(
-              height: (mediaHeight - 40),
+              height: unallocatedPot.percent != 0
+                  ? (mediaHeight - 290)
+                  : (mediaHeight - 200),
               child: PotsList(
                 pots: userPots,
                 deleteItemFunc: _deletePot,
