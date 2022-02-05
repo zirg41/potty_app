@@ -4,11 +4,13 @@ import 'package:potty_app/models/pot.dart';
 class NewPot extends StatefulWidget {
   static const routeName = "/new-pot-edit";
   final Function addNewPot;
+  final Function deleteOldPot;
   final Pot editingPot;
 
   NewPot({
     this.addNewPot,
     this.editingPot,
+    this.deleteOldPot,
   });
 
   @override
@@ -29,6 +31,7 @@ class _NewPotState extends State<NewPot> {
   var nameFieldController = TextEditingController();
   var percentFieldController = TextEditingController();
   bool editingMode = false;
+
   @override
   void initState() {
     // Проверка на то, имеется ли редактируемый Pot
