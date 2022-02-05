@@ -30,7 +30,7 @@ class _NewPotState extends State<NewPot> {
 
   var nameFieldController = TextEditingController();
   var percentFieldController = TextEditingController();
-  bool editingMode = false;
+  bool isEditingMode = false;
 
   @override
   void initState() {
@@ -39,7 +39,7 @@ class _NewPotState extends State<NewPot> {
     // текстовым полям автоматически присваиваются значения
     // редактируемого Pot
     if (widget.editingPot != null) {
-      editingMode = true;
+      isEditingMode = true;
       nameFieldController = TextEditingController(
         text: widget.editingPot.name,
       );
@@ -115,6 +115,7 @@ class _NewPotState extends State<NewPot> {
   }
 
   void _submitData() {
+    debugPrint("isEditingMode: ${isEditingMode.toString()}");
     if (nameFieldController.text.isEmpty || percentFieldController.text.isEmpty)
       return;
 
@@ -123,6 +124,7 @@ class _NewPotState extends State<NewPot> {
 
     if (enteredPercent < 0) return;
 
+    if (isEditingMode) widget.deleteOldPot(widget.editingPot.id);
     widget.addNewPot(
       enteredName,
       enteredPercent,

@@ -99,6 +99,7 @@ class _MyHomePageState extends State<MyHomePage> {
           return NewPot(
             addNewPot: _addNewPot,
             editingPot: pot,
+            deleteOldPot: _deletePot,
           );
         });
   }
