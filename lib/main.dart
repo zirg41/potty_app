@@ -92,6 +92,17 @@ class _MyHomePageState extends State<MyHomePage> {
         });
   }
 
+  void _editPot(BuildContext ctx, Pot pot) {
+    showModalBottomSheet(
+        context: ctx,
+        builder: (_) {
+          return NewPot(
+            addNewPot: _addNewPot,
+            editingPot: pot,
+          );
+        });
+  }
+
   void _addNewPot(String potName, double potPercent) {
     final Pot newPot = Pot(
       name: potName,
@@ -187,7 +198,11 @@ class _MyHomePageState extends State<MyHomePage> {
                 : const SizedBox.shrink(),
             Container(
               height: (mediaHeight - 40),
-              child: PotsList(pots: userPots, deleteItemFunc: _deletePot),
+              child: PotsList(
+                pots: userPots,
+                deleteItemFunc: _deletePot,
+                editPotFunc: _editPot,
+              ),
             )
           ],
         ),
