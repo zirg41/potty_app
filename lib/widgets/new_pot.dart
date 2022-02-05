@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:potty_app/models/pot.dart';
 
 class NewPot extends StatefulWidget {
+  static const routeName = "/new-pot-edit";
   final Function addNewPot;
   final Pot editingPot;
 
@@ -15,8 +16,34 @@ class NewPot extends StatefulWidget {
 }
 
 class _NewPotState extends State<NewPot> {
-  final nameFieldController = TextEditingController();
-  final percentFieldController = TextEditingController();
+  //final editingPot = ModalRoute.of(context).settings.arguments as Pot;
+
+  // String get editingName {
+  //   return widget.editingPot.name;
+  // }
+
+  // double get editingPercent {
+  //   return widget.editingPot.percent;
+  // }
+
+  var nameFieldController = TextEditingController();
+  var percentFieldController = TextEditingController();
+
+  @override
+  void initState() {
+    // Проверка на то, имеется ли редактируемый Pot
+    // если да, то при вызове modalButtomSheet
+    // текстовым полям автоматически присваиваются значения
+    // редактируемого Pot
+    if (widget.editingPot != null) {
+      nameFieldController = TextEditingController(
+        text: widget.editingPot.name,
+      );
+      percentFieldController = TextEditingController(
+        text: widget.editingPot.percent.toString(),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {

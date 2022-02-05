@@ -5,8 +5,11 @@ import 'package:potty_app/models/pot.dart';
 class PotItem extends StatelessWidget {
   final Pot pot;
   final Function deleteFunc;
+  final Function editPotFunc;
+
   // ignore: use_key_in_widget_constructors
   const PotItem({
+    this.editPotFunc,
     this.deleteFunc,
     @required this.pot,
   });
@@ -28,7 +31,7 @@ class PotItem extends StatelessWidget {
           Row(
             children: [
               GestureDetector(
-                onTap: () {},
+                onTap: () => editPotFunc(context, pot),
                 child: Container(
                   // ПРОЦЕНТЫ
                   margin: EdgeInsets.all(8),
