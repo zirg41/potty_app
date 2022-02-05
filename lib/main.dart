@@ -55,7 +55,6 @@ class _MyHomePageState extends State<MyHomePage> {
     Pot(name: "Здоровье", percent: 5, id: DateTime.now().toString()),
   ];
 
-  bool _isFullyAllocated = true;
   double percentSumm = 0;
   Pot unallocatedPot = Pot(
     name: "Нераспределенный",
@@ -93,6 +92,18 @@ class _MyHomePageState extends State<MyHomePage> {
         });
   }
 
+  void _editPot(BuildContext ctx, Pot pot) {
+    showModalBottomSheet(
+        context: ctx,
+        builder: (_) {
+          return NewPot(
+            addNewPot: _addNewPot,
+            editingPot: pot,
+            deleteOldPot: _deletePot,
+          );
+        });
+  }
+
   void _addNewPot(String potName, double potPercent) {
     final Pot newPot = Pot(
       name: potName,
@@ -121,14 +132,13 @@ class _MyHomePageState extends State<MyHomePage> {
 
     if (percentSumm == 100) {
       // if summ is 100 it's cool
-      _isFullyAllocated = true;
+
       percentSumm = 0;
       unallocatedPot.percent = 0;
       return;
     }
     if (percentSumm < 100) {
       // some amount wasn't allocated
-      _isFullyAllocated = false;
 
       unallocatedPot = Pot(
         // adding 100-summ
@@ -143,8 +153,6 @@ class _MyHomePageState extends State<MyHomePage> {
       return;
     }
     if (percentSumm > 100) {
-      _isFullyAllocated = false;
-
       unallocatedPot = Pot(
         name: "Перераспределение",
         percent: subtracPercent,
@@ -191,7 +199,11 @@ class _MyHomePageState extends State<MyHomePage> {
                 : const SizedBox.shrink(),
             Container(
               height: (mediaHeight - 40),
-              child: PotsList(pots: userPots, deleteItemFunc: _deletePot),
+              child: PotsList(
+                pots: userPots,
+                deleteItemFunc: _deletePot,
+                editPotFunc: _editPot,
+              ),
             )
           ],
         ),

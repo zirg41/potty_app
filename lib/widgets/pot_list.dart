@@ -5,10 +5,12 @@ import 'package:potty_app/widgets/pot_item.dart';
 class PotsList extends StatelessWidget {
   final List<Pot> pots;
   final Function deleteItemFunc;
+  final Function editPotFunc;
   //final List<TextEditingController> controllers;
 
   PotsList({
     this.deleteItemFunc,
+    this.editPotFunc,
     @required this.pots,
   });
 
@@ -40,6 +42,7 @@ class PotsList extends StatelessWidget {
               return PotItem(
                 pot: pots[index],
                 deleteFunc: deleteItemFunc,
+                editPotFunc: editPotFunc,
               );
             },
           );
