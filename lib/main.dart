@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:potty_app/pages/pot_detail_page.dart';
 
 void main() => runApp(const MyApp());
 
@@ -10,9 +11,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Potty',
       theme: ThemeData(
-        primaryColor: Colors.blue,
+        primaryColor: Colors.indigo,
       ),
-      home: Container(),
+      home: PotDetailPage(),
     );
   }
 }
