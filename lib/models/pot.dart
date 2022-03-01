@@ -7,7 +7,7 @@ class Pot {
 
   Pot({
     @required this.name,
-    @required this.percent,
-    @required this.amount,
+    this.percent,
+    this.amount,
   });
 }
