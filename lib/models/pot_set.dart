@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:potty_app/models/pot.dart';
 
-class PotSet {
+class PotSet with ChangeNotifier {
   final String id;
   final double income;
   final String name;

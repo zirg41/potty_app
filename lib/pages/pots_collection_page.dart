@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:potty_app/providers/pots.dart';
 import 'package:potty_app/widgets/custom_app_bar.dart';
+import 'package:provider/provider.dart';
 
 class PotsCollectionPage extends StatelessWidget {
   static const routeName = "/pots-collection-page";
@@ -7,11 +9,25 @@ class PotsCollectionPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final potsCollect =
+        Provider.of<PotsCollection>(context, listen: false).items;
     return Scaffold(
       appBar: CustomAppBar(
         title: "Your pots",
       ),
-      body: Container(),
+      body: Container(
+        height: 635,
+        width: double.infinity,
+        child: ListView.builder(
+          itemCount: potsCollect.length,
+          itemBuilder: (context, index) => ChangeNotifierProvider(
+            create: (context) => potsCollect[index],
+            child: Container(
+              child: Text(potsCollect[index].name),
+            ),
+          ),
+        ),
+      ),
     );
   }
 }
