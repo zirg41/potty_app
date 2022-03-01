@@ -27,6 +27,17 @@ class PotsCollection with ChangeNotifier {
         Pot(id: '4', name: "Подарки", percent: 5),
       ],
     ),
+    PotSet(
+      id: DateTime.now().toString(),
+      name: "Зарплата",
+      income: 29748,
+      pots: [
+        Pot(id: '1', name: "Основные расходы", percent: 55),
+        Pot(id: '2', name: "Ремонт", percent: 15),
+        Pot(id: '3', name: "Инвестиции", percent: 10),
+        Pot(id: '4', name: "Подарки", percent: 5),
+      ],
+    ),
   ];
 
   List<PotSet> get items {
