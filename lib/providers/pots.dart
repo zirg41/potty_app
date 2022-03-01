@@ -8,6 +8,7 @@ class PotsCollection with ChangeNotifier {
     PotSet(
       id: DateTime.now().toString(),
       name: "Зарплата",
+      income: 32450,
       pots: [
         Pot(id: '1', name: "Основные расходы", percent: 55),
         Pot(id: '2', name: "Ремонт", percent: 15),
@@ -18,6 +19,7 @@ class PotsCollection with ChangeNotifier {
     PotSet(
       id: DateTime.now().toString(),
       name: "Аванс",
+      income: 8674,
       pots: [
         Pot(id: '1', name: "Основные расходы", percent: 75),
         Pot(id: '2', name: "Здоровье", percent: 10),
