@@ -10,7 +10,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Potty',
+      title: 'Potty App',
       theme: CustomTheme.lightTheme,
       home: PotDetailPage(),
     );

@@ -5,10 +5,11 @@ class CustomTheme {
   static get lightTheme {
     return ThemeData(
       primaryColor: Colors.indigo,
-      backgroundColor: Color.fromARGB(255, 255, 255, 255),
+      backgroundColor: const Color.fromARGB(255, 255, 255, 255),
       textTheme: TextTheme(
         bodyLarge: GoogleFonts.lato(
           fontSize: 25,
+          fontWeight: FontWeight.bold,
         ),
       ),
     );
