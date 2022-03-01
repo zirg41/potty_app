@@ -15,6 +15,7 @@ class PotSetPage extends StatelessWidget {
     return Scaffold(
       appBar: CustomAppBar(
         title: potSetData.name,
+        isBackButtonInit: true,
       ),
       body: Container(),
     );
