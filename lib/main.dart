@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 
 import 'config/themes/light_theme.dart';
 
+import 'pages/pots_collection_page.dart';
 import 'pages/pot_detail_page.dart';
 
 import 'providers/pots.dart';
@@ -19,7 +20,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Potty App',
         theme: CustomTheme.lightTheme,
-        home: PotSetPage(),
+        home: PotsCollectionPage(),
       ),
     );
   }
