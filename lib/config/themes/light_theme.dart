@@ -22,6 +22,11 @@ class CustomTheme {
           fontWeight: FontWeight.normal,
           color: const Color.fromARGB(248, 71, 71, 71),
         ),
+        headline2: GoogleFonts.lato(
+          fontSize: 20,
+          fontWeight: FontWeight.normal,
+          color: const Color.fromARGB(249, 31, 31, 31),
+        ),
       ),
     );
   }

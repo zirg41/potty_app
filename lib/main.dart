@@ -19,6 +19,7 @@ class MyApp extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (ctx) => PotsCollection(),
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: 'Potty App',
         theme: CustomTheme.lightTheme,
         home: PotsCollectionPage(),

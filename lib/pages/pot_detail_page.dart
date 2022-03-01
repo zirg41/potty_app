@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:potty_app/models/pot_set.dart';
 import 'package:potty_app/providers/pots.dart';
 import 'package:potty_app/widgets/custom_app_bar.dart';
+import 'package:potty_app/widgets/income_edit_show.dart';
 import 'package:provider/provider.dart';
 
 class PotSetPage extends StatelessWidget {
@@ -17,7 +18,11 @@ class PotSetPage extends StatelessWidget {
         title: potSetData.name,
         isBackButtonInit: true,
       ),
-      body: Container(),
+      body: Column(
+        children: [
+          IncomeEditShow(potset: potSetData),
+        ],
+      ),
     );
   }
 }
