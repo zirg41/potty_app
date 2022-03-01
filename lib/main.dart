@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'config/routes/routes.dart';
 import 'config/themes/light_theme.dart';
 
 import 'pages/pots_collection_page.dart';
@@ -21,6 +22,7 @@ class MyApp extends StatelessWidget {
         title: 'Potty App',
         theme: CustomTheme.lightTheme,
         home: PotsCollectionPage(),
+        routes: Routes.routes,
       ),
     );
   }
