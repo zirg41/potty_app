@@ -7,9 +7,20 @@ class CustomTheme {
       primaryColor: Colors.indigo,
       backgroundColor: const Color.fromARGB(255, 255, 255, 255),
       textTheme: TextTheme(
-        bodyLarge: GoogleFonts.lato(
+        headline1: GoogleFonts.lato(
           fontSize: 25,
           fontWeight: FontWeight.bold,
+          color: const Color.fromARGB(249, 31, 31, 31),
+        ),
+        bodyText1: GoogleFonts.lato(
+          fontSize: 18,
+          fontWeight: FontWeight.normal,
+          color: const Color.fromARGB(249, 31, 31, 31),
+        ),
+        subtitle1: GoogleFonts.lato(
+          fontSize: 15,
+          fontWeight: FontWeight.normal,
+          color: const Color.fromARGB(248, 71, 71, 71),
         ),
       ),
     );

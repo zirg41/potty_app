@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:potty_app/models/pot_set.dart';
 import 'package:potty_app/providers/pots.dart';
 import 'package:potty_app/widgets/custom_app_bar.dart';
+import 'package:potty_app/widgets/pots_collection_item.dart';
 import 'package:provider/provider.dart';
 
 class PotsCollectionPage extends StatelessWidget {
@@ -9,7 +11,7 @@ class PotsCollectionPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final potsCollect =
+    final List<PotSet> potsCollect =
         Provider.of<PotsCollection>(context, listen: false).items;
     return Scaffold(
       appBar: CustomAppBar(
@@ -22,9 +24,7 @@ class PotsCollectionPage extends StatelessWidget {
           itemCount: potsCollect.length,
           itemBuilder: (context, index) => ChangeNotifierProvider(
             create: (context) => potsCollect[index],
-            child: Container(
-              child: Text(potsCollect[index].name),
-            ),
+            child: PotCollectionItem(),
           ),
         ),
       ),
