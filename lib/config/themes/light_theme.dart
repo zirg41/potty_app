@@ -5,7 +5,6 @@ class CustomTheme {
   static get lightTheme {
     return ThemeData(
       primaryColor: Colors.indigo,
-      backgroundColor: const Color.fromARGB(255, 255, 255, 255),
       textTheme: TextTheme(
         headline1: GoogleFonts.lato(
           fontSize: 25,
@@ -28,6 +27,7 @@ class CustomTheme {
           color: const Color.fromARGB(249, 31, 31, 31),
         ),
       ),
+      scaffoldBackgroundColor: Color.fromARGB(255, 245, 245, 245),
     );
   }
 }
