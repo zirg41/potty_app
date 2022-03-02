@@ -7,7 +7,7 @@ class CustomTheme {
       primaryColor: Colors.indigo,
       textTheme: TextTheme(
         headline1: GoogleFonts.lato(
-          fontSize: 25,
+          fontSize: 21,
           fontWeight: FontWeight.bold,
           color: const Color.fromARGB(249, 31, 31, 31),
         ),
