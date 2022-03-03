@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:potty_app/models/pot.dart';
 import 'package:potty_app/widgets/custom_app_bar.dart';
@@ -26,6 +28,14 @@ class _EditPotPageState extends State<EditPotPage> {
     percent: null,
     amount: null,
   );
+  Future<void> _saveForm() async {
+    bool isValid = _form.currentState.validate();
+
+    if (!isValid) {
+      return;
+    }
+    _form.currentState.save();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +74,14 @@ class _EditPotPageState extends State<EditPotPage> {
                 }
                 return null;
               },
-              onSaved: (nV) {},
+              onSaved: (newValue) {
+                _editedPot = Pot(
+                  id: _editedPot.id,
+                  name: newValue,
+                  amount: _editedPot.amount,
+                  percent: _editedPot.percent,
+                );
+              },
             ),
             Row(
               children: [
@@ -79,13 +96,21 @@ class _EditPotPageState extends State<EditPotPage> {
                       focusedBorder: _focusedBorder,
                     ),
                     textInputAction: TextInputAction.next,
+                    keyboardType: TextInputType.number,
                     validator: (value) {
                       if (value.isEmpty) {
                         return "Приведите проценты";
                       }
                       return null;
                     },
-                    onSaved: (nV) {},
+                    onSaved: (newValue) {
+                      _editedPot = Pot(
+                        id: _editedPot.id,
+                        name: _editedPot.name,
+                        amount: _editedPot.amount,
+                        percent: double.parse(newValue),
+                      );
+                    },
                   ),
                 ),
                 Container(
@@ -98,18 +123,34 @@ class _EditPotPageState extends State<EditPotPage> {
                       enabledBorder: _enabledBorder,
                       focusedBorder: _focusedBorder,
                     ),
-                    textInputAction: TextInputAction.next,
+                    keyboardType: TextInputType.number,
                     validator: (value) {
                       if (value.isEmpty) {
                         return "Приведите сумму";
                       }
                       return null;
                     },
-                    onSaved: (nV) {},
+                    onSaved: (newValue) {
+                      _editedPot = Pot(
+                        id: _editedPot.id,
+                        name: _editedPot.name,
+                        amount: double.parse(newValue),
+                        percent: _editedPot.percent,
+                      );
+                    },
                   ),
                 ),
               ],
-            )
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                OutlinedButton(
+                  onPressed: (() {}),
+                  child: const Text("Сохранить"),
+                ),
+              ],
+            ),
           ],
         ),
       ),
