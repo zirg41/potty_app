@@ -18,7 +18,7 @@ class _EditPotPageState extends State<EditPotPage> {
 
   var _initValues = {
     'name': "",
-    'percent': "",
+    'percent': null,
     "amount": "",
   };
 
@@ -35,8 +35,11 @@ class _EditPotPageState extends State<EditPotPage> {
       return;
     }
     _form.currentState.save();
+    print(
+        "Наименование: ${_editedPot.name}, Проценты: ${_editedPot.percent}, Сумма: ${_editedPot.amount}");
   }
 
+  String dropdownValue = 'Проценты';
   @override
   Widget build(BuildContext context) {
     final _mediaQuery = MediaQuery.of(context);
@@ -57,101 +60,119 @@ class _EditPotPageState extends State<EditPotPage> {
       ),
       body: Form(
         key: _form,
-        child: ListView(
-          padding: EdgeInsets.all(10),
-          children: [
-            TextFormField(
-              initialValue: _initValues['name'],
-              decoration: InputDecoration(
-                labelText: "Наименование",
-                enabledBorder: _enabledBorder,
-                focusedBorder: _focusedBorder,
+        child: Container(
+          child: ListView(
+            padding: EdgeInsets.all(10),
+            children: [
+              TextFormField(
+                initialValue: _initValues['name'],
+                decoration: InputDecoration(
+                  labelText: "Наименование",
+                  enabledBorder: _enabledBorder,
+                  focusedBorder: _focusedBorder,
+                ),
+                textInputAction: TextInputAction.next,
+                validator: (value) {
+                  if (value.isEmpty) {
+                    return "Приведите название";
+                  }
+                  return null;
+                },
+                onSaved: (newValue) {
+                  _editedPot = Pot(
+                    id: _editedPot.id,
+                    name: newValue,
+                    amount: _editedPot.amount,
+                    percent: _editedPot.percent,
+                  );
+                },
               ),
-              textInputAction: TextInputAction.next,
-              validator: (value) {
-                if (value.isEmpty) {
-                  return "Приведите название";
-                }
-                return null;
-              },
-              onSaved: (newValue) {
-                _editedPot = Pot(
-                  id: _editedPot.id,
-                  name: newValue,
-                  amount: _editedPot.amount,
-                  percent: _editedPot.percent,
-                );
-              },
-            ),
-            Row(
-              children: [
-                Container(
-                  width: (_mediaQuery.size.width - 20) / 2,
-                  padding: const EdgeInsets.only(top: 10, bottom: 10, right: 5),
-                  child: TextFormField(
-                    initialValue: _initValues['percent'],
-                    decoration: InputDecoration(
-                      labelText: "Проценты",
-                      enabledBorder: _enabledBorder,
-                      focusedBorder: _focusedBorder,
+              Row(
+                children: [
+                  Container(
+                    width: (_mediaQuery.size.width - 20) * 2 / 3,
+                    padding:
+                        const EdgeInsets.only(top: 10, bottom: 10, right: 5),
+                    child: TextFormField(
+                      initialValue: _initValues['percent'],
+                      decoration: InputDecoration(
+                        labelText: dropdownValue,
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: const BorderSide(
+                              width: 1.5,
+                              color: Color.fromARGB(255, 122, 122, 122)),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                              width: 1.5,
+                              color: Theme.of(context).primaryColor),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                      textInputAction: TextInputAction.next,
+                      keyboardType: TextInputType.number,
+                      onSaved: (newValue) {
+                        _editedPot = Pot(
+                          id: _editedPot.id,
+                          name: _editedPot.name,
+                          amount: dropdownValue == "Сумма"
+                              ? double.parse(newValue)
+                              : _editedPot.amount,
+                          percent: dropdownValue == "Проценты"
+                              ? double.parse(newValue)
+                              : _editedPot.percent,
+                        );
+                      },
                     ),
-                    textInputAction: TextInputAction.next,
-                    keyboardType: TextInputType.number,
-                    validator: (value) {
-                      if (value.isEmpty) {
-                        return "Приведите проценты";
-                      }
-                      return null;
-                    },
-                    onSaved: (newValue) {
-                      _editedPot = Pot(
-                        id: _editedPot.id,
-                        name: _editedPot.name,
-                        amount: _editedPot.amount,
-                        percent: double.parse(newValue),
-                      );
-                    },
                   ),
-                ),
-                Container(
-                  width: (_mediaQuery.size.width - 20) / 2,
-                  padding: const EdgeInsets.only(top: 10, bottom: 10, left: 5),
-                  child: TextFormField(
-                    initialValue: _initValues['amount'],
-                    decoration: InputDecoration(
-                      labelText: "Сумма",
-                      enabledBorder: _enabledBorder,
-                      focusedBorder: _focusedBorder,
+                  Container(
+                    width: (_mediaQuery.size.width - 20) * 1 / 3,
+                    padding: const EdgeInsets.only(top: 4, bottom: 4, left: 10),
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                          width: 1.5,
+                          color: Color.fromARGB(255, 122, 122, 122)),
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(10),
                     ),
-                    keyboardType: TextInputType.number,
-                    validator: (value) {
-                      if (value.isEmpty) {
-                        return "Приведите сумму";
-                      }
-                      return null;
-                    },
-                    onSaved: (newValue) {
-                      _editedPot = Pot(
-                        id: _editedPot.id,
-                        name: _editedPot.name,
-                        amount: double.parse(newValue),
-                        percent: _editedPot.percent,
-                      );
-                    },
+                    child: DropdownButton<String>(
+                      value: dropdownValue,
+                      icon: const Icon(Icons.arrow_drop_down_outlined),
+                      style: TextStyle(
+                          color: Theme.of(context).primaryColor, fontSize: 17),
+                      underline: const SizedBox.shrink(),
+                      onChanged: (String newValue) {
+                        if (newValue == null) {
+                          return;
+                        }
+                        setState(() {
+                          dropdownValue = newValue;
+                        });
+                      },
+                      items: <String>['Проценты', 'Сумма']
+                          .map<DropdownMenuItem<String>>(
+                            (String value) => DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(value),
+                            ),
+                          )
+                          .toList(),
+                    ),
                   ),
-                ),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                OutlinedButton(
-                  onPressed: (() {}),
-                  child: const Text("Сохранить"),
-                ),
-              ],
-            ),
-          ],
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  OutlinedButton(
+                    onPressed: _saveForm,
+                    child: const Text("Сохранить"),
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );
