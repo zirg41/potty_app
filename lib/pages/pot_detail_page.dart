@@ -43,7 +43,11 @@ class PotSetPage extends StatelessWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => Navigator.of(context).pushNamed(EditPotPage.routeName),
+        onPressed: () async {
+          final result =
+              await Navigator.of(context).pushNamed(EditPotPage.routeName);
+          potSetData.pots.add(result);
+        },
         child: const Icon(Icons.add),
         backgroundColor: themeData.primaryColor,
       ),

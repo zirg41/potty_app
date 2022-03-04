@@ -38,7 +38,9 @@ class PotItem extends StatelessWidget {
                       borderRadius: BorderRadius.circular(10)),
                   padding: itemsPadding,
                   child: Text(
-                    "${pot.percent.toStringAsFixed(0)} %",
+                    pot.percent == null
+                        ? ""
+                        : "${pot.percent.toStringAsFixed(0)} %",
                     style:
                         const TextStyle(fontSize: 18, color: Color(0xFFf4f1de)),
                   ),

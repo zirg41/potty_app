@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:potty_app/models/pot.dart';
+import 'package:potty_app/providers/pots.dart';
 import 'package:potty_app/widgets/custom_app_bar.dart';
+import 'package:provider/provider.dart';
 
 class EditPotPage extends StatefulWidget {
   static const routeName = "/edit-pot-page";
@@ -32,7 +34,10 @@ class _EditPotPageState extends State<EditPotPage> {
     }
     _form.currentState.save();
     print(
-        "Наименование: ${_editedPot.name}, Проценты: ${_editedPot.percent}, Сумма: ${_editedPot.amount}");
+      "Наименование: ${_editedPot.name}, Проценты: ${_editedPot.percent}, Сумма: ${_editedPot.amount}",
+    );
+
+    Navigator.of(context).pop(_editedPot);
   }
 
   String dropdownValue = 'Проценты';
