@@ -43,14 +43,14 @@ class _EditPotPageState extends State<EditPotPage> {
   @override
   Widget build(BuildContext context) {
     final _mediaQuery = MediaQuery.of(context);
-
+    final themeData = Theme.of(context);
     final _enabledBorder = OutlineInputBorder(
       borderSide: const BorderSide(
           width: 1.5, color: Color.fromARGB(255, 122, 122, 122)),
       borderRadius: BorderRadius.circular(10),
     );
     final _focusedBorder = OutlineInputBorder(
-      borderSide: BorderSide(width: 1.5, color: Theme.of(context).primaryColor),
+      borderSide: BorderSide(width: 1.5, color: themeData.primaryColor),
       borderRadius: BorderRadius.circular(10),
     );
     return Scaffold(
@@ -74,7 +74,7 @@ class _EditPotPageState extends State<EditPotPage> {
                 textInputAction: TextInputAction.next,
                 validator: (value) {
                   if (value.isEmpty) {
-                    return "Приведите название";
+                    return "Введите наименование";
                   }
                   return null;
                 },
@@ -105,8 +105,7 @@ class _EditPotPageState extends State<EditPotPage> {
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderSide: BorderSide(
-                              width: 1.5,
-                              color: Theme.of(context).primaryColor),
+                              width: 1.5, color: themeData.primaryColor),
                           borderRadius: BorderRadius.circular(10),
                         ),
                       ),
@@ -128,11 +127,12 @@ class _EditPotPageState extends State<EditPotPage> {
                   ),
                   Container(
                     width: (_mediaQuery.size.width - 20) * 1 / 3,
-                    padding: const EdgeInsets.only(top: 4, bottom: 4, left: 10),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                     decoration: BoxDecoration(
                       border: Border.all(
                           width: 1.5,
-                          color: Color.fromARGB(255, 122, 122, 122)),
+                          color: const Color.fromARGB(255, 122, 122, 122)),
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(10),
                     ),
@@ -140,14 +140,21 @@ class _EditPotPageState extends State<EditPotPage> {
                       value: dropdownValue,
                       icon: const Icon(Icons.arrow_drop_down_outlined),
                       style: TextStyle(
-                          color: Theme.of(context).primaryColor, fontSize: 17),
+                          color: themeData.primaryColor, fontSize: 15),
                       underline: const SizedBox.shrink(),
+                      isExpanded: true,
                       onChanged: (String newValue) {
                         if (newValue == null) {
                           return;
                         }
                         setState(() {
                           dropdownValue = newValue;
+                          if (newValue == "Проценты") {
+                            _editedPot.amount = null;
+                          }
+                          if (newValue == "Сумма") {
+                            _editedPot.percent = null;
+                          }
                         });
                       },
                       items: <String>['Проценты', 'Сумма']
@@ -162,12 +169,31 @@ class _EditPotPageState extends State<EditPotPage> {
                   ),
                 ],
               ),
+              const SizedBox(
+                height: 15,
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   OutlinedButton(
+                    style: OutlinedButton.styleFrom(
+                      backgroundColor: themeData.primaryColor,
+                      shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(10))),
+                    ),
                     onPressed: _saveForm,
-                    child: const Text("Сохранить"),
+                    child: const SizedBox(
+                      height: 50,
+                      width: 150,
+                      child: Center(
+                          child: Text(
+                        "Сохранить",
+                        style: TextStyle(
+                          fontSize: 15,
+                          color: Colors.white,
+                        ),
+                      )),
+                    ),
                   ),
                 ],
               ),
