@@ -44,16 +44,17 @@ class PotsCollection with ChangeNotifier {
     return [..._items];
   }
 
+  PotSet definePotSet(String potSetId) {
+    return _items.firstWhere((potSet) => potSet.id == potSetId);
+  }
+
   void addPot(String potSetId, Pot newPot) {
-    _items.firstWhere((potSet) => potSet.id == potSetId).pots.add(newPot);
+    definePotSet(potSetId).pots.add(newPot);
     notifyListeners();
   }
 
   void deletePot(String potSetId, String potId) {
-    _items
-        .firstWhere((potSet) => potSet.id == potSetId)
-        .pots
-        .removeWhere((pot) => pot.id == potId);
+    definePotSet(potSetId).pots.removeWhere((pot) => pot.id == potId);
     notifyListeners();
   }
 }
