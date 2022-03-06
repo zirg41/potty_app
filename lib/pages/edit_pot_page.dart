@@ -30,7 +30,7 @@ class _EditPotPageState extends State<EditPotPage> {
     amount: null,
   );
 
-  void _saveForm(String potSetId, double income) {
+  void _saveForm(String potSetId) {
     bool isValid = _form.currentState.validate();
 
     if (!isValid) {
@@ -39,8 +39,7 @@ class _EditPotPageState extends State<EditPotPage> {
     _form.currentState.save();
     Provider.of<PotsCollection>(context, listen: false)
         .addPot(potSetId, _editedPot);
-    Provider.of<PotsCollection>(context, listen: false)
-        .calculate(potSetId, income);
+    Provider.of<PotsCollection>(context, listen: false).calculate(potSetId);
     Navigator.of(context).pop();
   }
 
@@ -194,7 +193,7 @@ class _EditPotPageState extends State<EditPotPage> {
                     shape: const RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.circular(10))),
                   ),
-                  onPressed: () => _saveForm(potSetId, income),
+                  onPressed: () => _saveForm(potSetId),
                   child: const SizedBox(
                     height: 50,
                     width: 150,
