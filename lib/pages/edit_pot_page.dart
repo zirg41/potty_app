@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:potty_app/models/pot.dart';
 import 'package:potty_app/pages/pot_set_page.dart';
+import 'package:potty_app/providers/pot_set.dart';
 import 'package:potty_app/providers/pots.dart';
 import 'package:potty_app/widgets/custom_app_bar.dart';
+import 'package:potty_app/widgets/pots_collection_item.dart';
 import 'package:provider/provider.dart';
 
 class EditPotPage extends StatefulWidget {
@@ -28,7 +30,7 @@ class _EditPotPageState extends State<EditPotPage> {
     amount: null,
   );
 
-  void _saveForm(String potSetId) {
+  void _saveForm(String potSetId, double income) {
     bool isValid = _form.currentState.validate();
 
     if (!isValid) {
@@ -37,6 +39,8 @@ class _EditPotPageState extends State<EditPotPage> {
     _form.currentState.save();
     Provider.of<PotsCollection>(context, listen: false)
         .addPot(potSetId, _editedPot);
+    Provider.of<PotsCollection>(context, listen: false)
+        .calculate(potSetId, income);
     Navigator.of(context).pop();
   }
 
@@ -45,18 +49,25 @@ class _EditPotPageState extends State<EditPotPage> {
   @override
   Widget build(BuildContext context) {
     final String potSetId = ModalRoute.of(context).settings.arguments as String;
-    //print(potSetId);
+    final income = Provider.of<PotsCollection>(context)
+        .items
+        .firstWhere((element) => element.id == potSetId)
+        .income;
+    print(income);
     final _mediaQuery = MediaQuery.of(context);
     final themeData = Theme.of(context);
+
     final _enabledBorder = OutlineInputBorder(
       borderSide: const BorderSide(
           width: 1.5, color: Color.fromARGB(255, 122, 122, 122)),
       borderRadius: BorderRadius.circular(10),
     );
+
     final _focusedBorder = OutlineInputBorder(
       borderSide: BorderSide(width: 1.5, color: themeData.primaryColor),
       borderRadius: BorderRadius.circular(10),
     );
+
     return Scaffold(
       appBar: CustomAppBar(
         title: "Редактировать категорию",
@@ -183,7 +194,7 @@ class _EditPotPageState extends State<EditPotPage> {
                     shape: const RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.circular(10))),
                   ),
-                  onPressed: () => _saveForm(potSetId),
+                  onPressed: () => _saveForm(potSetId, income),
                   child: const SizedBox(
                     height: 50,
                     width: 150,
