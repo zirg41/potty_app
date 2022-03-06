@@ -57,4 +57,10 @@ class PotsCollection with ChangeNotifier {
     _definePotSet(potSetId).pots.removeWhere((pot) => pot.id == potId);
     notifyListeners();
   }
+
+  void calculate(String potSetId) {
+    _definePotSet(potSetId).pots.forEach((pot) =>
+        pot.amount = _definePotSet(potSetId).income * pot.percent / 100);
+    notifyListeners();
+  }
 }

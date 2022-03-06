@@ -12,8 +12,11 @@ class PotSetPage extends StatelessWidget {
   static const routeName = "/pot-set-page";
   @override
   Widget build(BuildContext context) {
-    final PotSet potSetData =
-        ModalRoute.of(context).settings.arguments as PotSet;
+    final String potSetDataId =
+        ModalRoute.of(context).settings.arguments as String;
+    final PotSet potSetData = Provider.of<PotsCollection>(context)
+        .items
+        .firstWhere((potSet) => potSet.id == potSetDataId);
     final List<Pot> pots = potSetData.pots;
     final themeData = Theme.of(context);
     final mq = MediaQuery.of(context);

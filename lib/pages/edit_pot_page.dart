@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:potty_app/models/pot.dart';
-import 'package:potty_app/pages/pot_set_page.dart';
 import 'package:potty_app/providers/pots.dart';
 import 'package:potty_app/widgets/custom_app_bar.dart';
 import 'package:provider/provider.dart';
@@ -35,8 +34,16 @@ class _EditPotPageState extends State<EditPotPage> {
       return;
     }
     _form.currentState.save();
+    _editedPot = Pot(
+      // assigning id
+      id: DateTime.now().toString(),
+      name: _editedPot.name,
+      percent: _editedPot.percent,
+      amount: _editedPot.amount,
+    );
     Provider.of<PotsCollection>(context, listen: false)
         .addPot(potSetId, _editedPot);
+    Provider.of<PotsCollection>(context, listen: false).calculate(potSetId);
     Navigator.of(context).pop();
   }
 
@@ -45,18 +52,22 @@ class _EditPotPageState extends State<EditPotPage> {
   @override
   Widget build(BuildContext context) {
     final String potSetId = ModalRoute.of(context).settings.arguments as String;
-    //print(potSetId);
+
+    // print(income);
     final _mediaQuery = MediaQuery.of(context);
     final themeData = Theme.of(context);
+
     final _enabledBorder = OutlineInputBorder(
       borderSide: const BorderSide(
           width: 1.5, color: Color.fromARGB(255, 122, 122, 122)),
       borderRadius: BorderRadius.circular(10),
     );
+
     final _focusedBorder = OutlineInputBorder(
       borderSide: BorderSide(width: 1.5, color: themeData.primaryColor),
       borderRadius: BorderRadius.circular(10),
     );
+
     return Scaffold(
       appBar: CustomAppBar(
         title: "Редактировать категорию",

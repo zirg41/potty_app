@@ -18,9 +18,9 @@ class _PotCollectionItemState extends State<PotCollectionItem> {
     final themeData = Theme.of(context);
     return GestureDetector(
       onTap: () => Navigator.of(context)
-          .pushNamed(PotSetPage.routeName, arguments: potSetData),
+          .pushNamed(PotSetPage.routeName, arguments: potSetData.id),
       child: Card(
-        margin: EdgeInsets.all(10),
+        margin: const EdgeInsets.all(10),
         child: Column(
           children: [
             ListTile(
@@ -43,7 +43,8 @@ class _PotCollectionItemState extends State<PotCollectionItem> {
             ),
             if (_expanded)
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 15, vertical: 4),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 15, vertical: 4),
                 height: min((potSetData.pots.length * 20.0 + 20), 180),
                 child: ListView(
                   children: potSetData.pots

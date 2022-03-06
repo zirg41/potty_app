@@ -69,7 +69,8 @@ class PotItem extends StatelessWidget {
       onDismissed: (direction) {
         Provider.of<PotsCollection>(context, listen: false)
             .deletePot(potSetId, pot.id);
-        print(pot.id);
+        Provider.of<PotsCollection>(context, listen: false).calculate(potSetId);
+        print("Deleted pot's id:${pot.id}");
       },
       child: Card(
         child: Row(
