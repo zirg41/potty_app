@@ -40,6 +40,8 @@ class PotsCollection with ChangeNotifier {
     ),
   ];
 
+  double percentSumm;
+
   List<PotSet> get items {
     return [..._items];
   }
