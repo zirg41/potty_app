@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:potty_app/models/pot.dart';
-import 'package:potty_app/pages/pot_set_page.dart';
-import 'package:potty_app/providers/pot_set.dart';
 import 'package:potty_app/providers/pots.dart';
 import 'package:potty_app/widgets/custom_app_bar.dart';
-import 'package:potty_app/widgets/pots_collection_item.dart';
 import 'package:provider/provider.dart';
 
 class EditPotPage extends StatefulWidget {
@@ -48,10 +45,7 @@ class _EditPotPageState extends State<EditPotPage> {
   @override
   Widget build(BuildContext context) {
     final String potSetId = ModalRoute.of(context).settings.arguments as String;
-    final income = Provider.of<PotsCollection>(context)
-        .items
-        .firstWhere((element) => element.id == potSetId)
-        .income;
+
     // print(income);
     final _mediaQuery = MediaQuery.of(context);
     final themeData = Theme.of(context);
