@@ -52,7 +52,7 @@ class _EditPotPageState extends State<EditPotPage> {
         .items
         .firstWhere((element) => element.id == potSetId)
         .income;
-    print(income);
+    // print(income);
     final _mediaQuery = MediaQuery.of(context);
     final themeData = Theme.of(context);
 
