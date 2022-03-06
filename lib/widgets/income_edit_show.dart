@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:potty_app/models/pot_set.dart';
+import 'package:potty_app/providers/pot_set.dart';
 
 class IncomeEditShow extends StatefulWidget {
   final PotSet potset;

@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:potty_app/models/pot.dart';
-import 'package:potty_app/models/pot_set.dart';
+import 'package:potty_app/providers/pot_set.dart';
 
 class PotsCollection with ChangeNotifier {
   final List<PotSet> _items = [
