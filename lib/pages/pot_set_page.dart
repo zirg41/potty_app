@@ -45,11 +45,7 @@ class PotSetPage extends StatelessWidget {
           children: [
             IncomeEditShow(potset: potSetData),
             potSetData.unallocatedAmount == 0.0 ? emptyWidg : container,
-            Container(
-              width: double.infinity,
-              height: mq.size.height -
-                  container.constraints.maxHeight -
-                  144, // TODO
+            Expanded(
               child: ListView.builder(
                 itemCount: pots.length,
                 itemBuilder: (context, index) =>
