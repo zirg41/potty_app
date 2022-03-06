@@ -18,8 +18,4 @@ class PotSet with ChangeNotifier {
     pots.add(newPot);
     notifyListeners();
   }
-
-  void deletePot(String id) {
-    pots.removeWhere((pot) => pot.id == id);
-  }
 }

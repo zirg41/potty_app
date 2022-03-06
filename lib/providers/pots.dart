@@ -43,4 +43,12 @@ class PotsCollection with ChangeNotifier {
   List<PotSet> get items {
     return [..._items];
   }
+
+  void deletePot(String potSetId, String potId) {
+    _items
+        .firstWhere((potSet) => potSet.id == potSetId)
+        .pots
+        .removeWhere((pot) => pot.id == potId);
+    notifyListeners();
+  }
 }

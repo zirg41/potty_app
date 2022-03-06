@@ -36,7 +36,8 @@ class PotSetPage extends StatelessWidget {
               height: mq.size.height - 144, // TODO
               child: ListView.builder(
                 itemCount: pots.length,
-                itemBuilder: (context, index) => PotItem(pots[index]),
+                itemBuilder: (context, index) =>
+                    PotItem(potSetId: potSetData.id, pot: pots[index]),
               ),
             ),
           ],

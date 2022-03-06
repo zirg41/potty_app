@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:potty_app/providers/pot_set.dart';
 import 'package:provider/provider.dart';
 
 import 'config/routes/routes.dart';
@@ -16,8 +17,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (ctx) => PotsCollection(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (ctx) => PotsCollection(),
+        ),
+        ChangeNotifierProvider(
+          create: (ctx) => PotSet(),
+        ),
+      ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Potty App',

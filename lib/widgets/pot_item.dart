@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:potty_app/providers/pot_set.dart';
+import 'package:potty_app/providers/pots.dart';
+import 'package:provider/provider.dart';
 
 import '/models/pot.dart';
 
 class PotItem extends StatelessWidget {
+  final String potSetId;
   final Pot pot;
-  const PotItem(this.pot);
+  PotItem({
+    @required this.potSetId,
+    @required this.pot,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -58,6 +65,11 @@ class PotItem extends StatelessWidget {
           );
         }
         return null;
+      },
+      onDismissed: (direction) {
+        Provider.of<PotsCollection>(context, listen: false)
+            .deletePot(potSetId, pot.id);
+        print(pot.id);
       },
       child: Card(
         child: Row(
