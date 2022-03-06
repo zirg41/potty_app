@@ -70,7 +70,6 @@ class PotItem extends StatelessWidget {
         Provider.of<PotsCollection>(context, listen: false)
             .deletePot(potSetId, pot.id);
         Provider.of<PotsCollection>(context, listen: false).calculate(potSetId);
-        print("Deleted pot's id:${pot.id}");
       },
       child: Card(
         child: Row(
