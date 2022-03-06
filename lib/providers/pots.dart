@@ -61,7 +61,7 @@ class PotsCollection with ChangeNotifier {
   void calculate(String potSetId, double income) {
     _definePotSet(potSetId)
         .pots
-        .map((pot) => pot.amount = income * pot.percent / 100);
+        .forEach((pot) => pot.amount = income * pot.percent / 100);
     notifyListeners();
   }
 }
