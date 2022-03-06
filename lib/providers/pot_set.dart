@@ -6,6 +6,8 @@ class PotSet with ChangeNotifier {
   final double income;
   final String name;
   final List<Pot> pots;
+  double unallocatedAmount = 0;
+  double unallocatedPercent = 0;
 
   PotSet({
     @required this.id,

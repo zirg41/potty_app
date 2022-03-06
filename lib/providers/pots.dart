@@ -40,6 +40,8 @@ class PotsCollection with ChangeNotifier {
     ),
   ];
 
+  double percentSumm;
+
   List<PotSet> get items {
     return [..._items];
   }
@@ -61,6 +63,19 @@ class PotsCollection with ChangeNotifier {
   void calculate(String potSetId) {
     _definePotSet(potSetId).pots.forEach((pot) =>
         pot.amount = _definePotSet(potSetId).income * pot.percent / 100);
+    checkPots(potSetId);
     notifyListeners();
+  }
+
+  void checkPots(String potSetId) {
+    _definePotSet(potSetId).pots.forEach((pot) => percentSumm += pot.percent);
+    double subtracPercent = (100 - percentSumm);
+    _definePotSet(potSetId).unallocatedPercent = subtracPercent;
+    debugPrint("subtracPercent: ${subtracPercent.toString()}%");
+    double unallocatedAmount =
+        _definePotSet(potSetId).income * subtracPercent / 100;
+    _definePotSet(potSetId).unallocatedAmount = unallocatedAmount;
+    debugPrint("unallocatedAmount: ${unallocatedAmount.toString()} rubles");
+    percentSumm = 0;
   }
 }
