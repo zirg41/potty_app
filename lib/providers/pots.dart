@@ -67,5 +67,9 @@ class PotsCollection with ChangeNotifier {
     notifyListeners();
   }
 
-  void checkPots(String potSetId) {}
+  void checkPots(String potSetId) {
+    _definePotSet(potSetId).pots.forEach((pot) => percentSumm += pot.percent);
+    print(percentSumm);
+    percentSumm = 0;
+  }
 }
