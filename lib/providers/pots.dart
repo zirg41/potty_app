@@ -73,6 +73,7 @@ class PotsCollection with ChangeNotifier {
     debugPrint("subtracPercent: ${subtracPercent.toString()}%");
     double unallocatedAmount =
         _definePotSet(potSetId).income * subtracPercent / 100;
+    _definePotSet(potSetId).unallocatedAmount = unallocatedAmount;
     debugPrint("unallocatedAmount: ${unallocatedAmount.toString()} rubles");
     percentSumm = 0;
   }
