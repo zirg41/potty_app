@@ -28,6 +28,7 @@ class _EditPotPageState extends State<EditPotPage> {
   );
 
   void _saveForm(String potSetId) {
+    FocusManager.instance.primaryFocus?.unfocus(); // closing keyboard
     bool isValid = _form.currentState.validate();
 
     if (!isValid) {
