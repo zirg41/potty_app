@@ -12,18 +12,28 @@ class PotSetPage extends StatelessWidget {
   static const routeName = "/pot-set-page";
   @override
   Widget build(BuildContext context) {
-    final String potSetDataId =
-        ModalRoute.of(context).settings.arguments as String;
+    final String potSetDataId = ModalRoute.of(context).settings.arguments;
     final PotSet potSetData = Provider.of<PotsCollection>(context)
         .items
         .firstWhere((potSet) => potSet.id == potSetDataId);
     final List<Pot> pots = potSetData.pots;
+
     final themeData = Theme.of(context);
     final mq = MediaQuery.of(context);
     final _appbar = CustomAppBar(
       title: potSetData.name,
       isBackButtonInit: true,
     );
+    var container = Container(
+      height: 50,
+      child: Column(
+        children: [
+          Text(potSetData.unallocatedAmount.toString()),
+          Text(potSetData.unallocatedPercent.toString()),
+        ],
+      ),
+    );
+    const emptyWidg = SizedBox.shrink();
     return Scaffold(
       appBar: _appbar,
       body: Container(
@@ -34,9 +44,12 @@ class PotSetPage extends StatelessWidget {
         child: Column(
           children: [
             IncomeEditShow(potset: potSetData),
+            potSetData.unallocatedAmount == 0.0 ? emptyWidg : container,
             Container(
               width: double.infinity,
-              height: mq.size.height - 144, // TODO
+              height: mq.size.height -
+                  container.constraints.maxHeight -
+                  144, // TODO
               child: ListView.builder(
                 itemCount: pots.length,
                 itemBuilder: (context, index) =>

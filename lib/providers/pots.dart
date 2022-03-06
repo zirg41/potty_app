@@ -70,6 +70,7 @@ class PotsCollection with ChangeNotifier {
   void checkPots(String potSetId) {
     _definePotSet(potSetId).pots.forEach((pot) => percentSumm += pot.percent);
     double subtracPercent = (100 - percentSumm).abs();
+    _definePotSet(potSetId).unallocatedPercent = subtracPercent;
     debugPrint("subtracPercent: ${subtracPercent.toString()}%");
     double unallocatedAmount =
         _definePotSet(potSetId).income * subtracPercent / 100;
