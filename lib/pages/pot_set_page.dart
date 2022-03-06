@@ -6,6 +6,7 @@ import 'package:potty_app/providers/pots.dart';
 import 'package:potty_app/widgets/custom_app_bar.dart';
 import 'package:potty_app/widgets/income_edit_show.dart';
 import 'package:potty_app/widgets/pot_item.dart';
+import 'package:potty_app/widgets/unallocated_pot.dart';
 import 'package:provider/provider.dart';
 
 class PotSetPage extends StatelessWidget {
@@ -24,15 +25,14 @@ class PotSetPage extends StatelessWidget {
       title: potSetData.name,
       isBackButtonInit: true,
     );
-    var container = Container(
-      height: 50,
-      child: Column(
-        children: [
-          Text(potSetData.unallocatedAmount.toString()),
-          Text(potSetData.unallocatedPercent.toString()),
-        ],
+    var container = PreferredSize(
+      preferredSize: const Size.fromHeight(50),
+      child: UnallocatedPot(
+        percent: potSetData.unallocatedPercent,
+        amount: potSetData.unallocatedAmount,
       ),
     );
+
     const emptyWidg = SizedBox.shrink();
     return Scaffold(
       appBar: _appbar,
