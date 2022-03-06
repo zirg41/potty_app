@@ -13,9 +13,4 @@ class PotSet with ChangeNotifier {
     @required this.name,
     @required this.pots,
   });
-
-  void addPot(Pot newPot) {
-    pots.add(newPot);
-    notifyListeners();
-  }
 }

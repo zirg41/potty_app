@@ -6,7 +6,7 @@ import 'config/routes/routes.dart';
 import 'config/themes/light_theme.dart';
 
 import 'pages/pots_collection_page.dart';
-import 'pages/pot_detail_page.dart';
+import 'pages/pot_set_page.dart';
 
 import 'providers/pots.dart';
 

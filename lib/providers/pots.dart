@@ -44,6 +44,11 @@ class PotsCollection with ChangeNotifier {
     return [..._items];
   }
 
+  void addPot(String potSetId, Pot newPot) {
+    _items.firstWhere((potSet) => potSet.id == potSetId).pots.add(newPot);
+    notifyListeners();
+  }
+
   void deletePot(String potSetId, String potId) {
     _items
         .firstWhere((potSet) => potSet.id == potSetId)

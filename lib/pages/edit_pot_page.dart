@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:potty_app/models/pot.dart';
+import 'package:potty_app/pages/pot_set_page.dart';
 import 'package:potty_app/providers/pots.dart';
 import 'package:potty_app/widgets/custom_app_bar.dart';
 import 'package:provider/provider.dart';
@@ -26,23 +27,25 @@ class _EditPotPageState extends State<EditPotPage> {
     percent: null,
     amount: null,
   );
-  Future<void> _saveForm() async {
+
+  void _saveForm(String potSetId) {
     bool isValid = _form.currentState.validate();
 
     if (!isValid) {
       return;
     }
     _form.currentState.save();
-    print(
-      "Наименование: ${_editedPot.name}, Проценты: ${_editedPot.percent}, Сумма: ${_editedPot.amount}",
-    );
-
-    Navigator.of(context).pop(_editedPot);
+    Provider.of<PotsCollection>(context, listen: false)
+        .addPot(potSetId, _editedPot);
+    Navigator.of(context).pop();
   }
 
   String dropdownValue = 'Проценты';
+
   @override
   Widget build(BuildContext context) {
+    final String potSetId = ModalRoute.of(context).settings.arguments as String;
+    //print(potSetId);
     final _mediaQuery = MediaQuery.of(context);
     final themeData = Theme.of(context);
     final _enabledBorder = OutlineInputBorder(
@@ -180,7 +183,7 @@ class _EditPotPageState extends State<EditPotPage> {
                     shape: const RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.circular(10))),
                   ),
-                  onPressed: _saveForm,
+                  onPressed: () => _saveForm(potSetId),
                   child: const SizedBox(
                     height: 50,
                     width: 150,

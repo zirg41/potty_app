@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:potty_app/providers/pot_set.dart';
-import 'package:potty_app/pages/pot_detail_page.dart';
+import 'package:potty_app/pages/pot_set_page.dart';
 import 'package:provider/provider.dart';
 import 'dart:math';
 
