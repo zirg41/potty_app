@@ -34,6 +34,13 @@ class _EditPotPageState extends State<EditPotPage> {
       return;
     }
     _form.currentState.save();
+    _editedPot = Pot(
+      // assigning id
+      id: DateTime.now().toString(),
+      name: _editedPot.name,
+      percent: _editedPot.percent,
+      amount: _editedPot.amount,
+    );
     Provider.of<PotsCollection>(context, listen: false)
         .addPot(potSetId, _editedPot);
     Provider.of<PotsCollection>(context, listen: false).calculate(potSetId);
