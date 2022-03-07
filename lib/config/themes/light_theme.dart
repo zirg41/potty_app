@@ -31,3 +31,8 @@ class CustomTheme {
     );
   }
 }
+
+class CustomColors {
+  static const overallocatedColor = Colors.red;
+  static const unallocatedColor = Colors.orange;
+}
