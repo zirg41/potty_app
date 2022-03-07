@@ -44,6 +44,10 @@ class _EditPotPageState extends State<EditPotPage> {
     );
     Provider.of<PotsCollection>(context, listen: false)
         .addPot(potSetId, _editedPot);
+    // TODO
+    // checking if user entered amount value or not
+    // if so here needs to calculate percent based on input amount
+    // else return
     Provider.of<PotsCollection>(context, listen: false).calculate(potSetId);
     Navigator.of(context).pop();
   }
