@@ -23,6 +23,7 @@ class UnallocatedPot extends StatelessWidget {
     //   ),
     // );
     return Card(
+      margin: const EdgeInsets.symmetric(vertical: 15, horizontal: 5),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
