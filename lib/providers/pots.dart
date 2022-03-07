@@ -38,6 +38,12 @@ class PotsCollection with ChangeNotifier {
         Pot(id: '4', name: "Подарки", percent: 5),
       ],
     ),
+    PotSet(
+      id: DateTime.now().toString(),
+      name: "Зарплата3",
+      income: 29748,
+      pots: [],
+    ),
   ];
   double percentSumm;
 
