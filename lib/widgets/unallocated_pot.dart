@@ -42,7 +42,7 @@ class UnallocatedPot extends StatelessWidget {
                       borderRadius: BorderRadius.circular(10)),
                   padding: potItem.PotItem.itemsPadding,
                   child: Text(
-                    percent.toString(),
+                    "${percent.toStringAsFixed(1)} %",
                     style:
                         const TextStyle(fontSize: 18, color: Color(0xFFf4f1de)),
                   ),
@@ -58,7 +58,7 @@ class UnallocatedPot extends StatelessWidget {
                       margin: const EdgeInsets.all(5),
                       //padding: itemsPadding,
                       child: Text(
-                        amount.toString(),
+                        amount.toStringAsFixed(2),
                         style: const TextStyle(fontSize: 18),
                       ),
                     ),
