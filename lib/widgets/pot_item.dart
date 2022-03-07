@@ -13,10 +13,9 @@ class PotItem extends StatelessWidget {
     @required this.potSetId,
     @required this.pot,
   });
-
+  static const itemsPadding = EdgeInsets.all(10);
   @override
   Widget build(BuildContext context) {
-    const itemsPadding = EdgeInsets.all(10);
     final ctxTheme = Theme.of(context);
     const snackBar = SnackBar(
       content: Text('Скопировано!'),
