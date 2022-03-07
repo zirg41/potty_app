@@ -11,6 +11,7 @@ class IncomeEditShow extends StatefulWidget {
 }
 
 class _IncomeEditShowState extends State<IncomeEditShow> {
+  var _isChanging = false;
   @override
   Widget build(BuildContext context) {
     final themeData = Theme.of(context);
@@ -21,14 +22,26 @@ class _IncomeEditShowState extends State<IncomeEditShow> {
         padding: EdgeInsets.symmetric(horizontal: 15, vertical: 7),
         width: double.infinity,
         child: Row(children: [
-          Text(
-            "Ваш доход, руб: ",
-            style: themeData.textTheme.bodyText1,
-          ),
-          Spacer(),
-          Text(
-            "${widget.potset.income.toString()}",
-            style: themeData.textTheme.headline2,
+          if (!_isChanging)
+            Text(
+              "Ваш доход, руб: ",
+              style: themeData.textTheme.bodyText1,
+            ),
+          if (!_isChanging) const Spacer(),
+          if (!_isChanging)
+            Text(
+              "${widget.potset.income.toString()}",
+              style: themeData.textTheme.headline2,
+            ),
+          if (_isChanging) Container(),
+          const Spacer(),
+          TextButton(
+            onPressed: () {
+              setState(() {
+                _isChanging = !_isChanging;
+              });
+            },
+            child: Text("Изменить"),
           ),
         ]),
       ),
