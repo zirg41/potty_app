@@ -54,6 +54,13 @@ class PotsCollection with ChangeNotifier {
     notifyListeners();
   }
 
+  void updatePot(String potSetId, String potId, Pot newPot) {
+    final potIndex = definePotSet(potSetId).pots.indexWhere(
+          (pot) => pot.id == potId,
+        );
+    definePotSet(potSetId).pots[potIndex] = newPot;
+  }
+
   void deletePot(String potSetId, String potId) {
     definePotSet(potSetId).pots.removeWhere((pot) => pot.id == potId);
     notifyListeners();
