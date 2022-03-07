@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:potty_app/pages/edit_pot_page.dart';
 import 'package:potty_app/providers/pot_set.dart';
 import 'package:potty_app/providers/pots.dart';
 import 'package:provider/provider.dart';
@@ -62,6 +63,10 @@ class PotItem extends StatelessWidget {
               ],
             ),
           );
+        }
+        if (direction == DismissDirection.startToEnd) {
+          Navigator.of(context).pushNamed(EditPotPage.routeName,
+              arguments: {"pot-set-id": potSetId, "pot-id": pot.id});
         }
         return null;
       },

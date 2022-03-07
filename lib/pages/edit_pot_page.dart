@@ -13,19 +13,49 @@ class EditPotPage extends StatefulWidget {
 
 class _EditPotPageState extends State<EditPotPage> {
   final _form = GlobalKey<FormState>();
+  final percentAmountController = TextEditingController();
 
   Map<String, Object> _initValues = {
     'name': "",
     'percent': null,
     "amount": null,
   };
-
+  bool _isInit = true;
+  bool _isEditing = false;
   Pot _editedPot = Pot(
     id: null,
     name: "",
     percent: null,
     amount: null,
   );
+  @override
+  void didChangeDependencies() {
+    if (_isInit) {
+      final Map<String, Object> potSetData =
+          ModalRoute.of(context).settings.arguments as Map<String, Object>;
+      final String potSetId = potSetData["pot-set-id"];
+
+      final String editingPotId = potSetData["pot-id"];
+      if (editingPotId == null) return;
+      _editedPot = Provider.of<PotsCollection>(context)
+          .definePotSet(potSetId)
+          .pots
+          .firstWhere((pot) => pot.id == editingPotId);
+      _initValues['name'] = _editedPot.name;
+      _initValues['percent'] = _editedPot.percent.toString();
+      _initValues['amount'] = _editedPot.amount.toString();
+      percentAmountController.text = _editedPot.percent.toString();
+      print(
+        "Наименование: ${_editedPot.name}," +
+            " Проценты: ${_editedPot.percent}," +
+            " Сумма: ${_editedPot.amount} rub." +
+            " ID: ${_editedPot.id}",
+      );
+      _isEditing = true;
+    }
+    _isInit = false;
+    super.didChangeDependencies();
+  }
 
   void _saveForm(String potSetId) {
     FocusManager.instance.primaryFocus?.unfocus(); // closing keyboard
@@ -76,7 +106,9 @@ class _EditPotPageState extends State<EditPotPage> {
 
   @override
   Widget build(BuildContext context) {
-    final String potSetId = ModalRoute.of(context).settings.arguments as String;
+    final Map<String, Object> potSetData =
+        ModalRoute.of(context).settings.arguments as Map<String, Object>;
+    final String potSetId = potSetData["pot-set-id"];
 
     // print(income);
     final _mediaQuery = MediaQuery.of(context);
@@ -132,9 +164,12 @@ class _EditPotPageState extends State<EditPotPage> {
                   width: (_mediaQuery.size.width - 20) * 2 / 3,
                   padding: const EdgeInsets.only(top: 10, bottom: 10, right: 5),
                   child: TextFormField(
-                    initialValue: currentDropdownValue == dropdownValues[0]
-                        ? _initValues['percent']
-                        : _initValues['amount'],
+                    controller: _isEditing ? percentAmountController : null,
+                    initialValue: !_isEditing
+                        ? currentDropdownValue == dropdownValues[0]
+                            ? _initValues['percent']
+                            : _initValues['amount']
+                        : null,
                     decoration: InputDecoration(
                       labelText: currentDropdownValue,
                       enabledBorder: _enabledBorder,
@@ -179,12 +214,27 @@ class _EditPotPageState extends State<EditPotPage> {
                         return;
                       }
                       setState(() {
-                        currentDropdownValue = newValue;
-                        if (newValue == dropdownValues[0]) {
-                          _editedPot.amount = null;
-                        }
-                        if (newValue == dropdownValues[1]) {
-                          _editedPot.percent = null;
+                        if (!_isEditing) {
+                          currentDropdownValue = newValue;
+                          if (newValue == dropdownValues[0]) {
+                            _editedPot.amount = null;
+                          }
+                          if (newValue == dropdownValues[1]) {
+                            _editedPot.percent = null;
+                          }
+                        } else {
+                          currentDropdownValue = newValue;
+                          if (newValue == dropdownValues[0]) {
+                            percentAmountController.text =
+                                _editedPot.percent.toString();
+                          }
+                          if (newValue == dropdownValues[1]) {
+                            percentAmountController.text =
+                                _editedPot.amount.toString();
+                          }
+                          // if (newValue == dropdownValues[1]) {
+                          //   currentDropdownValue = _editedPot.amount.toString();
+                          // }
                         }
                       });
                     },

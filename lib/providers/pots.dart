@@ -45,29 +45,29 @@ class PotsCollection with ChangeNotifier {
     return [..._items];
   }
 
-  PotSet _definePotSet(String potSetId) {
+  PotSet definePotSet(String potSetId) {
     return _items.firstWhere((potSet) => potSet.id == potSetId);
   }
 
   void addPot(String potSetId, Pot newPot) {
-    _definePotSet(potSetId).pots.add(newPot);
+    definePotSet(potSetId).pots.add(newPot);
     notifyListeners();
   }
 
   void deletePot(String potSetId, String potId) {
-    _definePotSet(potSetId).pots.removeWhere((pot) => pot.id == potId);
+    definePotSet(potSetId).pots.removeWhere((pot) => pot.id == potId);
     notifyListeners();
   }
 
   void calculate(String potSetId) {
-    _definePotSet(potSetId).pots.forEach((pot) =>
-        pot.amount = _definePotSet(potSetId).income * pot.percent / 100);
+    definePotSet(potSetId).pots.forEach((pot) =>
+        pot.amount = definePotSet(potSetId).income * pot.percent / 100);
     checkPots(potSetId);
     notifyListeners();
   }
 
   Pot calculatePercentBasedOnAmount(String potSetId, Pot amountPot) {
-    double _currentIncome = _definePotSet(potSetId).income;
+    double _currentIncome = definePotSet(potSetId).income;
     return Pot(
       id: amountPot.id,
       name: amountPot.name,
@@ -78,15 +78,15 @@ class PotsCollection with ChangeNotifier {
 
   void checkPots(String potSetId) {
     percentSumm = 0.0;
-    _definePotSet(potSetId).pots.forEach((pot) {
+    definePotSet(potSetId).pots.forEach((pot) {
       percentSumm += pot.percent;
     });
     double subtracPercent = (100 - percentSumm);
-    _definePotSet(potSetId).unallocatedPercent = subtracPercent;
+    definePotSet(potSetId).unallocatedPercent = subtracPercent;
     // debugPrint("subtracPercent: ${subtracPercent.toString()}%");
     double unallocatedAmount =
-        _definePotSet(potSetId).income * subtracPercent / 100;
-    _definePotSet(potSetId).unallocatedAmount = unallocatedAmount;
+        definePotSet(potSetId).income * subtracPercent / 100;
+    definePotSet(potSetId).unallocatedAmount = unallocatedAmount;
     // debugPrint("unallocatedAmount: ${unallocatedAmount.toString()} rubles");
     percentSumm = 0.0;
   }
