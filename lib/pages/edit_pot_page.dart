@@ -65,32 +65,51 @@ class _EditPotPageState extends State<EditPotPage> {
       return;
     }
     _form.currentState.save();
-    _editedPot = Pot(
-      // assigning id
-      id: DateTime.now().toString(),
-      name: _editedPot.name,
-      percent: _editedPot.percent,
-      amount: _editedPot.amount,
-    );
+
     // TODO
     // checking if user entered amount value or not
     // if so here needs to calculate percent based on input amount
     // else return
-    if (currentDropdownValue == dropdownValues[0]) {
-      Provider.of<PotsCollection>(context, listen: false)
-          .addPot(potSetId, _editedPot);
-      Provider.of<PotsCollection>(context, listen: false).calculate(potSetId);
-      Navigator.of(context).pop();
+    if (_isEditing) {
+      if (currentDropdownValue == dropdownValues[0]) {
+        Provider.of<PotsCollection>(context, listen: false)
+            .updatePot(potSetId, _editedPot.id, _editedPot);
+        Provider.of<PotsCollection>(context, listen: false).calculate(potSetId);
+        Navigator.of(context).pop();
+      }
+      if (currentDropdownValue == dropdownValues[1]) {
+        final _calculatedPot =
+            Provider.of<PotsCollection>(context, listen: false)
+                .calculatePercentBasedOnAmount(potSetId, _editedPot);
+        Provider.of<PotsCollection>(context, listen: false)
+            .updatePot(potSetId, _editedPot.id, _editedPot);
+        Provider.of<PotsCollection>(context, listen: false).calculate(potSetId);
+        Navigator.of(context).pop();
+      }
+    } else {
+      _editedPot = Pot(
+        // assigning id
+        id: DateTime.now().toString(),
+        name: _editedPot.name,
+        percent: _editedPot.percent,
+        amount: _editedPot.amount,
+      );
+      if (currentDropdownValue == dropdownValues[0]) {
+        Provider.of<PotsCollection>(context, listen: false)
+            .addPot(potSetId, _editedPot);
+        Provider.of<PotsCollection>(context, listen: false).calculate(potSetId);
+        Navigator.of(context).pop();
+      }
+      if (currentDropdownValue == dropdownValues[1]) {
+        final _calculatedPot =
+            Provider.of<PotsCollection>(context, listen: false)
+                .calculatePercentBasedOnAmount(potSetId, _editedPot);
+        Provider.of<PotsCollection>(context, listen: false)
+            .addPot(potSetId, _calculatedPot);
+        Provider.of<PotsCollection>(context, listen: false).calculate(potSetId);
+        Navigator.of(context).pop();
+      }
     }
-    if (currentDropdownValue == dropdownValues[1]) {
-      final _calculatedPot = Provider.of<PotsCollection>(context, listen: false)
-          .calculatePercentBasedOnAmount(potSetId, _editedPot);
-      Provider.of<PotsCollection>(context, listen: false)
-          .addPot(potSetId, _calculatedPot);
-      Provider.of<PotsCollection>(context, listen: false).calculate(potSetId);
-      Navigator.of(context).pop();
-    }
-
     // print(
     //   "Наименование: ${_editedPot.name}," +
     //       " Проценты: ${_editedPot.percent}," +
