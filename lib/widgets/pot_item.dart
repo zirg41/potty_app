@@ -71,6 +71,7 @@ class PotItem extends StatelessWidget {
         Provider.of<PotsCollection>(context, listen: false).calculate(potSetId);
       },
       child: Card(
+        elevation: 5,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -94,7 +95,7 @@ class PotItem extends StatelessWidget {
                     child: Text(
                       pot.percent == null
                           ? ""
-                          : "${pot.percent.toStringAsFixed(0)} %",
+                          : "${pot.percent.toStringAsFixed(pot.percent.truncateToDouble() == pot.percent ? 0 : 1)} %",
                       style: const TextStyle(
                           fontSize: 18, color: Color(0xFFf4f1de)),
                     ),

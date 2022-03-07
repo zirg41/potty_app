@@ -42,13 +42,37 @@ class _EditPotPageState extends State<EditPotPage> {
       percent: _editedPot.percent,
       amount: _editedPot.amount,
     );
-    Provider.of<PotsCollection>(context, listen: false)
-        .addPot(potSetId, _editedPot);
-    Provider.of<PotsCollection>(context, listen: false).calculate(potSetId);
-    Navigator.of(context).pop();
+    // TODO
+    // checking if user entered amount value or not
+    // if so here needs to calculate percent based on input amount
+    // else return
+    if (currentDropdownValue == dropdownValues[0]) {
+      Provider.of<PotsCollection>(context, listen: false)
+          .addPot(potSetId, _editedPot);
+      Provider.of<PotsCollection>(context, listen: false).calculate(potSetId);
+      Navigator.of(context).pop();
+    }
+    if (currentDropdownValue == dropdownValues[1]) {
+      final _calculatedPot = Provider.of<PotsCollection>(context, listen: false)
+          .calculatePercentBasedOnAmount(potSetId, _editedPot);
+      Provider.of<PotsCollection>(context, listen: false)
+          .addPot(potSetId, _calculatedPot);
+      Provider.of<PotsCollection>(context, listen: false).calculate(potSetId);
+      Navigator.of(context).pop();
+    }
+
+    // print(
+    //   "Наименование: ${_editedPot.name}," +
+    //       " Проценты: ${_editedPot.percent}," +
+    //       " Сумма: ${_editedPot.amount}",
+    // );
+
+    // Provider.of<PotsCollection>(context, listen: false).calculate(potSetId);
+    // Navigator.of(context).pop();
   }
 
-  String dropdownValue = 'Проценты';
+  List<String> dropdownValues = ['Проценты', 'Сумма'];
+  String currentDropdownValue = 'Проценты';
 
   @override
   Widget build(BuildContext context) {
@@ -108,20 +132,13 @@ class _EditPotPageState extends State<EditPotPage> {
                   width: (_mediaQuery.size.width - 20) * 2 / 3,
                   padding: const EdgeInsets.only(top: 10, bottom: 10, right: 5),
                   child: TextFormField(
-                    initialValue: _initValues['percent'],
+                    initialValue: currentDropdownValue == dropdownValues[0]
+                        ? _initValues['percent']
+                        : _initValues['amount'],
                     decoration: InputDecoration(
-                      labelText: dropdownValue,
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(
-                            width: 1.5,
-                            color: Color.fromARGB(255, 122, 122, 122)),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                            width: 1.5, color: themeData.primaryColor),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
+                      labelText: currentDropdownValue,
+                      enabledBorder: _enabledBorder,
+                      focusedBorder: _focusedBorder,
                     ),
                     textInputAction: TextInputAction.next,
                     keyboardType: TextInputType.number,
@@ -129,10 +146,10 @@ class _EditPotPageState extends State<EditPotPage> {
                       _editedPot = Pot(
                         id: _editedPot.id,
                         name: _editedPot.name,
-                        amount: dropdownValue == "Сумма"
+                        amount: currentDropdownValue == dropdownValues[1]
                             ? double.parse(newValue)
                             : _editedPot.amount,
-                        percent: dropdownValue == "Проценты"
+                        percent: currentDropdownValue == dropdownValues[0]
                             ? double.parse(newValue)
                             : _editedPot.percent,
                       );
@@ -151,7 +168,7 @@ class _EditPotPageState extends State<EditPotPage> {
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: DropdownButton<String>(
-                    value: dropdownValue,
+                    value: currentDropdownValue,
                     icon: const Icon(Icons.arrow_drop_down_outlined),
                     style:
                         TextStyle(color: themeData.primaryColor, fontSize: 15),
@@ -162,16 +179,16 @@ class _EditPotPageState extends State<EditPotPage> {
                         return;
                       }
                       setState(() {
-                        dropdownValue = newValue;
-                        if (newValue == "Проценты") {
+                        currentDropdownValue = newValue;
+                        if (newValue == dropdownValues[0]) {
                           _editedPot.amount = null;
                         }
-                        if (newValue == "Сумма") {
+                        if (newValue == dropdownValues[1]) {
                           _editedPot.percent = null;
                         }
                       });
                     },
-                    items: <String>['Проценты', 'Сумма']
+                    items: dropdownValues
                         .map<DropdownMenuItem<String>>(
                           (String value) => DropdownMenuItem<String>(
                             value: value,

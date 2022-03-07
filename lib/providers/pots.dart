@@ -66,6 +66,16 @@ class PotsCollection with ChangeNotifier {
     notifyListeners();
   }
 
+  Pot calculatePercentBasedOnAmount(String potSetId, Pot amountPot) {
+    double _currentIncome = _definePotSet(potSetId).income;
+    return Pot(
+      id: amountPot.id,
+      name: amountPot.name,
+      amount: amountPot.amount,
+      percent: amountPot.amount / _currentIncome * 100,
+    );
+  }
+
   void checkPots(String potSetId) {
     percentSumm = 0.0;
     _definePotSet(potSetId).pots.forEach((pot) {
