@@ -13,6 +13,7 @@ class IncomeEditShow extends StatefulWidget {
 class _IncomeEditShowState extends State<IncomeEditShow> {
   var _isChanging = false;
   final _form = GlobalKey<FormState>();
+  double adjustedIncome = 0.0;
   @override
   Widget build(BuildContext context) {
     final themeData = Theme.of(context);
@@ -43,20 +44,40 @@ class _IncomeEditShowState extends State<IncomeEditShow> {
                   child: const Text("Изменить"),
                 ),
               ])
-            : Form(
-                key: _form,
-                child: Row(
-                  children: [
-                    const Spacer(),
-                    TextButton(
-                      onPressed: () {
-                        setState(() {
-                          _isChanging = !_isChanging;
-                        });
-                      },
-                      child: const Text("Изменить"),
-                    ),
-                  ],
+            : Container(
+                child: Form(
+                  key: _form,
+                  child: Row(
+                    children: [
+                      TextFormField(
+                        initialValue: "Введите доход",
+                        validator: (value) {
+                          if (value.isEmpty) {
+                            return "Введите сумму";
+                          }
+                          if (double.tryParse(value) == null) {
+                            return "Please enter a valid number";
+                          }
+                          if (double.parse(value) <= 0) {
+                            return "Please enter a valid number";
+                          }
+                          return null;
+                        },
+                        onSaved: (newValue) {
+                          adjustedIncome = double.parse(newValue);
+                        },
+                      ),
+                      const Spacer(),
+                      TextButton(
+                        onPressed: () {
+                          setState(() {
+                            _isChanging = !_isChanging;
+                          });
+                        },
+                        child: const Text("Изменить"),
+                      ),
+                    ],
+                  ),
                 ),
               ),
       ),
