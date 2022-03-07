@@ -95,7 +95,7 @@ class PotItem extends StatelessWidget {
                     child: Text(
                       pot.percent == null
                           ? ""
-                          : "${pot.percent.toStringAsFixed(pot.percent.truncateToDouble() == pot.percent ? 0 : 2)} %",
+                          : "${pot.percent.toStringAsFixed(pot.percent.truncateToDouble() == pot.percent ? 0 : 1)} %",
                       style: const TextStyle(
                           fontSize: 18, color: Color(0xFFf4f1de)),
                     ),
