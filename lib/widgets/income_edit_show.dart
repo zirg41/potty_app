@@ -17,9 +17,9 @@ class _IncomeEditShowState extends State<IncomeEditShow> {
     final themeData = Theme.of(context);
     return Card(
       elevation: 8,
-      margin: EdgeInsets.all(10),
+      margin: const EdgeInsets.all(10),
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 15, vertical: 7),
+        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 7),
         width: double.infinity,
         child: Row(children: [
           if (!_isChanging)
@@ -30,7 +30,7 @@ class _IncomeEditShowState extends State<IncomeEditShow> {
           if (!_isChanging) const Spacer(),
           if (!_isChanging)
             Text(
-              "${widget.potset.income.toString()}",
+              widget.potset.income.toString(),
               style: themeData.textTheme.headline2,
             ),
           if (_isChanging) Container(),
@@ -41,7 +41,7 @@ class _IncomeEditShowState extends State<IncomeEditShow> {
                 _isChanging = !_isChanging;
               });
             },
-            child: Text("Изменить"),
+            child: const Text("Изменить"),
           ),
         ]),
       ),
