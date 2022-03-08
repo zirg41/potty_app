@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:potty_app/config/themes/light_theme.dart';
 import 'package:potty_app/models/pot.dart';
 import 'package:potty_app/providers/pots.dart';
 import 'package:potty_app/widgets/custom_app_bar.dart';
@@ -158,6 +159,8 @@ class _EditPotPageState extends State<EditPotPage> {
               initialValue: _initValues['name'],
               decoration: InputDecoration(
                 labelText: "Наименование",
+                fillColor: CustomColors.backgroundColor,
+                filled: true,
                 enabledBorder: _enabledBorder,
                 focusedBorder: _focusedBorder,
               ),
@@ -191,6 +194,8 @@ class _EditPotPageState extends State<EditPotPage> {
                         : null,
                     decoration: InputDecoration(
                       labelText: currentDropdownValue,
+                      fillColor: CustomColors.backgroundColor,
+                      filled: true,
                       enabledBorder: _enabledBorder,
                       focusedBorder: _focusedBorder,
                     ),
