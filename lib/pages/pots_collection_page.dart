@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:potty_app/pages/add_pot_set_first_page.dart';
 import 'package:potty_app/providers/pot_set.dart';
 import 'package:potty_app/providers/pots.dart';
 import 'package:potty_app/widgets/custom_app_bar.dart';
@@ -11,11 +12,18 @@ class PotsCollectionPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<PotSet> potsCollect =
-        Provider.of<PotsCollection>(context, listen: false).items;
+    final List<PotSet> potsCollect = Provider.of<PotsCollection>(context).items;
     return Scaffold(
-      appBar: CustomAppBar(
-        title: "Your pots",
+      appBar: AppBar(
+        leading: null,
+
+        title: Text(
+          "Your pots",
+          style: Theme.of(context).textTheme.headline1,
+        ),
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        // foregroundColor: Theme.of(context).backgroundColor,
+        elevation: 0,
       ),
       body: Container(
         height: 635,
@@ -27,6 +35,13 @@ class PotsCollectionPage extends StatelessWidget {
             child: PotCollectionItem(),
           ),
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.of(context).pushNamed(AddPotSetFirstPage.routeName);
+        },
+        child: const Icon(Icons.add),
+        backgroundColor: Theme.of(context).primaryColor,
       ),
     );
   }

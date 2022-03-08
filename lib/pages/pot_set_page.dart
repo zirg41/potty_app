@@ -24,6 +24,7 @@ class PotSetPage extends StatelessWidget {
     final _appbar = CustomAppBar(
       title: potSetData.name,
       isBackButtonInit: true,
+      isPagePotSet: true,
     );
     var container = PreferredSize(
       preferredSize: const Size.fromHeight(50),

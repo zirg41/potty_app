@@ -1,17 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:potty_app/pages/pots_collection_page.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Size get preferredSize => Size.fromHeight(60);
 
   final String title;
-  final bool isBackButtonInit;
-  CustomAppBar({this.title, this.isBackButtonInit});
+  bool isBackButtonInit;
+  bool isPagePotSet;
+
+  CustomAppBar({
+    this.title,
+    this.isBackButtonInit = false,
+    this.isPagePotSet = false,
+  });
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      leading: isBackButtonInit == null
+      leading: isBackButtonInit == false
           ? null
           : Builder(
               builder: (BuildContext context) {

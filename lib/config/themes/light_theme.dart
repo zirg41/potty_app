@@ -4,7 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 class CustomTheme {
   static get lightTheme {
     return ThemeData(
-      primaryColor: Colors.indigo,
+      primaryColor: CustomColors.mainColor,
       textTheme: TextTheme(
         headline1: GoogleFonts.lato(
           fontSize: 21,
@@ -26,8 +26,13 @@ class CustomTheme {
           fontWeight: FontWeight.normal,
           color: const Color.fromARGB(249, 31, 31, 31),
         ),
+        headline3: GoogleFonts.lato(
+          fontSize: 14,
+          fontWeight: FontWeight.normal,
+          color: const Color.fromARGB(249, 31, 31, 31),
+        ),
       ),
-      scaffoldBackgroundColor: Color.fromARGB(255, 245, 245, 245),
+      scaffoldBackgroundColor: CustomColors.scaffoldBackgroundColor,
     );
   }
 }
@@ -35,4 +40,8 @@ class CustomTheme {
 class CustomColors {
   static const overallocatedColor = Colors.red;
   static const unallocatedColor = Colors.orange;
+  static const mainColor = Colors.indigo;
+  static const scaffoldBackgroundColor = Color.fromARGB(255, 245, 245, 245);
+  static const backgroundColor = Color.fromARGB(255, 255, 255, 255);
+  static const hintColor = Color.fromARGB(255, 218, 218, 218);
 }

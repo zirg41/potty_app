@@ -38,6 +38,12 @@ class PotsCollection with ChangeNotifier {
         Pot(id: '4', name: "Подарки", percent: 5),
       ],
     ),
+    PotSet(
+      id: DateTime.now().toString(),
+      name: "Зарплата3",
+      income: 29748,
+      pots: [],
+    ),
   ];
   double percentSumm;
 
@@ -96,5 +102,25 @@ class PotsCollection with ChangeNotifier {
     definePotSet(potSetId).unallocatedAmount = unallocatedAmount;
     // debugPrint("unallocatedAmount: ${unallocatedAmount.toString()} rubles");
     percentSumm = 0.0;
+  }
+
+  void changeIncome(String potSetId, double newIncome) {
+    definePotSet(potSetId).income = newIncome;
+    calculate(potSetId);
+    notifyListeners();
+  }
+
+  String createPotSet(String name, double income) {
+    final potSetId = DateTime.now().toString();
+    _items.add(
+      PotSet(
+        id: potSetId,
+        income: income,
+        name: name,
+        pots: [],
+      ),
+    );
+    notifyListeners();
+    return potSetId;
   }
 }
