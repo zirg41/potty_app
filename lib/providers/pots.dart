@@ -109,4 +109,18 @@ class PotsCollection with ChangeNotifier {
     calculate(potSetId);
     notifyListeners();
   }
+
+  String createPotSet(String name, double income) {
+    final potSetId = DateTime.now().toString();
+    _items.add(
+      PotSet(
+        id: potSetId,
+        income: income,
+        name: name,
+        pots: [],
+      ),
+    );
+    notifyListeners();
+    return potSetId;
+  }
 }
