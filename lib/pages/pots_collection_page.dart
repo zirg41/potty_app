@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:potty_app/pages/add_pot_set_page.dart';
 import 'package:potty_app/providers/pot_set.dart';
 import 'package:potty_app/providers/pots.dart';
 import 'package:potty_app/widgets/custom_app_bar.dart';
@@ -30,7 +31,7 @@ class PotsCollectionPage extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          // Navigator.of(context).pushNamed();
+          Navigator.of(context).pushNamed(AddPotSetPage.routeName);
         },
         child: const Icon(Icons.add),
         backgroundColor: Theme.of(context).primaryColor,
