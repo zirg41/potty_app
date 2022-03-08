@@ -22,6 +22,7 @@ class _IncomeEditShowState extends State<IncomeEditShow> {
     final themeData = Theme.of(context);
 
     var inputDecoration = InputDecoration(
+      contentPadding: EdgeInsets.all(10),
       suffix: Text("руб"),
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(10),
@@ -36,22 +37,51 @@ class _IncomeEditShowState extends State<IncomeEditShow> {
       ),
     );
 
-    return Card(
-      elevation: 8,
-      margin: const EdgeInsets.all(10),
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 7),
-        width: double.infinity,
-        child: !_isChanging
-            ? Row(children: [
-                Text(
-                  "Ваш доход, руб: ",
-                  style: themeData.textTheme.bodyText1,
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 7),
+      width: double.infinity,
+      child: !_isChanging
+          ? Column(
+              children: [
+                Row(
+                  children: [
+                    Text(
+                      "Ваш доход: ",
+                      style: themeData.textTheme.bodyText1,
+                    ),
+                    const Spacer(),
+                    Container(
+                      padding: EdgeInsets.all(5),
+                      decoration: BoxDecoration(
+                          border: Border.all(),
+                          borderRadius: BorderRadius.circular(10)),
+                      child: Text(
+                        "${widget.potset.income.toString()} руб.",
+                        style: themeData.textTheme.headline2,
+                      ),
+                    ),
+                    const Spacer(),
+                    TextButton(
+                      onPressed: () {
+                        setState(() {
+                          _isChanging = !_isChanging;
+                        });
+                      },
+                      child: const Text("Изменить"),
+                    ),
+                  ],
                 ),
-                const Spacer(),
-                Text(
-                  widget.potset.income.toString(),
-                  style: themeData.textTheme.headline2,
+              ],
+            )
+          : Row(
+              children: [
+                Container(
+                  width: _mediaQuery.size.width * 3 / 5,
+                  // height: 100,
+                  child: TextField(
+                    controller: myController,
+                    decoration: inputDecoration,
+                  ),
                 ),
                 const Spacer(),
                 TextButton(
@@ -60,31 +90,10 @@ class _IncomeEditShowState extends State<IncomeEditShow> {
                       _isChanging = !_isChanging;
                     });
                   },
-                  child: const Text("Изменить"),
+                  child: const Text("Сохранить"),
                 ),
-              ])
-            : Row(
-                children: [
-                  Container(
-                    width: _mediaQuery.size.width * 3 / 5,
-                    // height: 100,
-                    child: TextField(
-                      controller: myController,
-                      decoration: inputDecoration,
-                    ),
-                  ),
-                  const Spacer(),
-                  TextButton(
-                    onPressed: () {
-                      setState(() {
-                        _isChanging = !_isChanging;
-                      });
-                    },
-                    child: const Text("Изменить"),
-                  ),
-                ],
-              ),
-      ),
+              ],
+            ),
     );
   }
 }
