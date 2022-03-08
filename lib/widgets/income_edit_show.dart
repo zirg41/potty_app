@@ -13,29 +13,30 @@ class IncomeEditShow extends StatefulWidget {
 
 class _IncomeEditShowState extends State<IncomeEditShow> {
   var _isChanging = false;
-  final _form = GlobalKey<FormState>(debugLabel: "DL");
   final myController = TextEditingController();
+
   double adjustedIncome = 0.0;
+
+  final inputDecoration = InputDecoration(
+    contentPadding: const EdgeInsets.all(10),
+    suffix: const Text("руб"),
+    border: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(10),
+    ),
+    hintText: 'Введите доход',
+    focusedBorder: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(10),
+      borderSide: const BorderSide(
+        color: CustomColors.mainColor,
+        width: 2.0,
+      ),
+    ),
+  );
+
   @override
   Widget build(BuildContext context) {
     final _mediaQuery = MediaQuery.of(context);
     final themeData = Theme.of(context);
-
-    var inputDecoration = InputDecoration(
-      contentPadding: EdgeInsets.all(10),
-      suffix: Text("руб"),
-      border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(10),
-      ),
-      hintText: 'Введите доход',
-      focusedBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(10),
-        borderSide: const BorderSide(
-          color: CustomColors.mainColor,
-          width: 2.0,
-        ),
-      ),
-    );
 
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 7),
@@ -51,9 +52,13 @@ class _IncomeEditShowState extends State<IncomeEditShow> {
                     ),
                     const Spacer(),
                     Container(
-                      padding: EdgeInsets.all(5),
+                      alignment: Alignment.center,
+                      padding: const EdgeInsets.all(8),
                       decoration: BoxDecoration(
-                          border: Border.all(),
+                          color: CustomColors.backgroundColor,
+                          border: Border.all(
+                            color: CustomColors.backgroundColor,
+                          ),
                           borderRadius: BorderRadius.circular(10)),
                       child: Text(
                         "${widget.potset.income.toString()} руб.",
@@ -75,7 +80,7 @@ class _IncomeEditShowState extends State<IncomeEditShow> {
             )
           : Row(
               children: [
-                Container(
+                SizedBox(
                   width: _mediaQuery.size.width * 3 / 5,
                   // height: 100,
                   child: TextField(
