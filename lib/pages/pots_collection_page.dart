@@ -12,8 +12,7 @@ class PotsCollectionPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<PotSet> potsCollect =
-        Provider.of<PotsCollection>(context, listen: false).items;
+    final List<PotSet> potsCollect = Provider.of<PotsCollection>(context).items;
     return Scaffold(
       appBar: AppBar(
         leading: null,
