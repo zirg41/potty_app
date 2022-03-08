@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:potty_app/config/themes/light_theme.dart';
 import 'package:potty_app/providers/pot_set.dart';
 
 class IncomeEditShow extends StatefulWidget {
@@ -12,11 +13,29 @@ class IncomeEditShow extends StatefulWidget {
 
 class _IncomeEditShowState extends State<IncomeEditShow> {
   var _isChanging = false;
-  final _form = GlobalKey<FormState>();
+  final _form = GlobalKey<FormState>(debugLabel: "DL");
+  final myController = TextEditingController();
   double adjustedIncome = 0.0;
   @override
   Widget build(BuildContext context) {
+    final _mediaQuery = MediaQuery.of(context);
     final themeData = Theme.of(context);
+
+    var inputDecoration = InputDecoration(
+      suffix: Text("руб"),
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(10),
+      ),
+      hintText: 'Введите доход',
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(10),
+        borderSide: const BorderSide(
+          color: CustomColors.mainColor,
+          width: 2.0,
+        ),
+      ),
+    );
+
     return Card(
       elevation: 8,
       margin: const EdgeInsets.all(10),
@@ -44,41 +63,26 @@ class _IncomeEditShowState extends State<IncomeEditShow> {
                   child: const Text("Изменить"),
                 ),
               ])
-            : Container(
-                child: Form(
-                  key: _form,
-                  child: Row(
-                    children: [
-                      TextFormField(
-                        initialValue: "Введите доход",
-                        validator: (value) {
-                          if (value.isEmpty) {
-                            return "Введите сумму";
-                          }
-                          if (double.tryParse(value) == null) {
-                            return "Please enter a valid number";
-                          }
-                          if (double.parse(value) <= 0) {
-                            return "Please enter a valid number";
-                          }
-                          return null;
-                        },
-                        onSaved: (newValue) {
-                          adjustedIncome = double.parse(newValue);
-                        },
-                      ),
-                      const Spacer(),
-                      TextButton(
-                        onPressed: () {
-                          setState(() {
-                            _isChanging = !_isChanging;
-                          });
-                        },
-                        child: const Text("Изменить"),
-                      ),
-                    ],
+            : Row(
+                children: [
+                  Container(
+                    width: _mediaQuery.size.width * 3 / 5,
+                    // height: 100,
+                    child: TextField(
+                      controller: myController,
+                      decoration: inputDecoration,
+                    ),
                   ),
-                ),
+                  const Spacer(),
+                  TextButton(
+                    onPressed: () {
+                      setState(() {
+                        _isChanging = !_isChanging;
+                      });
+                    },
+                    child: const Text("Изменить"),
+                  ),
+                ],
               ),
       ),
     );
