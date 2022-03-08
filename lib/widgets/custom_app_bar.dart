@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:potty_app/pages/pots_collection_page.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
@@ -6,7 +7,13 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   final String title;
   final bool isBackButtonInit;
-  CustomAppBar({this.title, this.isBackButtonInit});
+  bool isPagePotSet = false;
+
+  CustomAppBar({this.title, this.isBackButtonInit, this.isPagePotSet});
+
+  void backButtonAction(BuildContext context) {
+    Navigator.of(context).pop();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +27,10 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                     Icons.arrow_back,
                     color: Color.fromRGBO(20, 20, 20, 1),
                   ),
-                  onPressed: () => Navigator.of(context).pop(),
+                  onPressed: () => isPagePotSet
+                      ? Navigator.of(context)
+                          .pushReplacementNamed(PotsCollectionPage.routeName)
+                      : backButtonAction(context),
                 );
               },
             ),

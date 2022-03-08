@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:potty_app/config/themes/light_theme.dart';
+import 'package:potty_app/pages/edit_pot_page.dart';
+import 'package:potty_app/pages/pot_set_page.dart';
+import 'package:potty_app/providers/pots.dart';
 import 'package:potty_app/widgets/custom_app_bar.dart';
+import 'package:provider/provider.dart';
 
 class AddPotSetSecondPage extends StatefulWidget {
   static const routeName = "/add-pot-set-second-page";
-  AddPotSetSecondPage();
 
   @override
   State<AddPotSetSecondPage> createState() => _AddPotSetSecondPageState();
@@ -12,6 +15,7 @@ class AddPotSetSecondPage extends StatefulWidget {
 
 class _AddPotSetSecondPageState extends State<AddPotSetSecondPage> {
   final _textController = TextEditingController();
+
   final inputDecoration = InputDecoration(
     contentPadding: const EdgeInsets.all(10),
     fillColor: CustomColors.backgroundColor,
@@ -29,6 +33,7 @@ class _AddPotSetSecondPageState extends State<AddPotSetSecondPage> {
       ),
     ),
   );
+
   @override
   Widget build(BuildContext context) {
     var nameOfPotSet = ModalRoute.of(context).settings.arguments;
@@ -74,7 +79,18 @@ class _AddPotSetSecondPageState extends State<AddPotSetSecondPage> {
                   shape: const RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(Radius.circular(10))),
                 ),
-                onPressed: () => {},
+                onPressed: () {
+                  String potSetId =
+                      Provider.of<PotsCollection>(context, listen: false)
+                          .createPotSet(
+                              nameOfPotSet, double.parse(_textController.text));
+                  // Navigator.of(context).pushReplacementNamed(
+                  //     EditPotPage.routeName,
+                  //     arguments: {"pot-set-id": potSetId, "pot-id": null});
+                  Navigator.of(context).pushReplacementNamed(
+                      PotSetPage.routeName,
+                      arguments: potSetId);
+                },
                 child: const SizedBox(
                   height: 50,
                   width: 140,

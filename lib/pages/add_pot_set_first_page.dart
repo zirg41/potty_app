@@ -73,7 +73,7 @@ class _AddPotSetFirstPageState extends State<AddPotSetFirstPage> {
                   shape: const RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(Radius.circular(10))),
                 ),
-                onPressed: () => Navigator.of(context).pushNamed(
+                onPressed: () => Navigator.of(context).pushReplacementNamed(
                     AddPotSetSecondPage.routeName,
                     arguments: _textController.text),
                 child: const SizedBox(
