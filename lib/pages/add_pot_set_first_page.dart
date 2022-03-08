@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:potty_app/config/themes/light_theme.dart';
 import 'package:potty_app/widgets/custom_app_bar.dart';
 
-class AddPotSetPage extends StatefulWidget {
+class AddPotSetFirstPage extends StatefulWidget {
   static const routeName = "/add-pot-set-page";
-  AddPotSetPage();
+  AddPotSetFirstPage();
 
   @override
-  State<AddPotSetPage> createState() => _AddPotSetPageState();
+  State<AddPotSetFirstPage> createState() => _AddPotSetFirstPageState();
 }
 
-class _AddPotSetPageState extends State<AddPotSetPage> {
+class _AddPotSetFirstPageState extends State<AddPotSetFirstPage> {
   final _textController = TextEditingController();
   final inputDecoration = InputDecoration(
     contentPadding: const EdgeInsets.all(10),
@@ -56,31 +56,35 @@ class _AddPotSetPageState extends State<AddPotSetPage> {
             Container(
               alignment: Alignment.center,
               height: 50,
-              width: _mediaQuery.size.width * 9 / 10,
+              padding: const EdgeInsets.symmetric(horizontal: 20),
               child: TextField(
                 controller: _textController,
                 decoration: inputDecoration,
               ),
             ),
             const SizedBox(height: 30),
-            OutlinedButton(
-              style: OutlinedButton.styleFrom(
-                backgroundColor: CustomColors.mainColor,
-                shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(10))),
-              ),
-              onPressed: () => {},
-              child: const SizedBox(
-                height: 50,
-                width: 150,
-                child: Center(
-                    child: Text(
-                  "Сохранить",
-                  style: TextStyle(
-                    fontSize: 15,
-                    color: Colors.white,
-                  ),
-                )),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              alignment: Alignment.centerRight,
+              child: OutlinedButton(
+                style: OutlinedButton.styleFrom(
+                  backgroundColor: CustomColors.mainColor,
+                  shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(10))),
+                ),
+                onPressed: () => {},
+                child: const SizedBox(
+                  height: 50,
+                  width: 140,
+                  child: Center(
+                      child: Text(
+                    "Далее",
+                    style: TextStyle(
+                      fontSize: 15,
+                      color: Colors.white,
+                    ),
+                  )),
+                ),
               ),
             ),
           ],
