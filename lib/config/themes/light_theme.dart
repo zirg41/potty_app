@@ -4,7 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 class CustomTheme {
   static get lightTheme {
     return ThemeData(
-      primaryColor: Colors.indigo,
+      primaryColor: CustomColors.mainColor,
       textTheme: TextTheme(
         headline1: GoogleFonts.lato(
           fontSize: 21,
@@ -35,4 +35,5 @@ class CustomTheme {
 class CustomColors {
   static const overallocatedColor = Colors.red;
   static const unallocatedColor = Colors.orange;
+  static const mainColor = Colors.indigo;
 }
