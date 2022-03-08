@@ -3,9 +3,9 @@ import 'package:potty_app/models/pot.dart';
 
 class PotSet with ChangeNotifier {
   final String id;
-  final double income;
-  final String name;
-  final List<Pot> pots;
+  double income;
+  String name;
+  List<Pot> pots;
   double unallocatedAmount = 0;
   double unallocatedPercent = 0;
 

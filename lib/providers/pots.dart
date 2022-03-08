@@ -103,4 +103,10 @@ class PotsCollection with ChangeNotifier {
     // debugPrint("unallocatedAmount: ${unallocatedAmount.toString()} rubles");
     percentSumm = 0.0;
   }
+
+  void changeIncome(String potSetId, double newIncome) {
+    definePotSet(potSetId).income = newIncome;
+    calculate(potSetId);
+    notifyListeners();
+  }
 }
