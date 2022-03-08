@@ -1,26 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:potty_app/config/themes/light_theme.dart';
-import 'package:potty_app/pages/add_pot_set_second_page.dart';
 import 'package:potty_app/widgets/custom_app_bar.dart';
 
-class AddPotSetFirstPage extends StatefulWidget {
-  static const routeName = "/add-pot-set-page";
-  AddPotSetFirstPage();
+class AddPotSetSecondPage extends StatefulWidget {
+  static const routeName = "/add-pot-set-second-page";
+  AddPotSetSecondPage();
 
   @override
-  State<AddPotSetFirstPage> createState() => _AddPotSetFirstPageState();
+  State<AddPotSetSecondPage> createState() => _AddPotSetSecondPageState();
 }
 
-class _AddPotSetFirstPageState extends State<AddPotSetFirstPage> {
+class _AddPotSetSecondPageState extends State<AddPotSetSecondPage> {
   final _textController = TextEditingController();
   final inputDecoration = InputDecoration(
     contentPadding: const EdgeInsets.all(10),
     fillColor: CustomColors.backgroundColor,
     filled: true,
+    suffix: const Text("руб"),
     border: OutlineInputBorder(
       borderRadius: BorderRadius.circular(10),
     ),
-    hintText: 'Например, "Зарплата" или "Аванс"',
+    hintText: 'Доход, руб',
     focusedBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(10),
       borderSide: const BorderSide(
@@ -31,11 +31,12 @@ class _AddPotSetFirstPageState extends State<AddPotSetFirstPage> {
   );
   @override
   Widget build(BuildContext context) {
+    var nameOfPotSet = ModalRoute.of(context).settings.arguments;
     final _mediaQuery = MediaQuery.of(context);
 
     return Scaffold(
       appBar: CustomAppBar(
-        title: "Добавить",
+        title: nameOfPotSet,
         isBackButtonInit: true,
       ),
       body: Container(
@@ -49,7 +50,7 @@ class _AddPotSetFirstPageState extends State<AddPotSetFirstPage> {
               padding: const EdgeInsets.symmetric(horizontal: 20),
               alignment: Alignment.centerLeft,
               child: Text(
-                "Введите наименование",
+                "Введите величину дохода",
                 style: Theme.of(context).textTheme.headline1,
               ),
             ),
@@ -73,9 +74,7 @@ class _AddPotSetFirstPageState extends State<AddPotSetFirstPage> {
                   shape: const RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(Radius.circular(10))),
                 ),
-                onPressed: () => Navigator.of(context).pushNamed(
-                    AddPotSetSecondPage.routeName,
-                    arguments: _textController.text),
+                onPressed: () => {},
                 child: const SizedBox(
                   height: 50,
                   width: 140,
