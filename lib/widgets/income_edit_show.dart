@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:potty_app/config/themes/light_theme.dart';
 import 'package:potty_app/providers/pot_set.dart';
+import 'package:potty_app/providers/pots.dart';
+import 'package:provider/provider.dart';
 
 class IncomeEditShow extends StatefulWidget {
   final PotSet potset;
@@ -20,6 +22,8 @@ class _IncomeEditShowState extends State<IncomeEditShow> {
   final inputDecoration = InputDecoration(
     contentPadding: const EdgeInsets.all(10),
     suffix: const Text("руб"),
+    fillColor: CustomColors.backgroundColor,
+    filled: true,
     border: OutlineInputBorder(
       borderRadius: BorderRadius.circular(10),
     ),
@@ -51,19 +55,48 @@ class _IncomeEditShowState extends State<IncomeEditShow> {
                       style: themeData.textTheme.bodyText1,
                     ),
                     const Spacer(),
-                    Container(
-                      alignment: Alignment.center,
-                      padding: const EdgeInsets.all(8),
-                      decoration: BoxDecoration(
-                          color: CustomColors.backgroundColor,
-                          border: Border.all(
+                    Row(
+                      children: [
+                        Container(
+                          alignment: Alignment.centerLeft,
+                          height: 50,
+                          width: _mediaQuery.size.width / 3.5,
+                          padding: const EdgeInsets.all(8),
+                          decoration: BoxDecoration(
                             color: CustomColors.backgroundColor,
+                            border: Border.all(
+                              color: CustomColors.hintColor,
+                            ),
+                            borderRadius: const BorderRadius.only(
+                              bottomLeft: Radius.circular(10),
+                              topLeft: Radius.circular(10),
+                            ),
                           ),
-                          borderRadius: BorderRadius.circular(10)),
-                      child: Text(
-                        "${widget.potset.income.toString()} руб.",
-                        style: themeData.textTheme.headline2,
-                      ),
+                          child: Text(
+                            widget.potset.income.toString(),
+                            style: themeData.textTheme.headline2,
+                          ),
+                        ),
+                        Container(
+                          height: 50,
+                          alignment: Alignment.center,
+                          padding: const EdgeInsets.all(8),
+                          decoration: BoxDecoration(
+                            color: CustomColors.hintColor,
+                            border: Border.all(
+                              color: CustomColors.hintColor,
+                            ),
+                            borderRadius: const BorderRadius.only(
+                              bottomRight: Radius.circular(10),
+                              topRight: Radius.circular(10),
+                            ),
+                          ),
+                          child: Text(
+                            "руб",
+                            style: themeData.textTheme.headline3,
+                          ),
+                        ),
+                      ],
                     ),
                     const Spacer(),
                     TextButton(
@@ -82,7 +115,7 @@ class _IncomeEditShowState extends State<IncomeEditShow> {
               children: [
                 SizedBox(
                   width: _mediaQuery.size.width * 3 / 5,
-                  // height: 100,
+                  height: 50,
                   child: TextField(
                     controller: myController,
                     decoration: inputDecoration,
@@ -94,6 +127,11 @@ class _IncomeEditShowState extends State<IncomeEditShow> {
                     setState(() {
                       _isChanging = !_isChanging;
                     });
+                    adjustedIncome = double.parse(myController.text);
+                    myController.text = ""; // clearing field
+                    Provider.of<PotsCollection>(context, listen: false)
+                        .changeIncome(widget.potset.id, adjustedIncome);
+                    ;
                   },
                   child: const Text("Сохранить"),
                 ),
