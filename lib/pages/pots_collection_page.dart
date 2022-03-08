@@ -15,8 +15,16 @@ class PotsCollectionPage extends StatelessWidget {
     final List<PotSet> potsCollect =
         Provider.of<PotsCollection>(context, listen: false).items;
     return Scaffold(
-      appBar: CustomAppBar(
-        title: "Your pots",
+      appBar: AppBar(
+        leading: null,
+
+        title: Text(
+          "Your pots",
+          style: Theme.of(context).textTheme.headline1,
+        ),
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        // foregroundColor: Theme.of(context).backgroundColor,
+        elevation: 0,
       ),
       body: Container(
         height: 635,

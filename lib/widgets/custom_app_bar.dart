@@ -6,19 +6,19 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   Size get preferredSize => Size.fromHeight(60);
 
   final String title;
-  final bool isBackButtonInit;
-  bool isPagePotSet = false;
+  bool isBackButtonInit;
+  bool isPagePotSet;
 
-  CustomAppBar({this.title, this.isBackButtonInit, this.isPagePotSet});
-
-  void backButtonAction(BuildContext context) {
-    Navigator.of(context).pop();
-  }
+  CustomAppBar({
+    this.title,
+    this.isBackButtonInit = false,
+    this.isPagePotSet = false,
+  });
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      leading: isBackButtonInit == null
+      leading: isBackButtonInit == false
           ? null
           : Builder(
               builder: (BuildContext context) {
@@ -27,10 +27,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                     Icons.arrow_back,
                     color: Color.fromRGBO(20, 20, 20, 1),
                   ),
-                  onPressed: () => isPagePotSet
-                      ? Navigator.of(context)
-                          .pushReplacementNamed(PotsCollectionPage.routeName)
-                      : backButtonAction(context),
+                  onPressed: () => Navigator.of(context).pop(),
                 );
               },
             ),
