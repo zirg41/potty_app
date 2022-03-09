@@ -73,8 +73,14 @@ class PotsCollection with ChangeNotifier {
   }
 
   void calculate(String potSetId) {
-    definePotSet(potSetId).pots.forEach((pot) =>
-        pot.amount = definePotSet(potSetId).income * pot.percent / 100);
+    definePotSet(potSetId).pots.forEach((pot) {
+      if (!pot.isAmountFixed) {
+        pot.amount = definePotSet(potSetId).income * pot.percent / 100;
+      } else {
+        pot.percent = pot.amount / definePotSet(potSetId).income * 100;
+      }
+    });
+
     checkPots(potSetId);
     notifyListeners();
   }

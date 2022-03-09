@@ -94,6 +94,7 @@ class _EditPotPageState extends State<EditPotPage> {
         name: _editedPot.name,
         percent: _editedPot.percent,
         amount: _editedPot.amount,
+        isAmountFixed: currentDropdownValue == dropdownValues[0] ? false : true,
       );
       if (currentDropdownValue == dropdownValues[0]) {
         Provider.of<PotsCollection>(context, listen: false)
