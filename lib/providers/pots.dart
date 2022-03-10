@@ -126,6 +126,7 @@ class PotsCollection with ChangeNotifier {
         pots: [],
       ),
     );
+    calculate(potSetId);
     notifyListeners();
     return potSetId;
   }
