@@ -7,43 +7,43 @@ class PotsCollection with ChangeNotifier {
   final List<PotSet> _items = [
     PotSet(
       id: DateTime.now().toString(),
-      name: "Зарплата",
+      name: "Зарплата (demo)",
       income: 32450,
       pots: [
-        Pot(id: '1', name: "Основные расходы", percent: 55),
-        Pot(id: '2', name: "Ремонт", percent: 15),
-        Pot(id: '3', name: "Инвестиции", percent: 10),
-        Pot(id: '4', name: "Подарки", percent: 5),
+        Pot(id: '1', name: "Основные расходы", percent: 55, amount: 17847.5),
+        Pot(id: '2', name: "Ремонт", percent: 15, amount: 4867.5),
+        Pot(id: '3', name: "Инвестиции", percent: 10, amount: 3245.0),
+        Pot(id: '4', name: "Подарки", percent: 5, amount: 1622.5),
       ],
     ),
     PotSet(
       id: DateTime.now().toString(),
-      name: "Аванс",
+      name: "Аванс (demo)",
       income: 8674,
       pots: [
-        Pot(id: '1', name: "Основные расходы", percent: 75),
-        Pot(id: '2', name: "Здоровье", percent: 10),
-        Pot(id: '3', name: "Ремонт", percent: 10),
-        Pot(id: '4', name: "Подарки", percent: 5),
+        Pot(id: '1', name: "Основные расходы", percent: 75, amount: 6505.5),
+        Pot(id: '2', name: "Здоровье", percent: 10, amount: 867.4),
+        Pot(id: '3', name: "Ремонт", percent: 10, amount: 867.4),
+        Pot(id: '4', name: "Подарки", percent: 5, amount: 433.7),
       ],
     ),
-    PotSet(
-      id: DateTime.now().toString(),
-      name: "Зарплата",
-      income: 29748,
-      pots: [
-        Pot(id: '1', name: "Основные расходы", percent: 55),
-        Pot(id: '2', name: "Ремонт", percent: 15),
-        Pot(id: '3', name: "Инвестиции", percent: 10),
-        Pot(id: '4', name: "Подарки", percent: 5),
-      ],
-    ),
-    PotSet(
-      id: DateTime.now().toString(),
-      name: "Зарплата3",
-      income: 29748,
-      pots: [],
-    ),
+    // PotSet(
+    //   id: DateTime.now().toString(),
+    //   name: "Зарплата",
+    //   income: 29748,
+    //   pots: [
+    //     Pot(id: '1', name: "Основные расходы", percent: 55),
+    //     Pot(id: '2', name: "Ремонт", percent: 15),
+    //     Pot(id: '3', name: "Инвестиции", percent: 10),
+    //     Pot(id: '4', name: "Подарки", percent: 5),
+    //   ],
+    // ),
+    // PotSet(
+    //   id: DateTime.now().toString(),
+    //   name: "Зарплата3",
+    //   income: 29748,
+    //   pots: [],
+    // ),
   ];
   double percentSumm;
 
