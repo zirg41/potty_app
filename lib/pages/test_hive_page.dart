@@ -7,7 +7,14 @@ class TestHivePage extends StatelessWidget {
     Hive.initFlutter();
   }
 
-  void doSomething() {}
+  void doSomething() async {
+    var box = await Hive.openBox<dynamic>('testbox');
+    // await box.put('name', 'Alina');
+
+    final name = box.get('name', defaultValue: 'default-name');
+    print(name);
+    // box.deleteAt(0);
+  }
 
   @override
   Widget build(BuildContext context) {
