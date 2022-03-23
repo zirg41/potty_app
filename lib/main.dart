@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:potty_app/pages/test_hive_page.dart';
 import 'package:potty_app/providers/pot_set.dart';
 import 'package:provider/provider.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -36,7 +37,8 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Potty App',
         theme: CustomTheme.lightTheme,
-        home: PotsCollectionPage(),
+        // home: PotsCollectionPage(),
+        home: TestHivePage(),
         routes: Routes.routes,
       ),
     );
