@@ -20,7 +20,7 @@ class PotSetAdapter extends TypeAdapter<PotSet> {
       id: fields[0] as String,
       income: fields[1] as double,
       name: fields[2] as String,
-      pots: (fields[3] as HiveList).castHiveList(),
+      pots: (fields[3] as List)?.cast<Pot>(),
     )
       ..unallocatedAmount = fields[4] as double
       ..unallocatedPercent = fields[5] as double;

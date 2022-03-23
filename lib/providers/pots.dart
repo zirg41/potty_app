@@ -142,7 +142,7 @@ class PotsCollection with ChangeNotifier {
         id: potSetId,
         income: income,
         name: name,
-        pots: ad,
+        pots: [],
       ),
     );
     calculate(potSetId);
