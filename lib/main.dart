@@ -32,6 +32,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  bool isTesting = false;
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -48,18 +49,20 @@ class _MyAppState extends State<MyApp> {
         title: 'Potty App',
         theme: CustomTheme.lightTheme,
         // home: PotsCollectionPage(),
-        home: FutureBuilder(
-          future: Hive.openBox('pots'),
-          builder: (BuildContext context, AsyncSnapshot snapshot) {
-            if (snapshot.connectionState == ConnectionState.done) {
-              return TestHivePage();
-            }
-            if (snapshot.hasError) {
-              return Text(snapshot.error.toString());
-            }
-            return const Text("Something went wrong");
-          },
-        ),
+        home: isTesting
+            ? FutureBuilder(
+                future: Hive.openBox('pots'),
+                builder: (BuildContext context, AsyncSnapshot snapshot) {
+                  if (snapshot.connectionState == ConnectionState.done) {
+                    return TestHivePage();
+                  }
+                  if (snapshot.hasError) {
+                    return Text(snapshot.error.toString());
+                  }
+                  return const Text("Something went wrong");
+                },
+              )
+            : PotsCollectionPage(),
 
         routes: Routes.routes,
       ),
