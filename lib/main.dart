@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:potty_app/models/pot.dart';
 import 'package:potty_app/pages/test_hive_page.dart';
 import 'package:potty_app/providers/pot_set.dart';
 import 'package:provider/provider.dart';
@@ -15,13 +16,24 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await Hive.initFlutter();
+  Hive.registerAdapter(PotSetAdapter());
+  Hive.registerAdapter(PotAdapter());
+
+  final pots = await Hive.openBox<Pot>("pots");
+  final potSets = await Hive.openBox<PotSet>("pot_sets");
+  var testBox = await Hive.openBox<Pot>('testbox');
 
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp();
 
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -38,9 +50,27 @@ class MyApp extends StatelessWidget {
         title: 'Potty App',
         theme: CustomTheme.lightTheme,
         // home: PotsCollectionPage(),
-        home: TestHivePage(),
+        home: FutureBuilder(
+          future: Hive.openBox('pots'),
+          builder: (BuildContext context, AsyncSnapshot snapshot) {
+            if (snapshot.connectionState == ConnectionState.done) {
+              return TestHivePage();
+            }
+            if (snapshot.hasError) {
+              return Text(snapshot.error.toString());
+            }
+            return const Text("Something went wrong");
+          },
+        ),
+
         routes: Routes.routes,
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    Hive.close();
+    super.dispose();
   }
 }
