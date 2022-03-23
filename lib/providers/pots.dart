@@ -1,50 +1,68 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:potty_app/models/pot.dart';
 import 'package:potty_app/providers/pot_set.dart';
 
 class PotsCollection with ChangeNotifier {
-  final List<PotSet> _items = [
-    PotSet(
-      id: DateTime.now().toString(),
-      name: "Зарплата (demo)",
-      income: 32450,
-      pots: [
-        Pot(id: '1', name: "Основные расходы", percent: 55, amount: 17847.5),
-        Pot(id: '2', name: "Ремонт", percent: 15, amount: 4867.5),
-        Pot(id: '3', name: "Инвестиции", percent: 10, amount: 3245.0),
-        Pot(id: '4', name: "Подарки", percent: 5, amount: 1622.5),
-      ],
-    ),
-    PotSet(
-      id: DateTime.now().toString(),
-      name: "Аванс (demo)",
-      income: 8674,
-      pots: [
-        Pot(id: '1', name: "Основные расходы", percent: 75, amount: 6505.5),
-        Pot(id: '2', name: "Здоровье", percent: 10, amount: 867.4),
-        Pot(id: '3', name: "Ремонт", percent: 10, amount: 867.4),
-        Pot(id: '4', name: "Подарки", percent: 5, amount: 433.7),
-      ],
-    ),
-    // PotSet(
-    //   id: DateTime.now().toString(),
-    //   name: "Зарплата",
-    //   income: 29748,
-    //   pots: [
-    //     Pot(id: '1', name: "Основные расходы", percent: 55),
-    //     Pot(id: '2', name: "Ремонт", percent: 15),
-    //     Pot(id: '3', name: "Инвестиции", percent: 10),
-    //     Pot(id: '4', name: "Подарки", percent: 5),
-    //   ],
-    // ),
-    // PotSet(
-    //   id: DateTime.now().toString(),
-    //   name: "Зарплата3",
-    //   income: 29748,
-    //   pots: [],
-    // ),
-  ];
+  // final List<PotSet> _items = [
+  //   PotSet(
+  //     id: DateTime.now().toString(),
+  //     name: "Зарплата (demo)",
+  //     income: 32450,
+  //     pots: [
+  //       Pot(id: '1', name: "Основные расходы", percent: 55, amount: 17847.5),
+  //       Pot(id: '2', name: "Ремонт", percent: 15, amount: 4867.5),
+  //       Pot(id: '3', name: "Инвестиции", percent: 10, amount: 3245.0),
+  //       Pot(id: '4', name: "Подарки", percent: 5, amount: 1622.5),
+  //     ],
+  //   ),
+  //   PotSet(
+  //     id: DateTime.now().toString(),
+  //     name: "Аванс (demo)",
+  //     income: 8674,
+  //     pots: [
+  //       Pot(id: '1', name: "Основные расходы", percent: 75, amount: 6505.5),
+  //       Pot(id: '2', name: "Здоровье", percent: 10, amount: 867.4),
+  //       Pot(id: '3', name: "Ремонт", percent: 10, amount: 867.4),
+  //       Pot(id: '4', name: "Подарки", percent: 5, amount: 433.7),
+  //     ],
+  //   ),
+  //   // PotSet(
+  //   //   id: DateTime.now().toString(),
+  //   //   name: "Зарплата",
+  //   //   income: 29748,
+  //   //   pots: [
+  //   //     Pot(id: '1', name: "Основные расходы", percent: 55),
+  //   //     Pot(id: '2', name: "Ремонт", percent: 15),
+  //   //     Pot(id: '3', name: "Инвестиции", percent: 10),
+  //   //     Pot(id: '4', name: "Подарки", percent: 5),
+  //   //   ],
+  //   // ),
+  //   // PotSet(
+  //   //   id: DateTime.now().toString(),
+  //   //   name: "Зарплата3",
+  //   //   income: 29748,
+  //   //   pots: [],
+  //   // ),
+  // ];
+
+  List<PotSet> _items = [];
+
+  // PotsCollection(Box pots, Box potSet) {
+  //   Map<String, dynamic> potSetMap = potSet.toMap();
+
+  //   potSet.toMap().forEach((key, value) {
+  //     _items.add(PotSet(
+  //         id: key == 'id' ? value : null,
+  //         income: key == 'income' ? value : null,
+  //         name: key == 'name' ? value : null,
+  //         pots: key == 'pots' ? value : null));
+  //   });
+  // }
+  // final HiveList pots = HiveList(Hive.box("pots"), objects: []);
+  // final HiveList potSets = HiveList(Hive.box("pots"), objects: []);
+
   double percentSumm;
 
   List<PotSet> get items {
@@ -116,6 +134,7 @@ class PotsCollection with ChangeNotifier {
     notifyListeners();
   }
 
+  HiveList<Pot> ad;
   String createPotSet(String name, double income) {
     final potSetId = DateTime.now().toString();
     _items.add(
@@ -123,7 +142,7 @@ class PotsCollection with ChangeNotifier {
         id: potSetId,
         income: income,
         name: name,
-        pots: [],
+        pots: ad,
       ),
     );
     calculate(potSetId);
