@@ -49,19 +49,11 @@ class PotsCollection with ChangeNotifier {
 
   List<PotSet> _items = [];
 
-  // PotsCollection(Box pots, Box potSet) {
-  //   Map<String, dynamic> potSetMap = potSet.toMap();
-
-  //   potSet.toMap().forEach((key, value) {
-  //     _items.add(PotSet(
-  //         id: key == 'id' ? value : null,
-  //         income: key == 'income' ? value : null,
-  //         name: key == 'name' ? value : null,
-  //         pots: key == 'pots' ? value : null));
-  //   });
-  // }
-  // final HiveList pots = HiveList(Hive.box("pots"), objects: []);
-  // final HiveList potSets = HiveList(Hive.box("pots"), objects: []);
+  PotsCollection(Box<PotSet> potSet) {
+    potSet.values.forEach((element) {
+      _items.add(element);
+    });
+  }
 
   double percentSumm;
 

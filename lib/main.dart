@@ -19,9 +19,7 @@ Future<void> main() async {
   Hive.registerAdapter(PotSetAdapter());
   Hive.registerAdapter(PotAdapter());
 
-  await Hive.openBox<Pot>("pots");
   await Hive.openBox<PotSet>("pot_sets");
-  await Hive.openBox<Pot>('testbox');
 
   runApp(const MyApp());
 }
@@ -39,7 +37,7 @@ class _MyAppState extends State<MyApp> {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (ctx) => PotsCollection(),
+          create: (ctx) => PotsCollection(Hive.box('pot_sets')),
         ),
         ChangeNotifierProvider(
           create: (ctx) => PotSet(),

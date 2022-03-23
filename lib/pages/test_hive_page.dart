@@ -8,55 +8,27 @@ class TestHivePage extends StatelessWidget {
   TestHivePage() {
     Hive.initFlutter();
     potSetBox = Hive.box<PotSet>("pot_sets");
-    potsBox = Hive.box<Pot>("testbox");
   }
+
   Box<PotSet> potSetBox;
-  Box<Pot> potsBox;
+
   final plainListOfPots = [
     Pot(
       id: DateTime.now().toString(),
-      name: 'категория1',
+      name: 'категория3',
       amount: 1000,
       isAmountFixed: false,
       percent: 10,
     ),
     Pot(
       id: DateTime.now().toString(),
-      name: 'категория2',
+      name: 'категория4',
       amount: 2000,
       isAmountFixed: false,
       percent: 20,
     ),
   ];
   void addPotToBox() async {
-    // await box.put('name', 'Alina');
-
-    // await potsBox.addAll(
-    //   [
-    //     Pot(
-    //       id: DateTime.now().toString(),
-    //       name: 'категория1',
-    //       amount: 1000,
-    //       isAmountFixed: false,
-    //       percent: 10,
-    //     ),
-    //     Pot(
-    //       id: DateTime.now().toString(),
-    //       name: 'категория2',
-    //       amount: 2000,
-    //       isAmountFixed: false,
-    //       percent: 20,
-    //     ),
-    //   ],
-    // );
-    // final str = potsBox.values as List<Pot>;
-
-    // print(str[1].name);
-
-    final potsList = HiveList<Pot>(Hive.box<Pot>("testbox"));
-
-    // print(potsList[1].name);
-
     potSetBox.put(
       DateTime.now().toString(),
       PotSet(
@@ -68,23 +40,10 @@ class TestHivePage extends StatelessWidget {
     );
 
     print(potSetBox.values.first.pots.first?.name);
-    // final potsMap = testBox.toMap();
-    // pots = testBox.toMap().values.toList();
-
-    // potsMap.forEach((key, value) {
-    //   print('Key: $key, Amount: ${value.amount}, setId: ${value.id}');
-    // });
-
-    // print();
-    // testBox.deleteAll(['pots']);
   }
 
   void _deleteBox(Box box) {
     box.clear();
-  }
-
-  String _printPot(Pot pot) {
-    return "PotId: ${pot.id} /nAmount: ${pot.amount}";
   }
 
   @override
