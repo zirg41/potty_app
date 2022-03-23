@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:potty_app/providers/pot_set.dart';
 import 'package:potty_app/pages/pot_set_page.dart';
+import 'package:potty_app/providers/pots.dart';
 import 'package:provider/provider.dart';
 import 'dart:math';
 
@@ -33,11 +34,15 @@ class _PotCollectionItemState extends State<PotCollectionItem> {
                 style: themeData.textTheme.subtitle1,
               ),
               trailing: IconButton(
-                icon: Icon(_expanded ? Icons.expand_less : Icons.expand_more),
+                icon: const Icon(Icons.delete),
+                // onPressed: () {
+                //   setState(() {
+                //     _expanded = !_expanded;
+                //   });
+                // },
                 onPressed: () {
-                  setState(() {
-                    _expanded = !_expanded;
-                  });
+                  Provider.of<PotsCollection>(context, listen: false)
+                      .deletePotSetFromMemory(potSetData.id);
                 },
               ),
             ),

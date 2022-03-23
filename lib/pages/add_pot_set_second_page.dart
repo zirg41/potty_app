@@ -65,6 +65,7 @@ class _AddPotSetSecondPageState extends State<AddPotSetSecondPage> {
               height: 50,
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: TextField(
+                keyboardType: TextInputType.number,
                 controller: _textController,
                 decoration: inputDecoration,
               ),
