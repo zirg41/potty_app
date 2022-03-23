@@ -103,7 +103,13 @@ class PotsCollection with ChangeNotifier {
     return potSetId;
   }
 
-  void savePotSetToMemory(PotSet potSet) {
-    _potSet.put(potSet.id, potSet);
+  void savePotSetToMemory(PotSet potSet) async {
+    await _potSet.put(potSet.id, potSet);
+  }
+
+  void deletePotSetFromMemory(String potSetId) async {
+    await definePotSet(potSetId).delete();
+    _items.removeWhere((element) => element.id == potSetId);
+    notifyListeners();
   }
 }
