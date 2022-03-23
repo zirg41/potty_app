@@ -27,4 +27,9 @@ class Pot extends HiveObject {
     this.amount,
     this.isAmountFixed = false,
   });
+
+  @override
+  String toString() {
+    return name;
+  }
 }

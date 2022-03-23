@@ -112,12 +112,19 @@ class TestHivePage extends StatelessWidget {
                   .toMap()
                   .values
                   .toList()
-                  .map((e) => Container(
-                        padding: const EdgeInsets.all(10),
-                        child: Text(
-                            "Наименовение: ${e.name} \nСумма: ${e.income}\nPots: ${e.pots.isEmpty ? "empty" : e.pots}\nID:${e.id}"),
-                        // child: Text(
-                        //     "Наименовение: ${e.name} \nСумма: ${e.amount}\nПроценты: ${e.percent}\nID:${e.id}"),
+                  .map((e) => Row(
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.all(10),
+                            child: Text(
+                                "Наименовение: ${e.name} \nСумма: ${e.income}\nPots: ${e.pots.isEmpty ? "empty" : e.pots.toString()}\nID:${e.id}"),
+                            // child: Text(
+                            //     "Наименовение: ${e.name} \nСумма: ${e.amount}\nПроценты: ${e.percent}\nID:${e.id}"),
+                          ),
+                          IconButton(
+                              onPressed: () => e.delete(),
+                              icon: const Icon(Icons.delete))
+                        ],
                       ))
                   .toList());
         },
