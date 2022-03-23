@@ -17,7 +17,7 @@ class PotSet extends HiveObject with ChangeNotifier {
   String name;
 
   @HiveField(3)
-  HiveList<Pot> pots;
+  List<Pot> pots;
 
   @HiveField(4)
   double unallocatedAmount = 0;

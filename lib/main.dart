@@ -19,9 +19,9 @@ Future<void> main() async {
   Hive.registerAdapter(PotSetAdapter());
   Hive.registerAdapter(PotAdapter());
 
-  final pots = await Hive.openBox<Pot>("pots");
-  final potSets = await Hive.openBox<PotSet>("pot_sets");
-  var testBox = await Hive.openBox<Pot>('testbox');
+  await Hive.openBox<Pot>("pots");
+  await Hive.openBox<PotSet>("pot_sets");
+  await Hive.openBox<Pot>('testbox');
 
   runApp(const MyApp());
 }
