@@ -3,7 +3,6 @@ import 'package:potty_app/providers/pot_set.dart';
 import 'package:potty_app/pages/pot_set_page.dart';
 import 'package:potty_app/providers/pots.dart';
 import 'package:provider/provider.dart';
-import 'dart:math';
 
 class PotCollectionItem extends StatefulWidget {
   @override
@@ -11,8 +10,6 @@ class PotCollectionItem extends StatefulWidget {
 }
 
 class _PotCollectionItemState extends State<PotCollectionItem> {
-  // bool _expanded = false;
-
   @override
   Widget build(BuildContext context) {
     final PotSet potSetData = Provider.of<PotSet>(context);
@@ -35,12 +32,6 @@ class _PotCollectionItemState extends State<PotCollectionItem> {
               ),
               trailing: IconButton(
                 icon: const Icon(Icons.delete),
-                // onPressed: () {
-                //   setState(() {
-                //     _expanded = !_expanded;
-                //   });
-                // },
-
                 onPressed: () async {
                   final bool response = await showDialog(
                     context: context,
@@ -73,31 +64,6 @@ class _PotCollectionItemState extends State<PotCollectionItem> {
                 },
               ),
             ),
-            // if (_expanded)
-            //   Container(
-            //     padding:
-            //         const EdgeInsets.symmetric(horizontal: 15, vertical: 4),
-            //     height: min((potSetData.pots.length * 20.0 + 20), 180),
-            //     child: ListView(
-            //       children: potSetData.pots
-            //           .map(
-            //             (pot) => Row(
-            //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            //               children: [
-            //                 Text(
-            //                   pot.name,
-            //                   style: themeData.textTheme.subtitle1,
-            //                 ),
-            //                 Text(
-            //                   pot.percent.toString(),
-            //                   style: themeData.textTheme.subtitle1,
-            //                 ),
-            //               ],
-            //             ),
-            //           )
-            //           .toList(),
-            //     ),
-            //   )
           ],
         ),
       ),

@@ -28,6 +28,7 @@ class PotsCollection with ChangeNotifier {
 
   void addPot(String potSetId, Pot newPot) {
     definePotSet(potSetId).pots.add(newPot);
+    calculate(potSetId);
     notifyListeners();
   }
 
@@ -36,6 +37,7 @@ class PotsCollection with ChangeNotifier {
           (pot) => pot.id == potId,
         );
     definePotSet(potSetId).pots[potIndex] = newPot;
+    calculate(potSetId);
   }
 
   void deletePot(String potSetId, String potId) {

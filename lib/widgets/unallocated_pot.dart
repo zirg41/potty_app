@@ -14,18 +14,9 @@ class UnallocatedPot extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ctxTheme = Theme.of(context);
-    // return Container(
-    //   height: 50,
-    //   child: Column(
-    //     children: [
-    //       Text(percent.toString()),
-    //       Text(amount.toString()),
-    //     ],
-    //   ),
-    // );
     return GestureDetector(
       onTap: () {
+        //TODO
         print("percent: $percent");
         print("amount: $amount");
       },

@@ -37,7 +37,7 @@ class PotSetPage extends StatelessWidget {
     const emptyWidg = SizedBox.shrink();
     return Scaffold(
       appBar: _appbar,
-      body: Container(
+      body: SizedBox(
         height: mq.size.height -
             mq.padding.bottom -
             mq.padding.top -

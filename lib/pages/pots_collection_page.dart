@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:potty_app/pages/add_pot_set_first_page.dart';
 import 'package:potty_app/providers/pot_set.dart';
 import 'package:potty_app/providers/pots.dart';
-import 'package:potty_app/widgets/custom_app_bar.dart';
 import 'package:potty_app/widgets/pots_collection_item.dart';
 import 'package:provider/provider.dart';
 
@@ -25,7 +24,7 @@ class PotsCollectionPage extends StatelessWidget {
         // foregroundColor: Theme.of(context).backgroundColor,
         elevation: 0,
       ),
-      body: Container(
+      body: SizedBox(
         height: 635,
         width: double.infinity,
         child: ListView.builder(
