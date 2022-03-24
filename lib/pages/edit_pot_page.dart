@@ -45,8 +45,8 @@ class _EditPotPageState extends State<EditPotPage> {
       _initValues['name'] = _editedPot.name;
       _initValues['percent'] = _editedPot.percent.toString();
       _initValues['amount'] = _editedPot.amount.toString();
-      percentAmountController.text = _editedPot.percent.toString();
-
+      percentAmountController.text = _editedPot.percent.toStringAsFixed(
+          _editedPot.percent.truncateToDouble() == _editedPot.percent ? 0 : 1);
       _isEditing = true;
     }
     _isInit = false;
