@@ -11,7 +11,7 @@ class PotCollectionItem extends StatefulWidget {
 }
 
 class _PotCollectionItemState extends State<PotCollectionItem> {
-  bool _expanded = false;
+  // bool _expanded = false;
 
   @override
   Widget build(BuildContext context) {
@@ -40,37 +40,64 @@ class _PotCollectionItemState extends State<PotCollectionItem> {
                 //     _expanded = !_expanded;
                 //   });
                 // },
-                onPressed: () {
-                  Provider.of<PotsCollection>(context, listen: false)
-                      .deletePotSetFromMemory(potSetData.id);
+
+                onPressed: () async {
+                  final bool response = await showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                      title: const Text("Вы уверены?"),
+                      content: const Text("Удалить данную позицию?"),
+                      actions: [
+                        FlatButton(
+                          onPressed: () {
+                            Navigator.of(context).pop(false);
+                          },
+                          child: const Text("Нет"),
+                        ),
+                        FlatButton(
+                          onPressed: () {
+                            Navigator.of(context).pop(true);
+                          },
+                          child: const Text(
+                            "Да",
+                            style: TextStyle(color: Colors.red),
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                  if (response) {
+                    Provider.of<PotsCollection>(context, listen: false)
+                        .deletePotSetFromMemory(potSetData.id);
+                  }
                 },
               ),
             ),
-            if (_expanded)
-              Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 15, vertical: 4),
-                height: min((potSetData.pots.length * 20.0 + 20), 180),
-                child: ListView(
-                  children: potSetData.pots
-                      .map(
-                        (pot) => Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              pot.name,
-                              style: themeData.textTheme.subtitle1,
-                            ),
-                            Text(
-                              pot.percent.toString(),
-                              style: themeData.textTheme.subtitle1,
-                            ),
-                          ],
-                        ),
-                      )
-                      .toList(),
-                ),
-              )
+            // if (_expanded)
+            //   Container(
+            //     padding:
+            //         const EdgeInsets.symmetric(horizontal: 15, vertical: 4),
+            //     height: min((potSetData.pots.length * 20.0 + 20), 180),
+            //     child: ListView(
+            //       children: potSetData.pots
+            //           .map(
+            //             (pot) => Row(
+            //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //               children: [
+            //                 Text(
+            //                   pot.name,
+            //                   style: themeData.textTheme.subtitle1,
+            //                 ),
+            //                 Text(
+            //                   pot.percent.toString(),
+            //                   style: themeData.textTheme.subtitle1,
+            //                 ),
+            //               ],
+            //             ),
+            //           )
+            //           .toList(),
+            //     ),
+            //   )
           ],
         ),
       ),
