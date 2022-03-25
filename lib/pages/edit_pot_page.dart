@@ -200,8 +200,12 @@ class _EditPotPageState extends State<EditPotPage> {
                             : _initValues['amount']
                         : null,
                     decoration: InputDecoration(
+                      suffixIcon: currentDropdownValue == dropdownValues[0]
+                          ? const Icon(Icons.percent)
+                          : const Icon(Icons.currency_ruble),
                       labelText: currentDropdownValue,
                       fillColor: CustomColors.backgroundColor,
+                      // icon: Icon(Icons.add
                       filled: true,
                       enabledBorder: _enabledBorder,
                       focusedBorder: _focusedBorder,
