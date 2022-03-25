@@ -15,9 +15,10 @@ class EditPotPage extends StatefulWidget {
 class _EditPotPageState extends State<EditPotPage> {
   final _form = GlobalKey<FormState>();
   final percentAmountController = TextEditingController();
+  TextEditingController _nameController = TextEditingController();
 
   Map<String, Object> _initValues = {
-    'name': "",
+    'name': null,
     'percent': null,
     "amount": null,
   };
@@ -151,6 +152,7 @@ class _EditPotPageState extends State<EditPotPage> {
       borderRadius: BorderRadius.circular(10),
     );
 
+    _nameController = TextEditingController(text: _initValues['name']);
     return Scaffold(
       appBar: CustomAppBar(
         title: "Редактировать категорию",
@@ -162,7 +164,8 @@ class _EditPotPageState extends State<EditPotPage> {
           padding: const EdgeInsets.all(10),
           children: [
             TextFormField(
-              initialValue: _initValues['name'],
+              // initialValue: _initValues['name'],
+              controller: _nameController,
               decoration: InputDecoration(
                 labelText: "Наименование",
                 fillColor: CustomColors.backgroundColor,
@@ -170,6 +173,10 @@ class _EditPotPageState extends State<EditPotPage> {
                 enabledBorder: _enabledBorder,
                 focusedBorder: _focusedBorder,
                 errorBorder: _errorBorder,
+                suffixIcon: IconButton(
+                  onPressed: _nameController.clear,
+                  icon: Icon(Icons.clear),
+                ),
               ),
               textInputAction: TextInputAction.next,
               validator: (value) {
