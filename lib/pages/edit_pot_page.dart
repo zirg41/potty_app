@@ -152,7 +152,9 @@ class _EditPotPageState extends State<EditPotPage> {
       borderRadius: BorderRadius.circular(10),
     );
 
-    _nameController = TextEditingController(text: _initValues['name']);
+    _nameController.text = _initValues['name'];
+    _nameController.selection = TextSelection.fromPosition(
+        TextPosition(offset: _nameController.text.length));
     return Scaffold(
       appBar: CustomAppBar(
         title: "Редактировать категорию",
@@ -165,6 +167,7 @@ class _EditPotPageState extends State<EditPotPage> {
           children: [
             TextFormField(
               // initialValue: _initValues['name'],
+              autofocus: true,
               controller: _nameController,
               decoration: InputDecoration(
                 labelText: "Наименование",
