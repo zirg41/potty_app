@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:potty_app/config/themes/light_theme.dart';
 import 'package:potty_app/pages/edit_pot_page.dart';
 import 'package:potty_app/providers/pots.dart';
 import 'package:provider/provider.dart';
@@ -36,6 +37,7 @@ class PotItem extends StatelessWidget {
         alignment: Alignment.centerRight,
         padding: const EdgeInsets.only(right: 20),
       ),
+      direction: DismissDirection.endToStart,
       confirmDismiss: (direction) {
         if (direction == DismissDirection.endToStart) {
           return showDialog(
@@ -44,13 +46,14 @@ class PotItem extends StatelessWidget {
               title: const Text("Вы уверены?"),
               content: const Text("Удалить данную позицию?"),
               actions: [
-                FlatButton(
+                TextButton(
                   onPressed: () {
                     Navigator.of(context).pop(false);
                   },
-                  child: const Text("Нет"),
+                  child: const Text("Нет",
+                      style: TextStyle(color: CustomColors.textColor)),
                 ),
-                FlatButton(
+                TextButton(
                   onPressed: () {
                     Navigator.of(context).pop(true);
                   },
@@ -63,10 +66,10 @@ class PotItem extends StatelessWidget {
             ),
           );
         }
-        if (direction == DismissDirection.startToEnd) {
-          Navigator.of(context).pushNamed(EditPotPage.routeName,
-              arguments: {"pot-set-id": potSetId, "pot-id": pot.id});
-        }
+        // if (direction == DismissDirection.startToEnd) {
+        //   Navigator.of(context).pushNamed(EditPotPage.routeName,
+        //       arguments: {"pot-set-id": potSetId, "pot-id": pot.id});
+        // }
         return null;
       },
       onDismissed: (direction) {
@@ -82,17 +85,15 @@ class PotItem extends StatelessWidget {
             Row(
               children: [
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.of(context).pushNamed(EditPotPage.routeName,
+                        arguments: {"pot-set-id": potSetId, "pot-id": pot.id});
+                  },
                   child: Container(
                     // ПРОЦЕНТЫ
                     margin: const EdgeInsets.all(8),
                     decoration: BoxDecoration(
-                        color: (pot.name != "Не распределено") &&
-                                (pot.name != "Перераспределение")
-                            ? ctxTheme.primaryColor
-                            : pot.name == "Перераспределение"
-                                ? ctxTheme.errorColor
-                                : ctxTheme.focusColor,
+                        color: ctxTheme.primaryColor,
                         //border: Border.all(width: 8),
                         borderRadius: BorderRadius.circular(10)),
                     padding: itemsPadding,

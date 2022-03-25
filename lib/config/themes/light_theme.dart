@@ -44,4 +44,5 @@ class CustomColors {
   static const scaffoldBackgroundColor = Color.fromARGB(255, 245, 245, 245);
   static const backgroundColor = Color.fromARGB(255, 255, 255, 255);
   static const hintColor = Color.fromARGB(255, 218, 218, 218);
+  static const textColor = Color.fromARGB(249, 31, 31, 31);
 }
