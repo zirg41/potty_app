@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:potty_app/config/themes/light_theme.dart';
+import 'package:potty_app/pages/edit_pot_page.dart';
 import 'pot_item.dart' as potItem;
 
 class UnallocatedPot extends StatelessWidget {
@@ -17,8 +18,14 @@ class UnallocatedPot extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         //TODO
-        print("percent: $percent");
-        print("amount: $amount");
+        if (amount > 0.0) {
+          Navigator.of(context).pushNamed(EditPotPage.routeName, arguments: {
+            "pot-set-id": potSetId,
+            "pot-id": null,
+            "unallocatedAmount": amount,
+            "unallocatedPercent": percent,
+          });
+        }
       },
       child: Card(
         margin: const EdgeInsets.symmetric(vertical: 15, horizontal: 5),
@@ -46,16 +53,13 @@ class UnallocatedPot extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    GestureDetector(
-                      onTap: () {},
-                      child: Container(
-                        // СУММА
-                        margin: const EdgeInsets.all(5),
-                        //padding: itemsPadding,
-                        child: Text(
-                          amount.toStringAsFixed(2),
-                          style: const TextStyle(fontSize: 18),
-                        ),
+                    Container(
+                      // СУММА
+                      margin: const EdgeInsets.all(5),
+                      //padding: itemsPadding,
+                      child: Text(
+                        amount.toStringAsFixed(2),
+                        style: const TextStyle(fontSize: 18),
                       ),
                     ),
                     Container(

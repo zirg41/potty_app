@@ -35,8 +35,18 @@ class _EditPotPageState extends State<EditPotPage> {
       final Map<String, Object> potSetData =
           ModalRoute.of(context).settings.arguments as Map<String, Object>;
       final String potSetId = potSetData["pot-set-id"];
+      final double _unallocatedAmount = potSetData["unallocatedAmount"];
+      final double _unallocatedPercent = potSetData["unallocatedPercent"];
+
+      if (_unallocatedAmount != null && _unallocatedPercent != null) {
+        print("HERE");
+        _initValues['percent'] = _unallocatedPercent.toString();
+        _initValues['amount'] = _unallocatedAmount.toString();
+        _initValues['name'] = "Остаток";
+      }
 
       final String editingPotId = potSetData["pot-id"];
+
       if (editingPotId == null) return;
       _editedPot = Provider.of<PotsCollection>(context)
           .definePotSet(potSetId)
