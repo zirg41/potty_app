@@ -5,18 +5,18 @@ import 'package:potty_app/models/pot.dart';
 import 'package:potty_app/providers/pot_set.dart';
 
 class PotsCollection with ChangeNotifier {
-  Box<PotSet> _potSet;
+  Box<PotSet> _potSetBox;
 
   List<PotSet> _items = [];
 
   PotsCollection(Box<PotSet> potset) {
-    _potSet = potset;
-    potset.values.forEach((element) {
+    _potSetBox = potset;
+    for (var element in potset.values) {
       _items.add(element);
-    });
+    }
   }
 
-  double percentSumm;
+  double percentSumm = 0.0;
 
   List<PotSet> get items {
     return [..._items];
@@ -28,14 +28,20 @@ class PotsCollection with ChangeNotifier {
 
   void addPot(String potSetId, Pot newPot) {
     definePotSet(potSetId).pots.add(newPot);
+    calculate(potSetId);
     notifyListeners();
   }
 
   void updatePot(String potSetId, String potId, Pot newPot) {
-    final potIndex = definePotSet(potSetId).pots.indexWhere(
-          (pot) => pot.id == potId,
-        );
-    definePotSet(potSetId).pots[potIndex] = newPot;
+    final _currentPotSet = definePotSet(potSetId);
+
+    final potIndex = _currentPotSet.pots.indexWhere(
+      (pot) => pot.id == potId,
+    );
+
+    _currentPotSet.pots[potIndex] = newPot;
+
+    calculate(potSetId);
   }
 
   void deletePot(String potSetId, String potId) {
@@ -44,17 +50,26 @@ class PotsCollection with ChangeNotifier {
   }
 
   void calculate(String potSetId) {
-    definePotSet(potSetId).pots.forEach((pot) {
+    final _currentPotSet = definePotSet(potSetId);
+
+    for (var pot in _currentPotSet.pots) {
       if (!pot.isAmountFixed) {
-        pot.amount = definePotSet(potSetId).income * pot.percent / 100;
+        pot.amount = _currentPotSet.income * pot.percent / 100;
       } else {
-        pot.percent = pot.amount / definePotSet(potSetId).income * 100;
+        pot.percent = pot.amount / _currentPotSet.income * 100;
       }
-    });
+    }
 
     checkPots(potSetId);
+    _sortPots(potSetId);
     savePotSetToMemory(definePotSet(potSetId));
     notifyListeners();
+  }
+
+  void _sortPots(String potSetId) {
+    definePotSet(potSetId)
+        .pots
+        .sort((potA, potB) => potB.percent.compareTo(potA.percent));
   }
 
   Pot calculatePercentBasedOnAmount(String potSetId, Pot amountPot) {
@@ -68,17 +83,19 @@ class PotsCollection with ChangeNotifier {
   }
 
   void checkPots(String potSetId) {
-    percentSumm = 0.0;
-    definePotSet(potSetId).pots.forEach((pot) {
+    final _currentPotSet = definePotSet(potSetId);
+
+    for (var pot in _currentPotSet.pots) {
       percentSumm += pot.percent;
-    });
+    }
+
     double subtracPercent = (100 - percentSumm);
-    definePotSet(potSetId).unallocatedPercent = subtracPercent;
-    // debugPrint("subtracPercent: ${subtracPercent.toString()}%");
-    double unallocatedAmount =
-        definePotSet(potSetId).income * subtracPercent / 100;
-    definePotSet(potSetId).unallocatedAmount = unallocatedAmount;
-    // debugPrint("unallocatedAmount: ${unallocatedAmount.toString()} rubles");
+
+    _currentPotSet.unallocatedPercent = subtracPercent;
+
+    _currentPotSet.unallocatedAmount =
+        _currentPotSet.income * subtracPercent / 100;
+
     percentSumm = 0.0;
   }
 
@@ -98,13 +115,14 @@ class PotsCollection with ChangeNotifier {
         pots: [],
       ),
     );
+
     calculate(potSetId);
     notifyListeners();
     return potSetId;
   }
 
   void savePotSetToMemory(PotSet potSet) async {
-    await _potSet.put(potSet.id, potSet);
+    await _potSetBox.put(potSet.id, potSet);
   }
 
   void deletePotSetFromMemory(String potSetId) async {

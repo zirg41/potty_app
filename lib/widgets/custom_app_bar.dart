@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:potty_app/pages/pots_collection_page.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override

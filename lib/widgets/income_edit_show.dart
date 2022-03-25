@@ -131,7 +131,6 @@ class _IncomeEditShowState extends State<IncomeEditShow> {
                     myController.text = ""; // clearing field
                     Provider.of<PotsCollection>(context, listen: false)
                         .changeIncome(widget.potset.id, adjustedIncome);
-                    ;
                   },
                   child: const Text("Сохранить"),
                 ),

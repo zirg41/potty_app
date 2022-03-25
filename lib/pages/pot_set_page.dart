@@ -31,13 +31,14 @@ class PotSetPage extends StatelessWidget {
       child: UnallocatedPot(
         percent: potSetData.unallocatedPercent,
         amount: potSetData.unallocatedAmount,
+        potSetId: potSetDataId,
       ),
     );
 
     const emptyWidg = SizedBox.shrink();
     return Scaffold(
       appBar: _appbar,
-      body: Container(
+      body: SizedBox(
         height: mq.size.height -
             mq.padding.bottom -
             mq.padding.top -
@@ -58,8 +59,12 @@ class PotSetPage extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.of(context).pushNamed(EditPotPage.routeName,
-              arguments: {"pot-set-id": potSetData.id, "pot-id": null});
+          Navigator.of(context).pushNamed(EditPotPage.routeName, arguments: {
+            "pot-set-id": potSetData.id,
+            "pot-id": null,
+            "unallocatedAmount": null,
+            "unallocatedPercent": null,
+          });
         },
         child: const Icon(Icons.add),
         backgroundColor: themeData.primaryColor,
