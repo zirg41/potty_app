@@ -26,9 +26,9 @@ class PotSet extends HiveObject with ChangeNotifier {
   double unallocatedPercent = 0;
 
   PotSet({
-    @required this.id,
-    @required this.income,
-    @required this.name,
-    @required this.pots,
+    this.id,
+    this.income,
+    this.name,
+    this.pots,
   });
 }
