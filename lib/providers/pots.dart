@@ -55,8 +55,15 @@ class PotsCollection with ChangeNotifier {
     });
 
     checkPots(potSetId);
+    _sortPots(potSetId);
     savePotSetToMemory(definePotSet(potSetId));
     notifyListeners();
+  }
+
+  void _sortPots(String potSetId) {
+    definePotSet(potSetId)
+        .pots
+        .sort((potA, potB) => potB.percent.compareTo(potA.percent));
   }
 
   Pot calculatePercentBasedOnAmount(String potSetId, Pot amountPot) {
