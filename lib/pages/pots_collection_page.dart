@@ -35,11 +35,12 @@ class PotsCollectionPage extends StatelessWidget {
           ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
           Navigator.of(context).pushNamed(AddPotSetFirstPage.routeName);
         },
-        child: const Icon(Icons.add),
+        icon: const Icon(Icons.add),
+        label: const Text("Создать"),
         backgroundColor: Theme.of(context).primaryColor,
       ),
     );
