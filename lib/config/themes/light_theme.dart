@@ -7,27 +7,27 @@ class CustomTheme {
       primaryColor: CustomColors.mainColor,
       textTheme: TextTheme(
         headline1: GoogleFonts.lato(
-          fontSize: 21,
+          fontSize: 20,
           fontWeight: FontWeight.bold,
           color: const Color.fromARGB(249, 31, 31, 31),
         ),
         bodyText1: GoogleFonts.lato(
-          fontSize: 18,
+          fontSize: 16,
           fontWeight: FontWeight.normal,
           color: const Color.fromARGB(249, 31, 31, 31),
         ),
         subtitle1: GoogleFonts.lato(
-          fontSize: 15,
+          fontSize: 14,
           fontWeight: FontWeight.normal,
           color: const Color.fromARGB(248, 71, 71, 71),
         ),
         headline2: GoogleFonts.lato(
-          fontSize: 20,
+          fontSize: 18,
           fontWeight: FontWeight.normal,
           color: const Color.fromARGB(249, 31, 31, 31),
         ),
         headline3: GoogleFonts.lato(
-          fontSize: 14,
+          fontSize: 12,
           fontWeight: FontWeight.normal,
           color: const Color.fromARGB(249, 31, 31, 31),
         ),

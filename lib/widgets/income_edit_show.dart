@@ -14,28 +14,28 @@ class IncomeEditShow extends StatefulWidget {
 }
 
 class _IncomeEditShowState extends State<IncomeEditShow> {
-  var _isChanging = false;
   final myController = TextEditingController();
 
   double adjustedIncome = 0.0;
 
   final inputDecoration = InputDecoration(
     contentPadding: const EdgeInsets.all(10),
-    suffix: const Text("руб"),
+    suffix: Text("руб"),
     fillColor: CustomColors.backgroundColor,
     filled: true,
     border: OutlineInputBorder(
       borderRadius: BorderRadius.circular(10),
     ),
-    hintText: 'Введите доход',
-    focusedBorder: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(10),
-      borderSide: const BorderSide(
-        color: CustomColors.mainColor,
-        width: 2.0,
-      ),
-    ),
+    // hintText: 'Введите доход',
+    focusedBorder: null,
+    enabledBorder: null,
   );
+
+  @override
+  void didChangeDependencies() {
+    myController.text = widget.potset.income.toString();
+    super.didChangeDependencies();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,99 +43,54 @@ class _IncomeEditShowState extends State<IncomeEditShow> {
     final themeData = Theme.of(context);
 
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 7),
-      width: double.infinity,
-      child: !_isChanging
-          ? Column(
+        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 0),
+        width: double.infinity,
+        child: Column(
+          children: [
+            Row(
               children: [
-                Row(
-                  children: [
-                    Text(
-                      "Ваш доход: ",
-                      style: themeData.textTheme.bodyText1,
-                    ),
-                    const Spacer(),
-                    Row(
-                      children: [
-                        Container(
-                          alignment: Alignment.centerLeft,
-                          height: 50,
-                          width: _mediaQuery.size.width / 3.5,
-                          padding: const EdgeInsets.all(8),
-                          decoration: BoxDecoration(
-                            color: CustomColors.backgroundColor,
-                            border: Border.all(
-                              color: CustomColors.hintColor,
-                            ),
-                            borderRadius: const BorderRadius.only(
-                              bottomLeft: Radius.circular(10),
-                              topLeft: Radius.circular(10),
-                            ),
-                          ),
-                          child: Text(
-                            widget.potset.income.toString(),
-                            style: themeData.textTheme.headline2,
-                          ),
-                        ),
-                        Container(
-                          height: 50,
-                          alignment: Alignment.center,
-                          padding: const EdgeInsets.all(8),
-                          decoration: BoxDecoration(
-                            color: CustomColors.hintColor,
-                            border: Border.all(
-                              color: CustomColors.hintColor,
-                            ),
-                            borderRadius: const BorderRadius.only(
-                              bottomRight: Radius.circular(10),
-                              topRight: Radius.circular(10),
-                            ),
-                          ),
-                          child: Text(
-                            "руб",
-                            style: themeData.textTheme.headline3,
-                          ),
-                        ),
-                      ],
-                    ),
-                    const Spacer(),
-                    TextButton(
-                      onPressed: () {
-                        setState(() {
-                          _isChanging = !_isChanging;
-                        });
-                      },
-                      child: const Text("Изменить"),
-                    ),
-                  ],
+                Text(
+                  "Ваш доход: ",
+                  style: themeData.textTheme.bodyText1,
                 ),
-              ],
-            )
-          : Row(
-              children: [
+                const Spacer(flex: 1),
                 SizedBox(
-                  width: _mediaQuery.size.width * 3 / 5,
-                  height: 50,
+                  width: _mediaQuery.size.width * 2 / 5,
                   child: TextField(
+                    style: themeData.textTheme.headline2,
                     controller: myController,
                     decoration: inputDecoration,
                   ),
                 ),
-                const Spacer(),
+                const Spacer(
+                  flex: 3,
+                ),
                 TextButton(
-                  onPressed: () {
-                    setState(() {
-                      _isChanging = !_isChanging;
-                    });
-                    adjustedIncome = double.parse(myController.text);
-                    myController.text = ""; // clearing field
-                    Provider.of<PotsCollection>(context, listen: false)
-                        .changeIncome(widget.potset.id, adjustedIncome);
-                  },
+                  onPressed: submitNewIncome,
                   child: const Text("Сохранить"),
                 ),
               ],
             ),
-    );
+          ],
+        ));
+  }
+
+  void submitNewIncome() {
+    FocusManager.instance.primaryFocus?.unfocus();
+    adjustedIncome = double.tryParse(myController.text);
+
+    if (adjustedIncome == null) {
+      Scaffold.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("Введите корректную величину!"),
+        ),
+      );
+      myController.text = widget.potset.income.toString();
+      return;
+    }
+
+    // myController.text = ""; // clearing field
+    Provider.of<PotsCollection>(context, listen: false)
+        .changeIncome(widget.potset.id, adjustedIncome);
   }
 }

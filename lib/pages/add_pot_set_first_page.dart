@@ -59,8 +59,11 @@ class _AddPotSetFirstPageState extends State<AddPotSetFirstPage> {
               height: 50,
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: TextField(
+                autofocus: true,
                 controller: _textController,
                 decoration: inputDecoration,
+                onEditingComplete: () =>
+                    _submitData(context, _textController.text),
               ),
             ),
             const SizedBox(height: 30),
@@ -73,9 +76,7 @@ class _AddPotSetFirstPageState extends State<AddPotSetFirstPage> {
                   shape: const RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(Radius.circular(10))),
                 ),
-                onPressed: () => Navigator.of(context).pushReplacementNamed(
-                    AddPotSetSecondPage.routeName,
-                    arguments: _textController.text),
+                onPressed: () => _submitData(context, _textController.text),
                 child: const SizedBox(
                   height: 50,
                   width: 140,
@@ -94,5 +95,10 @@ class _AddPotSetFirstPageState extends State<AddPotSetFirstPage> {
         ),
       ),
     );
+  }
+
+  void _submitData(BuildContext context, String nameOfPotSet) {
+    Navigator.of(context).pushReplacementNamed(AddPotSetSecondPage.routeName,
+        arguments: nameOfPotSet);
   }
 }

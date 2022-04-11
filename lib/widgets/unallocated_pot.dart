@@ -59,7 +59,8 @@ class UnallocatedPot extends StatelessWidget {
                       //padding: itemsPadding,
                       child: Text(
                         amount.toStringAsFixed(2),
-                        style: const TextStyle(fontSize: 18),
+                        style: const TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold),
                       ),
                     ),
                     Container(

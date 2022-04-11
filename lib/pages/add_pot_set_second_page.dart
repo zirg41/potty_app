@@ -66,8 +66,10 @@ class _AddPotSetSecondPageState extends State<AddPotSetSecondPage> {
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: TextField(
                 keyboardType: TextInputType.number,
+                autofocus: true,
                 controller: _textController,
                 decoration: inputDecoration,
+                onEditingComplete: () => _submitData(context, nameOfPotSet),
               ),
             ),
             const SizedBox(height: 30),
@@ -80,18 +82,7 @@ class _AddPotSetSecondPageState extends State<AddPotSetSecondPage> {
                   shape: const RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(Radius.circular(10))),
                 ),
-                onPressed: () {
-                  String potSetId =
-                      Provider.of<PotsCollection>(context, listen: false)
-                          .createPotSet(
-                              nameOfPotSet, double.parse(_textController.text));
-                  // Navigator.of(context).pushReplacementNamed(
-                  //     EditPotPage.routeName,
-                  //     arguments: {"pot-set-id": potSetId, "pot-id": null});
-                  Navigator.of(context).pushReplacementNamed(
-                      PotSetPage.routeName,
-                      arguments: potSetId);
-                },
+                onPressed: () => _submitData(context, nameOfPotSet),
                 child: const SizedBox(
                   height: 50,
                   width: 140,
@@ -110,5 +101,13 @@ class _AddPotSetSecondPageState extends State<AddPotSetSecondPage> {
         ),
       ),
     );
+  }
+
+  void _submitData(BuildContext context, Object nameOfPotSet) {
+    String potSetId = Provider.of<PotsCollection>(context, listen: false)
+        .createPotSet(nameOfPotSet, double.parse(_textController.text));
+
+    Navigator.of(context)
+        .pushReplacementNamed(PotSetPage.routeName, arguments: potSetId);
   }
 }

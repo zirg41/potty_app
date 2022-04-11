@@ -73,29 +73,27 @@ class PotItem extends StatelessWidget {
           Provider.of<PotsCollection>(context, listen: false)
               .calculate(potSetId);
         },
-        child: Card(
-          elevation: 5,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(7)),
-          // color: Colors.transparent,
-          margin: const EdgeInsets.all(0),
-          child: Container(
-            decoration: BoxDecoration(
-                color: CustomColors.backgroundColor,
-                borderRadius: BorderRadius.circular(7)),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.of(context).pushNamed(EditPotPage.routeName,
-                            arguments: {
-                              "pot-set-id": potSetId,
-                              "pot-id": pot.id
-                            });
-                      },
-                      child: Container(
+        child: InkWell(
+          onTap: () {
+            Navigator.of(context).pushNamed(EditPotPage.routeName,
+                arguments: {"pot-set-id": potSetId, "pot-id": pot.id});
+          },
+          child: Card(
+            elevation: 5,
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(7)),
+            // color: Colors.transparent,
+            margin: const EdgeInsets.all(0),
+            child: Container(
+              decoration: BoxDecoration(
+                  color: CustomColors.backgroundColor,
+                  borderRadius: BorderRadius.circular(7)),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    children: [
+                      Container(
                         // ПРОЦЕНТЫ
                         margin: const EdgeInsets.all(8),
                         decoration: BoxDecoration(
@@ -111,52 +109,52 @@ class PotItem extends StatelessWidget {
                               fontSize: 18, color: Color(0xFFf4f1de)),
                         ),
                       ),
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        GestureDetector(
-                          onTap: () {
-                            Clipboard.setData(
-                                ClipboardData(text: pot.amount.toString()));
-                            ScaffoldMessenger.of(context)
-                                .showSnackBar(snackBar);
-                          },
-                          child: Container(
-                            // СУММА
-                            margin: const EdgeInsets.all(5),
-                            //padding: itemsPadding,
-                            child: Text(
-                              pot.amount != null
-                                  ? pot.amount.toStringAsFixed(
-                                      pot.amount.truncateToDouble() ==
-                                              pot.amount
-                                          ? 0
-                                          : 2)
-                                  : "-",
-                              style: const TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w500,
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          GestureDetector(
+                            onLongPress: () {
+                              Clipboard.setData(
+                                  ClipboardData(text: pot.amount.toString()));
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(snackBar);
+                            },
+                            child: Container(
+                              // СУММА
+                              margin: const EdgeInsets.all(5),
+                              //padding: itemsPadding,
+                              child: Text(
+                                pot.amount != null
+                                    ? pot.amount.toStringAsFixed(
+                                        pot.amount.truncateToDouble() ==
+                                                pot.amount
+                                            ? 0
+                                            : 2)
+                                    : "-",
+                                style: const TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                        Container(
-                          // НАИМЕНОВАНИЕ
-                          margin: const EdgeInsets.only(
-                              left: 5, right: 5, top: 0, bottom: 5),
-                          child: FittedBox(
-                            child: Text(
-                              pot.name,
-                              style: const TextStyle(fontSize: 16),
+                          Container(
+                            // НАИМЕНОВАНИЕ
+                            margin: const EdgeInsets.only(
+                                left: 5, right: 5, top: 0, bottom: 5),
+                            child: FittedBox(
+                              child: Text(
+                                pot.name,
+                                style: const TextStyle(fontSize: 16),
+                              ),
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ],
+                        ],
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         ),
