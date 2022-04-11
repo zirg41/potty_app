@@ -11,21 +11,26 @@ class PotsCollectionPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<PotSet> potsCollect = Provider.of<PotsCollection>(context).items;
-    return Scaffold(
-      appBar: AppBar(
-        leading: null,
-
-        title: Text(
-          "Your pots",
-          style: Theme.of(context).textTheme.headline1,
-        ),
-        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-        // foregroundColor: Theme.of(context).backgroundColor,
-        elevation: 0,
+    final mq = MediaQuery.of(context);
+    final _appbar = AppBar(
+      leading: null,
+      title: Text(
+        "Your pots",
+        style: Theme.of(context).textTheme.headline1,
       ),
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      elevation: 0,
+    );
+
+    final List<PotSet> potsCollect = Provider.of<PotsCollection>(context).items;
+
+    return Scaffold(
+      appBar: _appbar,
       body: SizedBox(
-        height: 635,
+        height: mq.size.height -
+            mq.padding.bottom -
+            mq.padding.top -
+            _appbar.preferredSize.height,
         width: double.infinity,
         child: ListView.builder(
           itemCount: potsCollect.length,
